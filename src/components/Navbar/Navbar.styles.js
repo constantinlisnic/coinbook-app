@@ -53,7 +53,7 @@ export const InputContainer = styled.div`
   margin: 10px 0;
 `;
 
-export const IconContainer = styled.div`
+export const ThemeButtonContainer = styled.div`
   padding: 0 12px;
   background: ${(props) => props.theme.componentBackground};
   display: flex;
@@ -63,7 +63,7 @@ export const IconContainer = styled.div`
   margin: 10px 0;
 `;
 
-export const ThemeIcon = styled.div`
+export const ThemeChangeButton = styled.div`
   background: url(${(props) => props.theme.themeIcon}) no-repeat;
   width: 25px;
   height: 31px;

@@ -1,13 +1,13 @@
 import React from "react";
-import { CurrencyToggle } from "components/CurrencyToggle";
+import { CurrencyToggler } from "components/CurrencyToggler";
 import {
   NavContainer,
   StyledLink,
   LinksContainer,
   Input,
   InputContainer,
-  IconContainer,
-  ThemeIcon,
+  ThemeButtonContainer,
+  ThemeChangeButton,
   SearchIcon,
   RightPanel,
 } from "./Navbar.styles";
@@ -21,17 +21,19 @@ class Navbar extends React.Component {
         </LinksContainer>
         <RightPanel>
           <InputContainer>
-            <IconContainer>
+            <ThemeButtonContainer>
               <SearchIcon />
-            </IconContainer>
+            </ThemeButtonContainer>
             <Input type="text" placeholder="Search..." />
           </InputContainer>
 
-          <CurrencyToggle />
+          <CurrencyToggler />
 
-          <IconContainer>
-            <ThemeIcon onClick={this.props.toggleTheme}></ThemeIcon>
-          </IconContainer>
+          <ThemeButtonContainer>
+            <ThemeChangeButton
+              onClick={this.props.toggleTheme}
+            ></ThemeChangeButton>
+          </ThemeButtonContainer>
         </RightPanel>
       </NavContainer>
     );

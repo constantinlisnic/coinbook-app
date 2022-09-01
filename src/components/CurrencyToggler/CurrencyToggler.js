@@ -6,7 +6,7 @@ import {
   DownArrow,
   DropdownWrapper,
   CurrencyWrapper,
-} from "./CurrencyToggle.styles";
+} from "./CurrencyToggler.styles";
 
 function DropdownItem(props) {
   return (
@@ -17,7 +17,7 @@ function DropdownItem(props) {
   );
 }
 
-class CurrencyToggle extends React.Component {
+class CurrencyToggler extends React.Component {
   state = {
     isExpanded: false,
     currencies: [
@@ -96,4 +96,4 @@ class CurrencyToggle extends React.Component {
   }
 }
 
-export default CurrencyToggle;
+export default CurrencyToggler;
