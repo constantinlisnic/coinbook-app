@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-export const Container = styled.div`
+export const NavContainer = styled.div`
   background: ${(props) => props.theme.secondary};
   width: 80vw;
+  min-width: 725px;
   height: 67px;
   border-radius: 0 0 15px 15px;
   display: flex;
@@ -16,16 +17,17 @@ export const StyledLink = styled(Link)`
   padding: 20px;
   background: ${(props) => props.theme.componentBackground};
   color: ${(props) => props.theme.color};
-  margin: 10px 5px;
+  margin: 10px 0;
   border-radius: 12px;
   display: flex;
   align-items: center;
   font-size: 18px;
 `;
 
-export const NavLinks = styled.div`
+export const LinksContainer = styled.div`
   display: flex;
   margin-left: 35px;
+  gap: 10px;
 `;
 
 export const Input = styled.input`
@@ -38,7 +40,6 @@ export const Input = styled.input`
   }
   background: ${(props) => props.theme.componentBackground};
   border: none;
-  padding-top: 5px;
   color: ${(props) => props.theme.color};
   font-size: 18px;
 `;
@@ -59,7 +60,7 @@ export const IconContainer = styled.div`
   justify-content: center;
   align-items: center;
   border-radius: 10px;
-  margin: 10px 5px;
+  margin: 10px 0;
 `;
 
 export const ThemeIcon = styled.div`
@@ -75,4 +76,10 @@ export const SearchIcon = styled.div`
   height: 22px;
   margin: 0;
   padding: 0;
+`;
+
+export const RightPanel = styled.div`
+  display: flex;
+  gap: 10px;
+  margin-right: 10px;
 `;

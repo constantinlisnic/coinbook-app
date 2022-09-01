@@ -1,38 +1,41 @@
 import React from "react";
+import { CurrencyToggle } from "components/CurrencyToggle";
 import {
-  Container,
+  NavContainer,
   StyledLink,
-  NavLinks,
+  LinksContainer,
   Input,
   InputContainer,
   IconContainer,
   ThemeIcon,
   SearchIcon,
+  RightPanel,
 } from "./Navbar.styles";
+class Navbar extends React.Component {
+  render() {
+    return (
+      <NavContainer>
+        <LinksContainer>
+          <StyledLink to="/">Coins</StyledLink>
+          <StyledLink to="/portfolio">Portfolio</StyledLink>
+        </LinksContainer>
+        <RightPanel>
+          <InputContainer>
+            <IconContainer>
+              <SearchIcon />
+            </IconContainer>
+            <Input type="text" placeholder="Search..." />
+          </InputContainer>
 
-function Navbar(props) {
-  return (
-    <Container>
-      <NavLinks>
-        <StyledLink to="/">Coins</StyledLink>
-        <StyledLink to="/portfolio">Portfolio</StyledLink>
-      </NavLinks>
-      <InputContainer>
-        <IconContainer>
-          <SearchIcon />
-        </IconContainer>
-        <Input type="text" placeholder="Search..." />
-      </InputContainer>
-      <div>
-        <select>
-          <option value="USD">USD</option>
-        </select>
-      </div>
-      <IconContainer>
-        <ThemeIcon onClick={props.toggleTheme}></ThemeIcon>
-      </IconContainer>
-    </Container>
-  );
+          <CurrencyToggle />
+
+          <IconContainer>
+            <ThemeIcon onClick={this.props.toggleTheme}></ThemeIcon>
+          </IconContainer>
+        </RightPanel>
+      </NavContainer>
+    );
+  }
 }
 
 export default Navbar;
