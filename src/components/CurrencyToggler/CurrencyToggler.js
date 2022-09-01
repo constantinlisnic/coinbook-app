@@ -45,30 +45,24 @@ class CurrencyToggler extends React.Component {
 
   handleSelect = (selectedCurrency) => {
     this.state.currencies.map((currency) => {
-      return currency.name === selectedCurrency
-        ? (currency.isActive = true)
-        : (currency.isActive = false);
+      currency.isActive = currency.name === selectedCurrency;
+      return currency;
     });
     this.setState({ isExpanded: false });
   };
 
   render() {
+    const selectedCurrency = this.state.currencies.find(
+      (currency) => currency.isActive
+    );
     return (
       <CurrencyWrapper>
         <SelectedWrapper onClick={this.handleClick}>
-          {this.state.currencies.map((currency) => {
-            return (
-              currency.isActive && (
-                <React.Fragment key={currency.name}>
-                  <Img
-                    src={currency.symbolURL}
-                    alt={`${currency.name} symbol`}
-                  />
-                  <div>{currency.name}</div>
-                </React.Fragment>
-              )
-            );
-          })}
+          <Img
+            src={selectedCurrency.symbolURL}
+            alt={`${selectedCurrency.name} symbol`}
+          />
+          <div>{selectedCurrency.name}</div>
           <DownArrow
             src={
               this.state.isExpanded
