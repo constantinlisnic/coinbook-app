@@ -48,7 +48,7 @@ class CurrencyToggler extends React.Component {
       currency.isActive = currency.name === selectedCurrency;
       return currency;
     });
-    this.setState({ isExpanded: false });
+    this.setState({ isExpanded: false, currencies: this.state.currencies });
   };
 
   render() {
