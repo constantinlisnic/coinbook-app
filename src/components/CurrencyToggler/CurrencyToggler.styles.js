@@ -20,11 +20,6 @@ export const Img = styled.img`
   height: 33px;
 `;
 
-export const DownArrow = styled.img`
-  width: 11px;
-  height: 4px;
-`;
-
 export const DropdownWrapper = styled.div`
   display: flex;
   flex-direction: column;

@@ -2,13 +2,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 export const NavContainer = styled.div`
-  background: ${(props) => props.theme.secondary};
-  width: 80vw;
-  min-width: 725px;
-  height: 67px;
-  border-radius: 0 0 15px 15px;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: center;
+  height: 107px;
 `;
 
 export const StyledLink = styled(Link)`
@@ -82,4 +79,26 @@ export const RightPanel = styled.div`
   display: flex;
   gap: 10px;
   margin-right: 10px;
+`;
+
+export const FirstRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  background: ${(props) => props.theme.secondary};
+  width: 80vw;
+  min-width: 800px;
+  height: 67px;
+  border-radius: 0 0 15px 15px;
+`;
+
+export const SecondRow = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 17px;
+  height: 40px;
+  font-size: 12px;
+  background: ${(props) => props.theme.secondary};
+  border-radius: 0 0 15px 15px;
+  width: 750px;
 `;

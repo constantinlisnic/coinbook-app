@@ -1,9 +1,9 @@
 import React from "react";
+import { UpGreenCaret, DownGreenCaret } from "styles";
 import {
   DropdownItemContainer,
   SelectedWrapper,
   Img,
-  DownArrow,
   DropdownWrapper,
   CurrencyWrapper,
 } from "./CurrencyToggler.styles";
@@ -67,14 +67,7 @@ class CurrencyToggler extends React.Component {
             alt={`${selectedCurrency.name} symbol`}
           />
           <div>{selectedCurrency.name}</div>
-          <DownArrow
-            src={
-              this.state.isExpanded
-                ? "https://i.ibb.co/fNtddxw/upCaret.png"
-                : "https://i.ibb.co/QJW7HtF/down-Caret.png"
-            }
-            alt="caret symbol"
-          />
+          {this.state.isExpanded ? <UpGreenCaret /> : <DownGreenCaret />}
         </SelectedWrapper>
         <DropdownWrapper>
           {this.state.isExpanded &&
