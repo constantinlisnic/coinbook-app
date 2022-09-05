@@ -8,11 +8,15 @@ import {
   CurrencyWrapper,
 } from "./CurrencyToggler.styles";
 
-function DropdownItem(props) {
+function DropdownItem({
+  currency = "",
+  symbol = "",
+  handleClick = () => null,
+}) {
   return (
-    <DropdownItemContainer onClick={() => props.handleClick(props.currency)}>
-      <Img src={props.symbol} alt={`${props.curency} symbol`} />
-      <div>{props.currency}</div>
+    <DropdownItemContainer onClick={() => handleClick(currency)}>
+      <Img src={symbol} alt={`${currency} symbol`} />
+      <div>{currency}</div>
     </DropdownItemContainer>
   );
 }
@@ -44,11 +48,11 @@ class CurrencyToggler extends React.Component {
   };
 
   handleSelect = (selectedCurrency) => {
-    this.state.currencies.map((currency) => {
-      currency.isActive = currency.name === selectedCurrency;
-      return currency;
-    });
-    this.setState({ isExpanded: false, currencies: this.state.currencies });
+    const currencies = this.state.currencies.map((currency) => ({
+      ...currency,
+      isActive: currency.name === selectedCurrency,
+    }));
+    this.setState({ isExpanded: false, currencies });
   };
 
   render() {
