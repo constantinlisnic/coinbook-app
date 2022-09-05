@@ -11,7 +11,6 @@ import {
   ETHPercentageDiv,
   ETHIcon,
 } from "./GlobalDataBar.styles";
-import { isNegative } from "utils";
 
 class GlobalDataBar extends React.Component {
   state = {
@@ -54,7 +53,7 @@ class GlobalDataBar extends React.Component {
           {numeral(total_market_cap.usd)
             .format("($ 0.00 a)")
             .toLocaleUpperCase()}
-          {isNegative(market_cap_change_percentage_24h_usd) ? (
+          {market_cap_change_percentage_24h_usd < 0 ? (
             <DownRedCaret />
           ) : (
             <UpGreenCaret />
