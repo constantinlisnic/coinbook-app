@@ -1,5 +1,5 @@
 import React from "react";
-import { CurrencyToggler } from "components/CurrencyToggler";
+import { CurrencyToggler, GlobalDataBar } from "components";
 import {
   NavContainer,
   StyledLink,
@@ -10,31 +10,39 @@ import {
   ThemeChangeButton,
   SearchIcon,
   RightPanel,
+  FirstRow,
+  SecondRow,
 } from "./Navbar.styles";
 class Navbar extends React.Component {
   render() {
     return (
       <NavContainer>
-        <LinksContainer>
-          <StyledLink to="/">Coins</StyledLink>
-          <StyledLink to="/portfolio">Portfolio</StyledLink>
-        </LinksContainer>
-        <RightPanel>
-          <InputContainer>
+        <FirstRow>
+          <LinksContainer>
+            <StyledLink to="/">Coins</StyledLink>
+            <StyledLink to="/portfolio">Portfolio</StyledLink>
+          </LinksContainer>
+          <RightPanel>
+            <InputContainer>
+              <ThemeButtonContainer>
+                <SearchIcon />
+              </ThemeButtonContainer>
+              <Input type="text" placeholder="Search..." />
+            </InputContainer>
+
+            <CurrencyToggler />
+
             <ThemeButtonContainer>
-              <SearchIcon />
+              <ThemeChangeButton
+                onClick={this.props.toggleTheme}
+              ></ThemeChangeButton>
             </ThemeButtonContainer>
-            <Input type="text" placeholder="Search..." />
-          </InputContainer>
+          </RightPanel>
+        </FirstRow>
 
-          <CurrencyToggler />
-
-          <ThemeButtonContainer>
-            <ThemeChangeButton
-              onClick={this.props.toggleTheme}
-            ></ThemeChangeButton>
-          </ThemeButtonContainer>
-        </RightPanel>
+        <SecondRow>
+          <GlobalDataBar />
+        </SecondRow>
       </NavContainer>
     );
   }

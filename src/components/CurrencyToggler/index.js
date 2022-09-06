@@ -1,1 +1,1 @@
-export { default as CurrencyToggler } from "./CurrencyToggler";
+export { default } from "./CurrencyToggler";
