@@ -11,6 +11,7 @@ import {
   ETHPercentageDiv,
   ETHIcon,
 } from "./GlobalDataBar.styles";
+import { getURL } from "utils";
 
 class GlobalDataBar extends React.Component {
   state = {
@@ -21,7 +22,8 @@ class GlobalDataBar extends React.Component {
   getGlobalData = async () => {
     try {
       this.setState({ isLoading: true });
-      const response = await axios(`${process.env.REACT_APP_ENDPOINT}/global`);
+      const url = getURL("global", {});
+      const response = await axios(url);
       this.setState({ globalData: response.data.data, isLoading: false });
     } catch (err) {
       this.setState({ errorMessage: err.message });
@@ -50,9 +52,7 @@ class GlobalDataBar extends React.Component {
         <div>Exchanges: {markets}</div>
         <MarketCapDiv>
           <BulletDot />
-          {numeral(total_market_cap.usd)
-            .format("($ 0.00 a)")
-            .toLocaleUpperCase()}
+          {numeral(total_market_cap.usd).format("($0.00a)").toLocaleUpperCase()}
           {market_cap_change_percentage_24h_usd < 0 ? (
             <DownRedCaret />
           ) : (
@@ -61,7 +61,7 @@ class GlobalDataBar extends React.Component {
         </MarketCapDiv>
         <TotalVolumeDiv>
           <BulletDot />
-          {numeral(total_volume.usd).format("($ 0.00 a)").toLocaleUpperCase()}
+          {numeral(total_volume.usd).format("($0.00a)").toLocaleUpperCase()}
           <ProgressBar
             filler={total_volume.usd}
             wholeValue={total_market_cap.usd}

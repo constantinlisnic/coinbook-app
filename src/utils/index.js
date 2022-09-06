@@ -1,1 +1,1 @@
-export { default as isNegative } from "./isNegative";
+export { default as getURL } from "./getURL";
