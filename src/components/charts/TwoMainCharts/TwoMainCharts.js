@@ -33,9 +33,9 @@ class TwoMainCharts extends React.Component {
   }
 
   render() {
-    const haveData = !this.state.isLoading && this.state.chartData;
+    const isFetched = !this.state.isLoading && this.state.chartData;
     return (
-      haveData && (
+      isFetched && (
         <ChartsContainer>
           <LineChart {...this.state.chartData} />
           <BarChart {...this.state.chartData} />
