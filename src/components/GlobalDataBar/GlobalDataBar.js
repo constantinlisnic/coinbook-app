@@ -22,7 +22,7 @@ class GlobalDataBar extends React.Component {
   getGlobalData = async () => {
     try {
       this.setState({ isLoading: true });
-      const url = getURL("global", {});
+      const url = getURL("global");
       const response = await axios(url);
       this.setState({ globalData: response.data.data, isLoading: false });
     } catch (err) {
