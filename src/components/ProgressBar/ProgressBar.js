@@ -1,10 +1,10 @@
 import { Bar, Progress } from "./ProgressBar.styles";
 
-function ProgressBar({ filler = null, wholeValue = null }) {
-  const width = (filler / wholeValue) * 100;
+function ProgressBar({ filler = null, wholeValue = null, barWidth = null }) {
+  const progressWidth = (filler / wholeValue) * 100;
   return (
-    <Bar>
-      <Progress width={width}></Progress>
+    <Bar barWidth={barWidth}>
+      <Progress progressWidth={progressWidth}></Progress>
     </Bar>
   );
 }

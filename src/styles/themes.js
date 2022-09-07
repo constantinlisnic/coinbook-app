@@ -5,6 +5,7 @@ export const darkTheme = {
   componentBackground: "#2C2F36",
   themeIcon: "https://i.ibb.co/KKSzz6f/Iconly-Bulk-Scan.png",
   searchIcon: "https://i.ibb.co/fnvTZNt/search-icon.png",
+  cellBorderColor: "#707070",
 };
 export const lightTheme = {
   main: "#f7f7f7",
@@ -13,4 +14,5 @@ export const lightTheme = {
   componentBackground: "#edeff2",
   themeIcon: "https://i.ibb.co/9v0sHFQ/theme-icon-dark.png",
   searchIcon: "https://i.ibb.co/CMm54Wz/search-icon-dark.png",
+  cellBorderColor: "#DCDCDC",
 };
