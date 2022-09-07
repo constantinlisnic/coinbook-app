@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
-import { TableHead, TableRow } from "components/CoinsTable";
+import { TableHead, TableRow } from "components/table";
 
 class FullTable extends React.Component {
   state = {

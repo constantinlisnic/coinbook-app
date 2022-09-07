@@ -1,7 +1,7 @@
 import numeral from "numeral";
+import { Sparkline } from "components/table";
 import { ProgressBar } from "components";
 import { Img } from "./TableRow.styles";
-import Sparkline from "../Sparkline";
 
 function TableRow({ coin }) {
   return (
