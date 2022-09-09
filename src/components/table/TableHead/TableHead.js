@@ -1,16 +1,18 @@
+import { Th } from "./TableHead.styles";
+
 function TableHead() {
   return (
     <thead>
       <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>1h%</th>
-        <th>24h%</th>
-        <th>7d%</th>
-        <th>24h Volume/Market Cap</th>
-        <th>Circulating/Total Supply</th>
-        <th>Last 7d</th>
+        <Th>#</Th>
+        <Th>Name</Th>
+        <Th>Price</Th>
+        <Th>1h%</Th>
+        <Th>24h%</Th>
+        <Th>7d%</Th>
+        <Th>24h Volume/Market Cap</Th>
+        <Th>Circulating/Total Supply</Th>
+        <Th>Last 7d</Th>
       </tr>
     </thead>
   );

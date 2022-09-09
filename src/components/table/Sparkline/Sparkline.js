@@ -28,7 +28,9 @@ function Sparkline(props) {
         label: props.name,
         data: props.sparkline_in_7d.price,
         borderColor:
-          props.price_change_percentage_7d_in_currency > 0 ? "green" : "red",
+          props.price_change_percentage_7d_in_currency > 0
+            ? "#00FC2A"
+            : "#fe1040",
         backgroundColor: "rgba(255, 99, 132, 0.5)",
         lineTension: 0.8,
       },

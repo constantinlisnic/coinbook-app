@@ -41,10 +41,12 @@ class FullTable extends React.Component {
       <TableContainer>
         <Table>
           <TableHead />
-          {isFetched &&
-            this.state.tableData.map((coin) => (
-              <TableRow coin={coin} key={coin.id} />
-            ))}
+          <tbody>
+            {isFetched &&
+              this.state.tableData.map((coin) => (
+                <TableRow coin={coin} key={coin.id} />
+              ))}
+          </tbody>
         </Table>
       </TableContainer>
     );
