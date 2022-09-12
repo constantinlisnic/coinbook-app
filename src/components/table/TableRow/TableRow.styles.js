@@ -32,6 +32,17 @@ export const RedColorText = styled.div`
 `;
 
 export const PriceChangeDiv = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
   color: ${(props) =>
     props.priceChange > 0 ? props.theme.green : props.theme.red};
+`;
+
+export const LeftText = styled.div`
+  color: #82869e;
+`;
+export const RightText = styled.div`
+  color: #b4b9d4;
 `;

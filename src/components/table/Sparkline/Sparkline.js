@@ -27,21 +27,54 @@ function Sparkline(props) {
       {
         label: props.name,
         data: props.sparkline_in_7d.price,
-        borderColor:
-          props.price_change_percentage_7d_in_currency > 0
-            ? "#00FC2A"
-            : "#fe1040",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        lineTension: 0.8,
       },
     ],
   };
 
   const options = {
     responsive: true,
-    plugins: { legend: { display: false } },
-    scales: { x: { display: false }, y: { display: false } },
-    elements: { point: { radius: 0 } },
+    plugins: {
+      legend: { display: false },
+      tooltip: {
+        interaction: {
+          mode: "nearest",
+          intersect: false,
+        },
+        callbacks: {
+          label: (context) => {
+            const label = `${context.dataset.label}: $${context.formattedValue}`;
+            return label;
+          },
+          title: () => null,
+        },
+      },
+    },
+    scales: {
+      x: { display: false },
+      y: { display: false },
+    },
+    elements: {
+      point: {
+        radius: 0,
+        pointBackgroundColor:
+          props.price_change_percentage_7d_in_currency < 0
+            ? "#00FC2A"
+            : "#fe1040",
+      },
+      line: {
+        tension: 0.5,
+        borderColor:
+          props.price_change_percentage_7d_in_currency > 0
+            ? "#00FC2A"
+            : "#fe1040",
+        borderWidth: 1,
+      },
+      interactions: {
+        intersect: false,
+        mode: "nearest",
+        axis: "x",
+      },
+    },
   };
   return (
     <div>

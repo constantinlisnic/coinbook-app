@@ -7,7 +7,10 @@ import {
   AboveBarText,
   NameWrapper,
   PriceChangeDiv,
+  LeftText,
+  RightText,
 } from "./TableRow.styles";
+import { DownRedCaret, UpGreenCaret } from "styles";
 
 function TableRow({ coin }) {
   return (
@@ -26,6 +29,11 @@ function TableRow({ coin }) {
         <PriceChangeDiv
           priceChange={coin.price_change_percentage_1h_in_currency}
         >
+          {coin.price_change_percentage_1h_in_currency > 0 ? (
+            <UpGreenCaret />
+          ) : (
+            <DownRedCaret />
+          )}
           {Math.abs(
             numeral(coin.price_change_percentage_1h_in_currency).format("0.00")
           ) + "%"}
@@ -35,6 +43,11 @@ function TableRow({ coin }) {
         <PriceChangeDiv
           priceChange={coin.price_change_percentage_24h_in_currency}
         >
+          {coin.price_change_percentage_24h_in_currency > 0 ? (
+            <UpGreenCaret />
+          ) : (
+            <DownRedCaret />
+          )}
           {Math.abs(
             numeral(coin.price_change_percentage_24h_in_currency).format("0.00")
           ) + "%"}
@@ -44,6 +57,11 @@ function TableRow({ coin }) {
         <PriceChangeDiv
           priceChange={coin.price_change_percentage_7d_in_currency}
         >
+          {coin.price_change_percentage_7d_in_currency > 0 ? (
+            <UpGreenCaret />
+          ) : (
+            <DownRedCaret />
+          )}
           {Math.abs(
             numeral(coin.price_change_percentage_7d_in_currency).format("0.00")
           ) + "%"}
@@ -51,12 +69,12 @@ function TableRow({ coin }) {
       </Td>
       <Td>
         <AboveBarText>
-          <div>
+          <LeftText>
             {numeral(coin.total_volume).format("($0.00a)").toLocaleUpperCase()}{" "}
-          </div>
-          <div>
+          </LeftText>
+          <RightText>
             {numeral(coin.market_cap).format("($0.00a)").toLocaleUpperCase()}
-          </div>
+          </RightText>
         </AboveBarText>
         <ProgressBar
           barWidth={170}
@@ -66,14 +84,14 @@ function TableRow({ coin }) {
       </Td>
       <Td>
         <AboveBarText>
-          <div>
+          <LeftText>
             {numeral(coin.circulating_supply)
               .format("($0.00a)")
               .toLocaleUpperCase()}{" "}
-          </div>
-          <div>
+          </LeftText>
+          <RightText>
             {numeral(coin.total_supply).format("($0.00a)").toLocaleUpperCase()}
-          </div>
+          </RightText>
         </AboveBarText>
         <ProgressBar
           barWidth={170}
