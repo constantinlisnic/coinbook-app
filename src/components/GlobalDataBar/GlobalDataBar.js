@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import numeral from "numeral";
 import { LoadingGlobalDataBar, ProgressBar } from "components";
-import { UpGreenCaret, DownRedCaret, BulletDot } from "styles";
+import { BulletDot } from "styles";
 import {
   MarketCapDiv,
   TotalVolumeDiv,
@@ -11,7 +11,7 @@ import {
   ETHPercentageDiv,
   ETHIcon,
 } from "./GlobalDataBar.styles";
-import { getURL } from "utils";
+import { getURL, GainLossCaret } from "utils";
 
 class GlobalDataBar extends React.Component {
   state = {
@@ -35,7 +35,7 @@ class GlobalDataBar extends React.Component {
   }
 
   render() {
-    const haveData =
+    const isFetched =
       !this.state.isLoading && Object.keys(this.state.globalData).length;
     const {
       active_cryptocurrencies,
@@ -46,23 +46,20 @@ class GlobalDataBar extends React.Component {
       market_cap_percentage,
     } = this.state.globalData;
 
-    return haveData ? (
+    return isFetched ? (
       <>
         <div>Coins: {numeral(active_cryptocurrencies).format("0,0")}</div>
         <div>Exchanges: {markets}</div>
         <MarketCapDiv>
           <BulletDot />
           {numeral(total_market_cap.usd).format("($0.00a)").toLocaleUpperCase()}
-          {market_cap_change_percentage_24h_usd < 0 ? (
-            <DownRedCaret />
-          ) : (
-            <UpGreenCaret />
-          )}
+          <GainLossCaret priceChange={market_cap_change_percentage_24h_usd} />
         </MarketCapDiv>
         <TotalVolumeDiv>
           <BulletDot />
           {numeral(total_volume.usd).format("($0.00a)").toLocaleUpperCase()}
           <ProgressBar
+            barWidth={70}
             filler={total_volume.usd}
             wholeValue={total_market_cap.usd}
           />
@@ -75,6 +72,7 @@ class GlobalDataBar extends React.Component {
             ) + "%"}
           </div>
           <ProgressBar
+            barWidth={70}
             filler={market_cap_percentage.btc / 100}
             wholeValue={1}
           />
@@ -83,6 +81,7 @@ class GlobalDataBar extends React.Component {
           <ETHIcon />
           <div>{numeral(market_cap_percentage.eth).format("0.0") + "%"}</div>
           <ProgressBar
+            barWidth={70}
             filler={market_cap_percentage.eth / 100}
             wholeValue={1}
           />

@@ -8,6 +8,14 @@ import {
   Legend,
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
+import numeral from "numeral";
+import {
+  BarChartContainer,
+  BarChartTitle,
+  VolumeContainer,
+  BTCSpan,
+  Volume,
+} from "./BarChart.styles";
 
 ChartJS.register(
   CategoryScale,
@@ -19,23 +27,21 @@ ChartJS.register(
 );
 
 function BarChart(props) {
-  const chartData = props.prices.map((data) => ({
+  const chartData = props.total_volumes.map((data) => ({
     date: data[0],
-    price: data[1],
+    volume: data[1],
   }));
 
   const data = {
     labels: chartData.map((data) => {
       const date = new Date(data.date);
-      return date.getDate();
+      const config = { month: "short", day: "numeric" };
+      return new Intl.DateTimeFormat("default", config).format(date);
     }),
     datasets: [
       {
-        data: chartData.map((data) => data.price),
-        borderColor:
-          props.price_change_percentage_7d_in_currency > 0 ? "green" : "red",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        lineTension: 0.5,
+        label: "Volume",
+        data: chartData.map((data) => data.volume),
       },
     ],
   };
@@ -44,13 +50,51 @@ function BarChart(props) {
     responsive: true,
     plugins: {
       legend: { display: false },
-      title: { display: true, text: "BTC Volume Last 60d" },
+    },
+    elements: {
+      bar: {
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+          gradient.addColorStop(0, "rgba(0, 252, 42, 0.8)");
+          gradient.addColorStop(1, "rgba(254,16,64, 0.7)");
+          return gradient;
+        },
+        hoverBackgroundColor: "#2c2f36",
+      },
+    },
+    scales: {
+      x: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          maxTicksLimit: 10,
+        },
+      },
+      y: {
+        display: false,
+        grace: "5%",
+      },
     },
   };
   return (
-    <div>
+    <BarChartContainer>
+      <VolumeContainer>
+        <div>
+          <BTCSpan>BTC</BTCSpan> 24h volume:
+        </div>
+        <Volume>
+          {" "}
+          {numeral(
+            props.total_volumes[props.total_volumes.length - 1][1]
+          ).format("$0,0.00")}
+        </Volume>
+      </VolumeContainer>
+      <BarChartTitle>Last 30d change</BarChartTitle>
       <Bar options={options} data={data} />
-    </div>
+    </BarChartContainer>
   );
 }
 

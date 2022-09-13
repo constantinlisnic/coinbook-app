@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import { TableHead, TableRow } from "components/table";
+import { Table, TableContainer } from "./FullTable.styles";
 
 class FullTable extends React.Component {
   state = {
@@ -35,17 +36,19 @@ class FullTable extends React.Component {
   }
 
   render() {
-    const haveData = !this.state.isLoading && this.state.tableData;
+    const isFetched = !this.state.isLoading && this.state.tableData;
     return (
-      <div>
-        <table>
+      <TableContainer>
+        <Table>
           <TableHead />
-          {haveData &&
-            this.state.tableData.map((coin) => (
-              <TableRow coin={coin} key={coin.id} />
-            ))}
-        </table>
-      </div>
+          <tbody>
+            {isFetched &&
+              this.state.tableData.map((coin) => (
+                <TableRow coin={coin} key={coin.id} />
+              ))}
+          </tbody>
+        </Table>
+      </TableContainer>
     );
   }
 }

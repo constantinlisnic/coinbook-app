@@ -5,6 +5,14 @@ export const darkTheme = {
   componentBackground: "#2C2F36",
   themeIcon: "https://i.ibb.co/KKSzz6f/Iconly-Bulk-Scan.png",
   searchIcon: "https://i.ibb.co/fnvTZNt/search-icon.png",
+  cellBorderColor: "#707070",
+  red: "#fe1040",
+  green: "#00fc2a",
+  bar: "#171924",
+  progress: "#323546",
+  barBorder: "#1f2128",
+  barTextLeft: "#b4b9d4",
+  barTextRight: "#82869e",
 };
 export const lightTheme = {
   main: "#f7f7f7",
@@ -13,4 +21,12 @@ export const lightTheme = {
   componentBackground: "#edeff2",
   themeIcon: "https://i.ibb.co/9v0sHFQ/theme-icon-dark.png",
   searchIcon: "https://i.ibb.co/CMm54Wz/search-icon-dark.png",
+  cellBorderColor: "#DCDCDC",
+  red: "#fe1040",
+  green: "#00fc2a",
+  bar: "#eff2f5",
+  progress: "#cfd6e4",
+  barBorder: "white",
+  barTextLeft: "#82869e",
+  barTextRight: "#b4b9d4",
 };

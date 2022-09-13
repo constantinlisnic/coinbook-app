@@ -7,8 +7,17 @@ import {
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
+import numeral from "numeral";
+import {
+  LineChartContainer,
+  PriceContainer,
+  BTCSpan,
+  LineChartTitle,
+  Price,
+} from "./LineChart.styles";
 
 ChartJS.register(
   CategoryScale,
@@ -17,7 +26,8 @@ ChartJS.register(
   LineElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 function LineChart(props) {
@@ -29,15 +39,13 @@ function LineChart(props) {
   const data = {
     labels: chartData.map((data) => {
       const date = new Date(data.date);
-      return date.getDate();
+      const config = { month: "short", day: "numeric" };
+      return new Intl.DateTimeFormat("default", config).format(date);
     }),
     datasets: [
       {
+        label: "Price",
         data: chartData.map((data) => data.price),
-        borderColor:
-          props.price_change_percentage_7d_in_currency > 0 ? "green" : "red",
-        backgroundColor: "rgba(255, 99, 132, 0.5)",
-        lineTension: 0.5,
       },
     ],
   };
@@ -46,13 +54,59 @@ function LineChart(props) {
     responsive: true,
     plugins: {
       legend: { display: false },
-      title: { display: true, text: "BTC Price Last 60d" },
+    },
+    elements: {
+      line: {
+        borderColor: "#00fc2a",
+        tension: 0.4,
+        fill: true,
+        backgroundColor: (context) => {
+          const ctx = context.chart.ctx;
+          const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+          gradient.addColorStop(0, "rgba(0, 255, 95, 0.5)");
+          gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
+          return gradient;
+        },
+      },
+      point: {
+        radius: 0,
+        borderColor: "green",
+        hoverRadius: 5,
+      },
+    },
+    scales: {
+      xAxis: {
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          maxTicksLimit: 10,
+        },
+      },
+      yAxis: {
+        display: false,
+      },
+    },
+    interaction: {
+      intersect: false,
+      mode: "nearest",
+      axis: "x",
     },
   };
   return (
-    <div>
+    <LineChartContainer>
+      <PriceContainer>
+        <div>
+          <BTCSpan>BTC</BTCSpan> current price:
+        </div>
+        <Price>
+          {numeral(props.prices[props.prices.length - 1][1]).format("$0,0.00")}
+        </Price>
+      </PriceContainer>
+      <LineChartTitle>Last 30d change</LineChartTitle>
       <Line options={options} data={data} />
-    </div>
+    </LineChartContainer>
   );
 }
 
