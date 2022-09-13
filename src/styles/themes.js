@@ -8,6 +8,11 @@ export const darkTheme = {
   cellBorderColor: "#707070",
   red: "#fe1040",
   green: "#00fc2a",
+  bar: "#171924",
+  progress: "#323546",
+  barBorder: "#1f2128",
+  barTextLeft: "#b4b9d4",
+  barTextRight: "#82869e",
 };
 export const lightTheme = {
   main: "#f7f7f7",
@@ -19,4 +24,9 @@ export const lightTheme = {
   cellBorderColor: "#DCDCDC",
   red: "#fe1040",
   green: "#00fc2a",
+  bar: "#eff2f5",
+  progress: "#cfd6e4",
+  barBorder: "white",
+  barTextLeft: "#82869e",
+  barTextRight: "#b4b9d4",
 };

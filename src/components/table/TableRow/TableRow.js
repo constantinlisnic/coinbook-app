@@ -86,11 +86,11 @@ function TableRow({ coin }) {
         <AboveBarText>
           <LeftText>
             {numeral(coin.circulating_supply)
-              .format("($0.00a)")
+              .format("(0.00a)")
               .toLocaleUpperCase()}{" "}
           </LeftText>
           <RightText>
-            {numeral(coin.total_supply).format("($0.00a)").toLocaleUpperCase()}
+            {numeral(coin.total_supply).format("(0.00a)").toLocaleUpperCase()}{" "}
           </RightText>
         </AboveBarText>
         <ProgressBar

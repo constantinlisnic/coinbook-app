@@ -41,8 +41,8 @@ export const PriceChangeDiv = styled.div`
 `;
 
 export const LeftText = styled.div`
-  color: #82869e;
+  color: ${(props) => props.theme.barTextLeft};
 `;
 export const RightText = styled.div`
-  color: #b4b9d4;
+  color: ${(props) => props.theme.barTextRight};
 `;

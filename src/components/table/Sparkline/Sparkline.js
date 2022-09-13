@@ -62,12 +62,12 @@ function Sparkline(props) {
             : "#fe1040",
       },
       line: {
-        tension: 0.5,
+        tension: 0.4,
         borderColor:
           props.price_change_percentage_7d_in_currency > 0
             ? "#00FC2A"
             : "#fe1040",
-        borderWidth: 1,
+        borderWidth: 2,
       },
       interactions: {
         intersect: false,

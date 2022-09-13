@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import { LineChart, BarChart } from "components/charts";
-import { ChartsContainer } from "./TwoMainCharts.styles";
+import { ChartsContainer, OverView } from "./TwoMainCharts.styles";
 
 class TwoMainCharts extends React.Component {
   state = {
@@ -17,7 +17,7 @@ class TwoMainCharts extends React.Component {
       const path = "coins/bitcoin/market_chart";
       const config = {
         vs_currency: "usd",
-        days: 60,
+        days: 30,
         interval: "daily",
       };
       const url = getURL(path, config);
@@ -35,12 +35,15 @@ class TwoMainCharts extends React.Component {
   render() {
     const isFetched = !this.state.isLoading && this.state.chartData;
     return (
-      isFetched && (
-        <ChartsContainer>
-          <LineChart {...this.state.chartData} />
-          <BarChart {...this.state.chartData} />
-        </ChartsContainer>
-      )
+      <>
+        <OverView>Your overview</OverView>
+        {isFetched && (
+          <ChartsContainer>
+            <LineChart {...this.state.chartData} />
+            <BarChart {...this.state.chartData} />
+          </ChartsContainer>
+        )}
+      </>
     );
   }
 }

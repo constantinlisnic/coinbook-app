@@ -5,15 +5,15 @@ export const Bar = styled.div`
   width: ${(props) => props.barWidth}px;
   height: 8px;
   background: white;
-  border: 1px solid #1f2128;
+  border: 1px solid ${(props) => props.theme.barBorder};
   border-radius: 15px;
   overflow: hidden;
-  background: #8a92b2;
+  background: ${(props) => props.theme.bar};
 `;
 
 export const Progress = styled.div`
   height: 100%;
   width: ${(props) => props.progressWidth}%;
-  background: #474c77;
+  background: ${(props) => props.theme.progress};
   border-radius: 15px;
 `;
