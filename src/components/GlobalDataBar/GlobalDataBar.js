@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import numeral from "numeral";
 import { LoadingGlobalDataBar, ProgressBar } from "components";
-import { UpGreenCaret, DownRedCaret, BulletDot } from "styles";
+import { BulletDot } from "styles";
 import {
   MarketCapDiv,
   TotalVolumeDiv,
@@ -11,7 +11,7 @@ import {
   ETHPercentageDiv,
   ETHIcon,
 } from "./GlobalDataBar.styles";
-import { getURL } from "utils";
+import { getURL, GainLossCaret } from "utils";
 
 class GlobalDataBar extends React.Component {
   state = {
@@ -53,11 +53,7 @@ class GlobalDataBar extends React.Component {
         <MarketCapDiv>
           <BulletDot />
           {numeral(total_market_cap.usd).format("($0.00a)").toLocaleUpperCase()}
-          {market_cap_change_percentage_24h_usd < 0 ? (
-            <DownRedCaret />
-          ) : (
-            <UpGreenCaret />
-          )}
+          <GainLossCaret priceChange={market_cap_change_percentage_24h_usd} />
         </MarketCapDiv>
         <TotalVolumeDiv>
           <BulletDot />

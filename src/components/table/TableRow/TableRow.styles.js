@@ -31,15 +31,6 @@ export const RedColorText = styled.div`
   color: ${(props) => props.theme.red};
 `;
 
-export const PriceChangeDiv = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-  color: ${(props) =>
-    props.priceChange > 0 ? props.theme.green : props.theme.red};
-`;
-
 export const LeftText = styled.div`
   color: ${(props) => props.theme.barTextLeft};
 `;
