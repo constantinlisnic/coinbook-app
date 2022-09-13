@@ -57,7 +57,7 @@ function Sparkline(props) {
       point: {
         radius: 0,
         pointBackgroundColor:
-          props.price_change_percentage_7d_in_currency < 0
+          props.price_change_percentage_7d_in_currency > 0
             ? "#00FC2A"
             : "#fe1040",
       },

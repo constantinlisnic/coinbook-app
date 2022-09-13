@@ -12,5 +12,6 @@ export const ChartsContainer = styled.div`
 
 export const OverView = styled.div`
   font-size: 22px;
-  margin-left: 50px;
+  margin: auto;
+  max-width: 1150px;
 `;
