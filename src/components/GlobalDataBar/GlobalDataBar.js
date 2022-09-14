@@ -45,6 +45,7 @@ class GlobalDataBar extends React.Component {
       market_cap_change_percentage_24h_usd,
       market_cap_percentage,
     } = this.state.globalData;
+    const { name: currencyName, symbol } = this.props.currency;
 
     return isFetched ? (
       <>
@@ -52,16 +53,22 @@ class GlobalDataBar extends React.Component {
         <div>Exchanges: {markets}</div>
         <MarketCapDiv>
           <BulletDot />
-          {numeral(total_market_cap.usd).format("($0.00a)").toLocaleUpperCase()}
+          {symbol +
+            numeral(total_market_cap[currencyName])
+              .format("(0.00a)")
+              .toLocaleUpperCase()}
           <GainLossCaret priceChange={market_cap_change_percentage_24h_usd} />
         </MarketCapDiv>
         <TotalVolumeDiv>
           <BulletDot />
-          {numeral(total_volume.usd).format("($0.00a)").toLocaleUpperCase()}
+          {symbol +
+            numeral(total_volume[currencyName])
+              .format("(0.00a)")
+              .toLocaleUpperCase()}
           <ProgressBar
             barWidth={70}
-            filler={total_volume.usd}
-            wholeValue={total_market_cap.usd}
+            filler={total_volume[currencyName]}
+            wholeValue={total_market_cap[currencyName]}
           />
         </TotalVolumeDiv>
         <BTCPercentageDiv>

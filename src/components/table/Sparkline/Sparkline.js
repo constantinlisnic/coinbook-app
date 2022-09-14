@@ -35,19 +35,7 @@ function Sparkline(props) {
     responsive: true,
     plugins: {
       legend: { display: false },
-      tooltip: {
-        interaction: {
-          mode: "nearest",
-          intersect: false,
-        },
-        callbacks: {
-          label: (context) => {
-            const label = `${context.dataset.label}: $${context.formattedValue}`;
-            return label;
-          },
-          title: () => null,
-        },
-      },
+      tooltip: { enabled: false },
     },
     scales: {
       x: { display: false },
@@ -56,10 +44,7 @@ function Sparkline(props) {
     elements: {
       point: {
         radius: 0,
-        pointBackgroundColor:
-          props.price_change_percentage_7d_in_currency > 0
-            ? "#00FC2A"
-            : "#fe1040",
+        hoverRadius: 0,
       },
       line: {
         tension: 0.4,
@@ -68,11 +53,6 @@ function Sparkline(props) {
             ? "#00FC2A"
             : "#fe1040",
         borderWidth: 2,
-      },
-      interactions: {
-        intersect: false,
-        mode: "nearest",
-        axis: "x",
       },
     },
   };

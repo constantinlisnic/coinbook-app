@@ -61,6 +61,9 @@ function BarChart(props) {
           return gradient;
         },
         hoverBackgroundColor: "#2c2f36",
+        borderRadius: 4,
+        hoverBorderWidth: 2,
+        hoverBorderColor: "green",
       },
     },
     scales: {
@@ -87,9 +90,10 @@ function BarChart(props) {
         </div>
         <Volume>
           {" "}
-          {numeral(
-            props.total_volumes[props.total_volumes.length - 1][1]
-          ).format("$0,0.00")}
+          {props.symbol +
+            numeral(
+              props.total_volumes[props.total_volumes.length - 1][1]
+            ).format("0,0.00")}
         </Volume>
       </VolumeContainer>
       <BarChartTitle>Last 30d change</BarChartTitle>

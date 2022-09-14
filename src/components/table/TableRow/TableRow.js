@@ -1,6 +1,7 @@
 import numeral from "numeral";
 import { Sparkline, DisplayPriceChange } from "components/table";
 import { ProgressBar } from "components";
+import { formatNumber } from "utils";
 import {
   Img,
   Td,
@@ -10,7 +11,7 @@ import {
   RightText,
 } from "./TableRow.styles";
 
-function TableRow({ coin }) {
+function TableRow({ coin, symbol }) {
   return (
     <tr>
       <Td>{coin.market_cap_rank}</Td>
@@ -22,7 +23,7 @@ function TableRow({ coin }) {
           </div>
         </NameWrapper>
       </Td>
-      <Td>{numeral(coin.current_price).format("$0,0.00")}</Td>
+      <Td>{symbol + formatNumber(coin.current_price)}</Td>
       <Td>
         <DisplayPriceChange
           priceChange={coin.price_change_percentage_1h_in_currency}
@@ -41,10 +42,14 @@ function TableRow({ coin }) {
       <Td>
         <AboveBarText>
           <LeftText>
-            {numeral(coin.total_volume).format("($0.00a)").toLocaleUpperCase()}{" "}
+            {symbol +
+              numeral(coin.total_volume)
+                .format("(0.00a)")
+                .toLocaleUpperCase()}{" "}
           </LeftText>
           <RightText>
-            {numeral(coin.market_cap).format("($0.00a)").toLocaleUpperCase()}
+            {symbol +
+              numeral(coin.market_cap).format("(0.00a)").toLocaleUpperCase()}
           </RightText>
         </AboveBarText>
         <ProgressBar

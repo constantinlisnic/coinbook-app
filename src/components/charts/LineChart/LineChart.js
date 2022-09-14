@@ -54,6 +54,14 @@ function LineChart(props) {
     responsive: true,
     plugins: {
       legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = `${context.dataset.label}: ${props.symbol}${context.formattedValue}`;
+            return label;
+          },
+        },
+      },
     },
     elements: {
       line: {
@@ -71,7 +79,9 @@ function LineChart(props) {
       point: {
         radius: 0,
         borderColor: "green",
-        hoverRadius: 5,
+        backgroundColor: "#2c2f36",
+        hoverRadius: 6,
+        hoverBorderWidth: 2,
       },
     },
     scales: {
@@ -101,7 +111,8 @@ function LineChart(props) {
           <BTCSpan>BTC</BTCSpan> current price:
         </div>
         <Price>
-          {numeral(props.prices[props.prices.length - 1][1]).format("$0,0.00")}
+          {props.symbol +
+            numeral(props.prices[props.prices.length - 1][1]).format("0,0.00")}
         </Price>
       </PriceContainer>
       <LineChartTitle>Last 30d change</LineChartTitle>

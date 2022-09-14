@@ -16,7 +16,7 @@ class TwoMainCharts extends React.Component {
       this.setState({ isLoading: true });
       const path = "coins/bitcoin/market_chart";
       const config = {
-        vs_currency: "usd",
+        vs_currency: this.props.currency.name,
         days: 30,
         interval: "daily",
       };
@@ -39,8 +39,14 @@ class TwoMainCharts extends React.Component {
         <OverView>Your overview</OverView>
         {isFetched && (
           <ChartsContainer>
-            <LineChart {...this.state.chartData} />
-            <BarChart {...this.state.chartData} />
+            <LineChart
+              {...this.state.chartData}
+              symbol={this.props.currency.symbol}
+            />
+            <BarChart
+              {...this.state.chartData}
+              symbol={this.props.currency.symbol}
+            />
           </ChartsContainer>
         )}
       </>

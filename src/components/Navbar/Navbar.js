@@ -30,7 +30,9 @@ class Navbar extends React.Component {
               <Input type="text" placeholder="Search..." />
             </InputContainer>
 
-            <CurrencyToggler />
+            <CurrencyToggler
+              toggleActiveCurrency={this.props.toggleActiveCurrency}
+            />
 
             <ThemeButtonContainer>
               <ThemeChangeButton
@@ -41,7 +43,7 @@ class Navbar extends React.Component {
         </FirstRow>
 
         <SecondRow>
-          <GlobalDataBar />
+          <GlobalDataBar currency={this.props.currency} />
         </SecondRow>
       </NavContainer>
     );
