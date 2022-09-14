@@ -8,18 +8,33 @@ import { lightTheme, darkTheme, GlobalStyle } from "styles";
 class App extends React.Component {
   state = {
     themeIsLight: false,
+    activeCurrency: {
+      name: "usd",
+      symbol: "$",
+    },
   };
 
   toggleTheme = () => this.setState({ themeIsLight: !this.state.themeIsLight });
+  toggleActiveCurrency = (activeCurrency) => this.setState({ activeCurrency });
 
   render() {
     return (
       <ThemeProvider theme={this.state.themeIsLight ? lightTheme : darkTheme}>
         <GlobalStyle />
         <Router>
-          <Navbar toggleTheme={this.toggleTheme} />
+          <Navbar
+            toggleTheme={this.toggleTheme}
+            toggleActiveCurrency={this.toggleActiveCurrency}
+            currency={this.state.activeCurrency}
+          />
           <Switch>
-            <Route exact path="/" component={CoinList} />
+            <Route
+              exact
+              path="/"
+              component={(props) => (
+                <CoinList {...props} currency={this.state.activeCurrency} />
+              )}
+            />
             <Route exact path="/portfolio" component={Portfolio} />
             <Route exact path="/coin/:coinId" component={CoinPage} />
           </Switch>

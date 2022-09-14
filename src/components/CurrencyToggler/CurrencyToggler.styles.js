@@ -32,14 +32,15 @@ export const DropdownWrapper = styled.div`
   border-radius: 12px;
 `;
 export const DropdownItemContainer = styled.div`
+  margin: auto;
   &:hover {
     background: ${(props) => props.theme.main};
   }
   &:nth-of-type(1) {
-    margin-top: 5px;
+    margin-top: 7px;
   }
-  &:nth-of-type(3) {
-    margin-bottom: 5px;
+  &:nth-of-type(5) {
+    margin-bottom: 7px;
   }
   padding: 5px;
   width: 80px;
@@ -49,5 +50,4 @@ export const DropdownItemContainer = styled.div`
   align-items: center;
   border-radius: 10px;
   cursor: pointer;
-  margin-right: 5px;
 `;

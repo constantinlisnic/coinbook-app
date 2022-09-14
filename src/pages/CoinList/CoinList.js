@@ -5,8 +5,8 @@ class CoinList extends React.Component {
   render() {
     return (
       <>
-        <TwoMainCharts />
-        <FullTable />
+        <TwoMainCharts currency={this.props.currency} />
+        <FullTable currency={this.props.currency} />
       </>
     );
   }

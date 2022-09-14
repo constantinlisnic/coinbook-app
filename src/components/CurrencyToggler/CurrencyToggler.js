@@ -16,7 +16,7 @@ function DropdownItem({
   return (
     <DropdownItemContainer onClick={() => handleClick(currency)}>
       <Img src={symbol} alt={`${currency} symbol`} />
-      <div>{currency}</div>
+      <div>{currency.toUpperCase()}</div>
     </DropdownItemContainer>
   );
 }
@@ -26,21 +26,36 @@ class CurrencyToggler extends React.Component {
     isExpanded: false,
     currencies: [
       {
-        name: "USD",
-        isActive: true,
-        symbolURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
+        name: "usd",
+        symbol: "$",
+        IconURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
       },
       {
-        name: "GBP",
-        isActive: false,
-        symbolURL: "https://i.ibb.co/cNSyGZP/pound-icon.png",
+        name: "eur",
+        symbol: "€",
+        IconURL: "https://i.ibb.co/tP0n42j/euro-icon.png",
       },
       {
-        name: "EUR",
-        isActive: false,
-        symbolURL: "https://i.ibb.co/tP0n42j/euro-icon.png",
+        name: "gbp",
+        symbol: "£",
+        IconURL: "https://i.ibb.co/cNSyGZP/pound-icon.png",
+      },
+      {
+        name: "btc",
+        symbol: "₿",
+        IconURL: "https://i.ibb.co/PWh7SxB/btc32px.png",
+      },
+      {
+        name: "eth",
+        symbol: "Ξ",
+        IconURL: "https://i.ibb.co/QDXPJfV/eth32px.png",
       },
     ],
+    activeCurrency: {
+      name: "usd",
+      symbol: "$",
+      IconURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
+    },
   };
 
   handleClick = () => {
@@ -48,25 +63,20 @@ class CurrencyToggler extends React.Component {
   };
 
   handleSelect = (selectedCurrency) => {
-    const currencies = this.state.currencies.map((currency) => ({
-      ...currency,
-      isActive: currency.name === selectedCurrency,
-    }));
-    this.setState({ isExpanded: false, currencies });
+    const activeCurrency = this.state.currencies.find(
+      (currency) => currency.name === selectedCurrency
+    );
+    this.setState({ isExpanded: false, activeCurrency });
+    this.props.toggleActiveCurrency(activeCurrency);
   };
 
   render() {
-    const selectedCurrency = this.state.currencies.find(
-      (currency) => currency.isActive
-    );
+    const { name, IconURL } = this.state.activeCurrency;
     return (
       <CurrencyWrapper>
         <SelectedWrapper onClick={this.handleClick}>
-          <Img
-            src={selectedCurrency.symbolURL}
-            alt={`${selectedCurrency.name} symbol`}
-          />
-          <div>{selectedCurrency.name}</div>
+          <Img src={IconURL} alt={`${name} symbol`} />
+          <div>{name.toUpperCase()}</div>
           {this.state.isExpanded ? <UpGreenCaret /> : <DownGreenCaret />}
         </SelectedWrapper>
         <DropdownWrapper>
@@ -75,7 +85,7 @@ class CurrencyToggler extends React.Component {
               return (
                 <DropdownItem
                   key={currency.name}
-                  symbol={currency.symbolURL}
+                  symbol={currency.IconURL}
                   currency={currency.name}
                   handleClick={this.handleSelect}
                 />

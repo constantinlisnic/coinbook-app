@@ -16,7 +16,7 @@ class FullTable extends React.Component {
       this.setState({ isLoading: true });
       const path = "coins/markets";
       const config = {
-        vs_currency: "usd",
+        vs_currency: this.props.currency.name,
         order: "market_cap_desc",
         per_page: 10,
         page: 1,
@@ -44,7 +44,11 @@ class FullTable extends React.Component {
           <tbody>
             {isFetched &&
               this.state.tableData.map((coin) => (
-                <TableRow coin={coin} key={coin.id} />
+                <TableRow
+                  coin={coin}
+                  key={coin.id}
+                  symbol={this.props.currency.symbol}
+                />
               ))}
           </tbody>
         </Table>
