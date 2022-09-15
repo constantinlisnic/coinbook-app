@@ -12,5 +12,6 @@ export const TableContainer = styled.div`
   border-radius: 15px;
   width: 1125px;
   margin: auto;
+  margin-bottom: 30px;
   padding: 30px;
 `;
