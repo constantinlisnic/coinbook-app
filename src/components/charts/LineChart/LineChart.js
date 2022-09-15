@@ -31,21 +31,27 @@ ChartJS.register(
 );
 
 function LineChart(props) {
-  const chartData = props.prices.map((data) => ({
-    date: data[0],
-    price: data[1],
-  }));
+  const { labels, values } = props.prices.reduce(
+    ({ labels, values }, [label, value]) => {
+      return {
+        labels: [...labels, label],
+        values: [...values, value],
+      };
+    },
+    { labels: [], values: [] }
+  );
 
   const data = {
-    labels: chartData.map((data) => {
-      const date = new Date(data.date);
+    labels: labels.map((label) => {
+      const date = new Date(label);
       const config = { month: "short", day: "numeric" };
       return new Intl.DateTimeFormat("default", config).format(date);
     }),
+
     datasets: [
       {
         label: "Price",
-        data: chartData.map((data) => data.price),
+        data: values,
       },
     ],
   };

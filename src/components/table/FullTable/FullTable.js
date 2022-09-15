@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import { TableHead, TableRow } from "components/table";
+import { LoadingFullTable } from "components/loadingContainers";
 import { Table, TableContainer } from "./FullTable.styles";
 
 class FullTable extends React.Component {
@@ -45,19 +46,22 @@ class FullTable extends React.Component {
     const isFetched = !this.state.isLoading && this.state.tableData;
     return (
       <TableContainer>
-        <Table>
-          <TableHead />
-          <tbody>
-            {isFetched &&
-              this.state.tableData.map((coin) => (
+        {isFetched ? (
+          <Table>
+            <TableHead />
+            <tbody>
+              {this.state.tableData.map((coin) => (
                 <TableRow
                   coin={coin}
                   key={coin.id}
                   symbol={this.props.currency.symbol}
                 />
               ))}
-          </tbody>
-        </Table>
+            </tbody>
+          </Table>
+        ) : (
+          <LoadingFullTable error={this.state.errorMessage} />
+        )}
       </TableContainer>
     );
   }

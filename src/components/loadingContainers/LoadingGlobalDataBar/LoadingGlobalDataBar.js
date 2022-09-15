@@ -1,13 +1,9 @@
 import { Container } from "./LoadingGlobalDataBar.styles";
 
 function LoadingGlobalDataBar({ error = "" }) {
-  return error ? (
+  return (
     <Container>
-      <div>{error}</div>
-    </Container>
-  ) : (
-    <Container>
-      <div>Loading...</div>
+      <div>{error ? error : "Loading..."}</div>
     </Container>
   );
 }

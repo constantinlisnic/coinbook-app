@@ -1,7 +1,6 @@
 import numeral from "numeral";
 import { Sparkline, DisplayPriceChange } from "components/table";
 import { ProgressBar } from "components";
-import { formatNumber } from "utils";
 import {
   Img,
   Td,
@@ -23,7 +22,7 @@ function TableRow({ coin, symbol }) {
           </div>
         </NameWrapper>
       </Td>
-      <Td>{symbol + formatNumber(coin.current_price)}</Td>
+      <Td>{symbol + numeral(coin.current_price).format("0,0.00[00000000]")}</Td>
       <Td>
         <DisplayPriceChange
           priceChange={coin.price_change_percentage_1h_in_currency}

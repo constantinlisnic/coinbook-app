@@ -27,21 +27,26 @@ ChartJS.register(
 );
 
 function BarChart(props) {
-  const chartData = props.total_volumes.map((data) => ({
-    date: data[0],
-    volume: data[1],
-  }));
+  const { labels, values } = props.total_volumes.reduce(
+    ({ labels, values }, [label, value]) => {
+      return {
+        labels: [...labels, label],
+        values: [...values, value],
+      };
+    },
+    { labels: [], values: [] }
+  );
 
   const data = {
-    labels: chartData.map((data) => {
-      const date = new Date(data.date);
+    labels: labels.map((label) => {
+      const date = new Date(label);
       const config = { month: "short", day: "numeric" };
       return new Intl.DateTimeFormat("default", config).format(date);
     }),
     datasets: [
       {
         label: "Volume",
-        data: chartData.map((data) => data.volume),
+        data: values,
       },
     ],
   };
@@ -50,6 +55,14 @@ function BarChart(props) {
     responsive: true,
     plugins: {
       legend: { display: false },
+      tooltip: {
+        callbacks: {
+          label: (context) => {
+            const label = `${context.dataset.label}: ${props.symbol}${context.formattedValue}`;
+            return label;
+          },
+        },
+      },
     },
     elements: {
       bar: {
