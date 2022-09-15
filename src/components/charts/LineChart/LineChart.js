@@ -85,16 +85,18 @@ function LineChart(props) {
       },
     },
     scales: {
-      xAxis: {
+      x: {
         grid: {
           display: false,
           drawBorder: false,
         },
         ticks: {
-          maxTicksLimit: 10,
+          maxTicksLimit: 8,
+          maxRotation: 0,
+          align: "start",
         },
       },
-      yAxis: {
+      y: {
         display: false,
       },
     },

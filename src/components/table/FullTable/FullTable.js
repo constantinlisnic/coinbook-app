@@ -35,6 +35,12 @@ class FullTable extends React.Component {
     this.getTableData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.currency.name !== prevProps.currency.name) {
+      this.getTableData();
+    }
+  }
+
   render() {
     const isFetched = !this.state.isLoading && this.state.tableData;
     return (

@@ -32,6 +32,12 @@ class TwoMainCharts extends React.Component {
     this.getChartData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.currency.name !== prevProps.currency.name) {
+      this.getChartData();
+    }
+  }
+
   render() {
     const isFetched = !this.state.isLoading && this.state.chartData;
     return (

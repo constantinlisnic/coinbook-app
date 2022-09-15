@@ -73,7 +73,9 @@ function BarChart(props) {
           drawBorder: false,
         },
         ticks: {
-          maxTicksLimit: 10,
+          maxTicksLimit: 8,
+          maxRotation: 0,
+          align: "start",
         },
       },
       y: {
