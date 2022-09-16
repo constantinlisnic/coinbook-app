@@ -32,6 +32,7 @@ class Navbar extends React.Component {
 
             <CurrencyToggler
               toggleActiveCurrency={this.props.toggleActiveCurrency}
+              currency={this.props.currency}
             />
 
             <ThemeButtonContainer>

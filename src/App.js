@@ -11,6 +11,7 @@ class App extends React.Component {
     activeCurrency: {
       name: "usd",
       symbol: "$",
+      IconURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
     },
   };
 
@@ -31,7 +32,7 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              component={(props) => (
+              render={(props) => (
                 <CoinList {...props} currency={this.state.activeCurrency} />
               )}
             />

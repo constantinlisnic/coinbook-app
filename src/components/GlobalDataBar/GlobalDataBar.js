@@ -1,7 +1,8 @@
 import React from "react";
 import axios from "axios";
 import numeral from "numeral";
-import { LoadingGlobalDataBar, ProgressBar } from "components";
+import { ProgressBar } from "components";
+import { LoadingGlobalDataBar } from "components/loadingContainers";
 import { BulletDot } from "styles";
 import {
   MarketCapDiv,

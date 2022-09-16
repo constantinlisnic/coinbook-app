@@ -51,11 +51,6 @@ class CurrencyToggler extends React.Component {
         IconURL: "https://i.ibb.co/QDXPJfV/eth32px.png",
       },
     ],
-    activeCurrency: {
-      name: "usd",
-      symbol: "$",
-      IconURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
-    },
   };
 
   handleClick = () => {
@@ -71,7 +66,7 @@ class CurrencyToggler extends React.Component {
   };
 
   render() {
-    const { name, IconURL } = this.state.activeCurrency;
+    const { name, IconURL } = this.props.currency;
     return (
       <CurrencyWrapper>
         <SelectedWrapper onClick={this.handleClick}>

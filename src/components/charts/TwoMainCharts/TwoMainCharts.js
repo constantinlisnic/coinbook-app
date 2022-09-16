@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import { LineChart, BarChart } from "components/charts";
+import { LoadingTwoMainCharts } from "components/loadingContainers";
 import { ChartsContainer, OverView } from "./TwoMainCharts.styles";
 
 class TwoMainCharts extends React.Component {
@@ -32,12 +33,18 @@ class TwoMainCharts extends React.Component {
     this.getChartData();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.currency.name !== prevProps.currency.name) {
+      this.getChartData();
+    }
+  }
+
   render() {
     const isFetched = !this.state.isLoading && this.state.chartData;
     return (
       <>
         <OverView>Your overview</OverView>
-        {isFetched && (
+        {isFetched ? (
           <ChartsContainer>
             <LineChart
               {...this.state.chartData}
@@ -48,6 +55,8 @@ class TwoMainCharts extends React.Component {
               symbol={this.props.currency.symbol}
             />
           </ChartsContainer>
+        ) : (
+          <LoadingTwoMainCharts error={this.state.errorMessage} />
         )}
       </>
     );

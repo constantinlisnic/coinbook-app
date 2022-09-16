@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LineChartContainer = styled.div`
-  width: 510px;
+  width: 516px;
   background: ${(props) => props.theme.secondary};
   padding: 30px;
   border-radius: 15px;

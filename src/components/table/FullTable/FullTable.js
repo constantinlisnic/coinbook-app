@@ -1,14 +1,17 @@
 import React from "react";
 import axios from "axios";
+import InfiniteScroll from "react-infinite-scroll-component";
 import { getURL } from "utils";
 import { TableHead, TableRow } from "components/table";
+import { LoadingFullTable } from "components/loadingContainers";
 import { Table, TableContainer } from "./FullTable.styles";
 
 class FullTable extends React.Component {
   state = {
-    tableData: null,
+    tableData: [],
     isLoading: false,
     errorMessage: null,
+    page: 1,
   };
 
   getTableData = async () => {
@@ -18,14 +21,17 @@ class FullTable extends React.Component {
       const config = {
         vs_currency: this.props.currency.name,
         order: "market_cap_desc",
-        per_page: 10,
-        page: 1,
+        per_page: 20,
+        page: this.state.page,
         sparkline: true,
         price_change_percentage: "1h,24h,7d",
       };
       const url = getURL(path, config);
-      const response = await axios(url);
-      this.setState({ tableData: response.data, isLoading: false });
+      const { data } = await axios(url);
+      this.setState({
+        tableData: [...this.state.tableData, ...data],
+        isLoading: false,
+      });
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }
@@ -35,23 +41,45 @@ class FullTable extends React.Component {
     this.getTableData();
   }
 
+  componentDidUpdate(prevProps, prevState) {
+    if (this.props.currency.name !== prevProps.currency.name) {
+      this.getTableData();
+    }
+    if (this.state.page !== prevState.page) {
+      this.getTableData();
+    }
+  }
+
   render() {
-    const isFetched = !this.state.isLoading && this.state.tableData;
+    const isFetched = !this.state.isLoading && this.state.tableData.length;
     return (
       <TableContainer>
-        <Table>
-          <TableHead />
-          <tbody>
-            {isFetched &&
-              this.state.tableData.map((coin) => (
-                <TableRow
-                  coin={coin}
-                  key={coin.id}
-                  symbol={this.props.currency.symbol}
-                />
-              ))}
-          </tbody>
-        </Table>
+        {isFetched ? (
+          <InfiniteScroll
+            dataLength={this.state.tableData}
+            next={() => this.setState({ page: this.state.page + 1 })}
+            hasMore={true}
+            scrollThreshold={1}
+            loader={
+              <h4 style={{ textAlign: "center" }}>Loading more coins...</h4>
+            }
+          >
+            <Table>
+              <TableHead />
+              <tbody>
+                {this.state.tableData.map((coin) => (
+                  <TableRow
+                    coin={coin}
+                    key={coin.id}
+                    symbol={this.props.currency.symbol}
+                  />
+                ))}
+              </tbody>
+            </Table>
+          </InfiniteScroll>
+        ) : (
+          <LoadingFullTable error={this.state.errorMessage} />
+        )}
       </TableContainer>
     );
   }
