@@ -4,6 +4,7 @@ import {
   CoinWrapper,
   LinkWrapper,
   StyledLink,
+  RankDiv,
 } from "./LeftSquare.styles";
 
 function LeftSquare(props) {
@@ -16,6 +17,7 @@ function LeftSquare(props) {
         <div>
           {props.name} ({props.symbol.toUpperCase()})
         </div>
+        <RankDiv>#{props.market_cap_rank}</RankDiv>
       </CoinWrapper>
       <LinkWrapper>
         <StyledLink href={props.links.homepage[0]} target="blank">

@@ -27,7 +27,9 @@ function TableRow({ coin, symbol }) {
       </Td>
       <Td>
         <StyledLink to={`/coin/${coin.id}`}>
-          {symbol + numeral(coin.current_price).format("0,0.00[00000000]")}
+          {coin.current_price.toString().includes("e")
+            ? "$0.000000..."
+            : symbol + numeral(coin.current_price).format("0,0.00[00000000]")}
         </StyledLink>
       </Td>
       <Td>

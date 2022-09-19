@@ -25,7 +25,7 @@ export const Change24h = styled.div`
   gap: 15px;
   background: ${(props) => props.theme.main};
   border-radius: 12px;
-  padding: 12px 30px;
+  padding: 15px 30px;
 `;
 
 export const AllTimeDiv = styled.div`

@@ -14,32 +14,34 @@ import {
 } from "./CentralSquare.styles";
 
 function CentralSquare(props) {
+  const {
+    current_price,
+    price_change_24h_in_currency,
+    price_change_percentage_24h,
+    ath,
+    ath_date,
+    atl,
+    atl_date,
+  } = props.market_data;
   const formatDate = (date) => {
     date = new Date(date);
     return date.toUTCString();
   };
-
-  const priceChangeValue =
-    (props.market_data.price_change_percentage_24h / 100) *
-    props.market_data.current_price.usd;
-
   return (
     <Container>
       <PriceDiv>
-        {"$" +
-          numeral(props.market_data.current_price.usd).format(
-            "0,0.00[00000000]"
-          )}
+        {"$" + numeral(current_price.usd).format("0,0.00[00000000]")}
       </PriceDiv>
       <Change24h>
         <div>24h gain/loss: </div>
         <GainLoss>
-          <ChangedValueDiv priceChange={priceChangeValue}>
-            {"$" + numeral(priceChangeValue.toFixed(2)).format("0,0.00")}
+          <ChangedValueDiv priceChange={price_change_24h_in_currency.usd}>
+            {"$" +
+              numeral(price_change_24h_in_currency.usd.toFixed(3)).format(
+                "0,0.000"
+              )}
           </ChangedValueDiv>
-          <DisplayPriceChange
-            priceChange={props.market_data.price_change_percentage_24h}
-          />
+          <DisplayPriceChange priceChange={price_change_percentage_24h} />
         </GainLoss>
       </Change24h>
       <img
@@ -51,23 +53,19 @@ function CentralSquare(props) {
           <AllTimeDiv>
             <UpGreenCaret />
             <StyledSpan>All Time High: </StyledSpan>
-            {"$" +
-              numeral(props.market_data.ath.usd).format("0,0.00[00000000]")}
+            {"$" + numeral(ath.usd).format("0,0.00[00000000]")}
           </AllTimeDiv>
-          <AllTimeDate>
-            {formatDate(props.market_data.ath_date.usd)}
-          </AllTimeDate>
+          <AllTimeDate>{formatDate(ath_date.usd)}</AllTimeDate>
         </div>
         <div>
           <AllTimeDiv>
             <DownRedCaret />
             <StyledSpan>All Time Low: </StyledSpan>
-            {"$" +
-              numeral(props.market_data.atl.usd).format("0,0.00[00000000]")}
+            {atl.usd.toString().includes("e")
+              ? "$0.000000..."
+              : "$" + numeral(atl.usd).format("0,0.00[00000000]")}
           </AllTimeDiv>
-          <AllTimeDate>
-            {formatDate(props.market_data.atl_date.usd)}
-          </AllTimeDate>
+          <AllTimeDate>{formatDate(atl_date.usd)}</AllTimeDate>
         </div>
       </AllTimeWrapper>
     </Container>

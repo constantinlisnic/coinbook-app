@@ -50,4 +50,9 @@ export const StyledLink = styled.a`
   justify-content: center;
   align-items: center;
   gap: 15px;
+  overflow: hidden;
+`;
+
+export const RankDiv = styled.div`
+  color: #adaaa8;
 `;
