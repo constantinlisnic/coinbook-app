@@ -1,4 +1,13 @@
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+export const StyledLink = styled(Link)`
+  color: ${(props) => props.theme.color};
+  text-decoration: none;
+  &:visited {
+    color: ${(props) => props.theme.color};
+  }
+`;
 
 export const Img = styled.img`
   width: 34px;

@@ -12,11 +12,13 @@ class FullTable extends React.Component {
     isLoading: false,
     errorMessage: null,
     page: 1,
+    loadingMoreCoins: false,
   };
 
   getTableData = async () => {
+    const { tableData, loadingMoreCoins } = this.state;
     try {
-      this.setState({ isLoading: true });
+      !loadingMoreCoins && this.setState({ isLoading: true });
       const path = "coins/markets";
       const config = {
         vs_currency: this.props.currency.name,
@@ -28,10 +30,14 @@ class FullTable extends React.Component {
       };
       const url = getURL(path, config);
       const { data } = await axios(url);
-      this.setState({
-        tableData: [...this.state.tableData, ...data],
-        isLoading: false,
-      });
+      if (!loadingMoreCoins) {
+        this.setState({ tableData: [...data], isLoading: false });
+      } else {
+        this.setState({
+          tableData: [...tableData, ...data],
+          loadingMoreCoins: false,
+        });
+      }
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }
@@ -57,7 +63,12 @@ class FullTable extends React.Component {
         {isFetched ? (
           <InfiniteScroll
             dataLength={this.state.tableData}
-            next={() => this.setState({ page: this.state.page + 1 })}
+            next={() =>
+              this.setState({
+                loadingMoreCoins: true,
+                page: this.state.page + 1,
+              })
+            }
             hasMore={true}
             scrollThreshold={1}
             loader={

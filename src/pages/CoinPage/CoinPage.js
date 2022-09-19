@@ -1,8 +1,9 @@
 import React from "react";
+import { WholePage } from "components/coin";
 
 class CoinPage extends React.Component {
   render() {
-    return <div>{this.props.match.params.coinId}</div>;
+    return <WholePage coinId={this.props.match.params.coinId} />;
   }
 }
 
