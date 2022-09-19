@@ -49,7 +49,7 @@ export const StyledSpan = styled.span`
 
 export const AllTimeDate = styled.div`
   font-size: 13px;
-  color: #adaaa8;
+  color: ${(props) => props.theme.secondaryText};
   padding-left: 20px;
 `;
 

@@ -13,6 +13,7 @@ export const darkTheme = {
   barBorder: "#1f2128",
   barTextLeft: "#b4b9d4",
   barTextRight: "#82869e",
+  secondaryText: "#adaaa8",
 };
 export const lightTheme = {
   main: "#f7f7f7",
@@ -29,4 +30,5 @@ export const lightTheme = {
   barBorder: "white",
   barTextLeft: "#82869e",
   barTextRight: "#b4b9d4",
+  secondaryText: "#adaaa8",
 };

@@ -54,5 +54,5 @@ export const StyledLink = styled.a`
 `;
 
 export const RankDiv = styled.div`
-  color: #adaaa8;
+  color: ${(props) => props.theme.secondaryText};
 `;

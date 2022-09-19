@@ -4,6 +4,10 @@ import {
   Container,
   StyledBulletPoint,
   ItemWrapper,
+  ItemName,
+  BarWholeValue,
+  BarFiller,
+  BarInnerFiller,
 } from "./RightSquare.styles";
 
 function RightSquare(props) {
@@ -12,7 +16,7 @@ function RightSquare(props) {
       <div>
         <ItemWrapper>
           <StyledBulletPoint />
-          <div>Market Cap:</div>
+          <ItemName>Market Cap:</ItemName>
           <div>${numeral(props.market_data.market_cap.usd).format("0,0")}</div>
           <DisplayPriceChange
             priceChange={
@@ -22,7 +26,7 @@ function RightSquare(props) {
         </ItemWrapper>
         <ItemWrapper>
           <StyledBulletPoint />
-          <div>Fully Diluted Valuation:</div>
+          <ItemName>Fully Diluted Valuation:</ItemName>
           <div>
             $
             {numeral(props.market_data.fully_diluted_valuation.usd).format(
@@ -32,14 +36,14 @@ function RightSquare(props) {
         </ItemWrapper>
         <ItemWrapper>
           <StyledBulletPoint />
-          <div>Volume 24h:</div>
+          <ItemName>Volume 24h:</ItemName>
           <div>
             ${numeral(props.market_data.total_volume.usd).format("0,0")}
           </div>
         </ItemWrapper>
         <ItemWrapper>
           <StyledBulletPoint />
-          <div>Volume / Market Cap:</div>
+          <ItemName>Volume / Market Cap:</ItemName>
           <div>
             {numeral(
               props.market_data.total_volume.usd /
@@ -50,8 +54,8 @@ function RightSquare(props) {
       </div>
       <div>
         <ItemWrapper>
-          <StyledBulletPoint />
-          <div>Total Volume:</div>
+          <StyledBulletPoint style={{ color: "#80ced7" }} />
+          <ItemName>Total Volume:</ItemName>
           <div>
             {numeral(
               Math.round(
@@ -63,22 +67,38 @@ function RightSquare(props) {
           <div>{props.symbol.toUpperCase()}</div>
         </ItemWrapper>
         <ItemWrapper>
-          <StyledBulletPoint />
-          <div>Circulating Supply:</div>
+          <StyledBulletPoint style={{ color: "#007ea7" }} />
+          <ItemName>Circulating Supply:</ItemName>
           <div>
             {numeral(props.market_data.circulating_supply).format("0,0")}
           </div>
           <div>{props.symbol.toUpperCase()}</div>
         </ItemWrapper>
         <ItemWrapper>
-          <StyledBulletPoint />
-          <div>Max Supply:</div>
+          <StyledBulletPoint style={{ color: "#003249" }} />
+          <ItemName>Max Supply:</ItemName>
           <div>{numeral(props.market_data.total_supply).format("0,0")}</div>
           <div>
             <div>{props.symbol.toUpperCase()}</div>
           </div>
         </ItemWrapper>
       </div>
+      <div>
+        <div></div>
+        <div>
+          {Math.round(
+            (props.market_data.circulating_supply /
+              props.market_data.total_supply) *
+              100
+          ) + "%"}
+        </div>
+        <div>100%</div>
+      </div>
+      <BarWholeValue>
+        <BarFiller>
+          <BarInnerFiller></BarInnerFiller>
+        </BarFiller>
+      </BarWholeValue>
     </Container>
   );
 }
