@@ -4,9 +4,7 @@ export const ChartsContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: auto;
-  margin-bottom: 30px;
-  margin-top: 30px;
+  margin: 30px auto;
   width: 1185px;
 `;
 

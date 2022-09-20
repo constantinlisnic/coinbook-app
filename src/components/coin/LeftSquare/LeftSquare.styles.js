@@ -7,6 +7,19 @@ export const Container = styled.div`
   justify-content: space-between;
 `;
 
+export const CoinWrapper = styled.div`
+  background: ${(props) => props.theme.secondary};
+  border-radius: 15px;
+  width: 280px;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 25px;
+  font-size: 20px;
+`;
+
 export const ImgWrapper = styled.div`
   background: ${(props) => props.theme.main};
   border-radius: 12px;
@@ -17,23 +30,11 @@ export const ImgWrapper = styled.div`
   align-items: center;
 `;
 
-export const CoinWrapper = styled.div`
-  background: ${(props) => props.theme.secondary};
-  border-radius: 15px;
-  width: 220px;
-  height: 260px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 15px;
-  flex-direction: column;
-`;
-
 export const LinkWrapper = styled.div`
   background: ${(props) => props.theme.secondary};
   border-radius: 15px;
-  width: 220px;
-  height: 60px;
+  width: 280px;
+  height: 65px;
   display: flex;
   justify-content: center;
   align-items: center;

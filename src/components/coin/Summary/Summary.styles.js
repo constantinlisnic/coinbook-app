@@ -8,9 +8,8 @@ export const Title = styled.div`
 
 export const SquaresWrapper = styled.div`
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 100px;
-  margin-top: 30px;
+  margin: 30px auto;
   width: 1185px;
 `;

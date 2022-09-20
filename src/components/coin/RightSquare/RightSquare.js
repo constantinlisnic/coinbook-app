@@ -6,11 +6,25 @@ import {
   ItemWrapper,
   ItemName,
   BarWholeValue,
-  BarFiller,
-  BarInnerFiller,
+  VolumeFiller,
+  SupplyFiller,
+  PercentageWrapper,
+  VolumePercentage,
+  SupplyPercentage,
+  InfinityDiv,
 } from "./RightSquare.styles";
 
 function RightSquare(props) {
+  const volumeFiller = Math.round(
+    (props.market_data.total_volume.usd /
+      props.market_data.current_price.usd /
+      props.market_data.total_supply) *
+      100
+  );
+  const supplyFiller = Math.round(
+    (props.market_data.circulating_supply / props.market_data.total_supply) *
+      100
+  );
   return (
     <Container>
       <div>
@@ -77,28 +91,35 @@ function RightSquare(props) {
         <ItemWrapper>
           <StyledBulletPoint style={{ color: "#003249" }} />
           <ItemName>Max Supply:</ItemName>
-          <div>{numeral(props.market_data.total_supply).format("0,0")}</div>
-          <div>
-            <div>{props.symbol.toUpperCase()}</div>
-          </div>
+          {props.market_data.total_supply ? (
+            <>
+              <div>{numeral(props.market_data.total_supply).format("0,0")}</div>
+              <div>
+                <div>{props.symbol.toUpperCase()}</div>
+              </div>
+            </>
+          ) : (
+            <div>Infinity</div>
+          )}
         </ItemWrapper>
       </div>
       <div>
-        <div></div>
-        <div>
-          {Math.round(
-            (props.market_data.circulating_supply /
-              props.market_data.total_supply) *
-              100
-          ) + "%"}
-        </div>
-        <div>100%</div>
+        <BarWholeValue>
+          <SupplyFiller barWidth={supplyFiller}>
+            <VolumeFiller barWidth={volumeFiller}></VolumeFiller>
+          </SupplyFiller>
+        </BarWholeValue>
+        <PercentageWrapper divWidth={supplyFiller}>
+          {props.market_data.total_supply ? (
+            <>
+              <VolumePercentage>{volumeFiller + "%"}</VolumePercentage>
+              <SupplyPercentage>{supplyFiller + "%"}</SupplyPercentage>
+            </>
+          ) : (
+            <InfinityDiv>Infinity</InfinityDiv>
+          )}
+        </PercentageWrapper>
       </div>
-      <BarWholeValue>
-        <BarFiller>
-          <BarInnerFiller></BarInnerFiller>
-        </BarFiller>
-      </BarWholeValue>
     </Container>
   );
 }
