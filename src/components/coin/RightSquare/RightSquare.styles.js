@@ -4,13 +4,13 @@ import { PaperAirplaneIcon as BulletPoint } from "@heroicons/react/24/outline";
 export const Container = styled.div`
   background: ${(props) => props.theme.secondary};
   border-radius: 15px;
-  width: 480px;
+  width: 460px;
   height: 390px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 40px;
+  gap: 27px;
 `;
 
 export const StyledBulletPoint = styled(BulletPoint)`
@@ -73,4 +73,10 @@ export const VolumePercentage = styled.div`
 
 export const InfinityDiv = styled.div`
   margin: auto;
+`;
+
+export const BarWrapper = styled.div`
+  background: ${(props) => props.theme.main};
+  padding: 20px 30px 15px;
+  border-radius: 15px;
 `;

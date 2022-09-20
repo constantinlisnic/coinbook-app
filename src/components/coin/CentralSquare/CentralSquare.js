@@ -23,6 +23,7 @@ function CentralSquare(props) {
     atl,
     atl_date,
   } = props.market_data;
+  const { name: currencyName, symbol } = props.currency;
   const formatDate = (date) => {
     date = new Date(date);
     return date.toUTCString();
@@ -30,16 +31,19 @@ function CentralSquare(props) {
   return (
     <Container>
       <PriceDiv>
-        {"$" + numeral(current_price.usd).format("0,0.00[00000000]")}
+        {symbol +
+          numeral(current_price[currencyName]).format("0,0.00[00000000]")}
       </PriceDiv>
       <Change24h>
         <div>24h gain/loss: </div>
         <GainLoss>
-          <ChangedValueDiv priceChange={price_change_24h_in_currency.usd}>
-            {"$" +
-              numeral(price_change_24h_in_currency.usd.toFixed(3)).format(
-                "0,0.000"
-              )}
+          <ChangedValueDiv
+            priceChange={price_change_24h_in_currency[currencyName]}
+          >
+            {symbol +
+              numeral(
+                price_change_24h_in_currency[currencyName].toFixed(3)
+              ).format("0,0.000")}
           </ChangedValueDiv>
           <DisplayPriceChange priceChange={price_change_percentage_24h} />
         </GainLoss>
@@ -53,19 +57,19 @@ function CentralSquare(props) {
           <AllTimeDiv>
             <UpGreenCaret />
             <StyledSpan>All Time High: </StyledSpan>
-            {"$" + numeral(ath.usd).format("0,0.00[00000000]")}
+            {symbol + numeral(ath[currencyName]).format("0,0.00[00000000]")}
           </AllTimeDiv>
-          <AllTimeDate>{formatDate(ath_date.usd)}</AllTimeDate>
+          <AllTimeDate>{formatDate(ath_date[currencyName])}</AllTimeDate>
         </div>
         <div>
           <AllTimeDiv>
             <DownRedCaret />
             <StyledSpan>All Time Low: </StyledSpan>
-            {atl.usd.toString().includes("e")
-              ? "$0.000000..."
-              : "$" + numeral(atl.usd).format("0,0.00[00000000]")}
+            {atl[currencyName].toString().includes("e")
+              ? symbol + "0.000000..."
+              : symbol + numeral(atl[currencyName]).format("0,0.00[00000000]")}
           </AllTimeDiv>
-          <AllTimeDate>{formatDate(atl_date.usd)}</AllTimeDate>
+          <AllTimeDate>{formatDate(atl_date[currencyName])}</AllTimeDate>
         </div>
       </AllTimeWrapper>
     </Container>

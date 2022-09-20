@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import { Summary } from "components/coin";
+import { LoadingSummary } from "components/loadingContainers";
 
 class WholePage extends React.Component {
   state = {
@@ -28,12 +29,15 @@ class WholePage extends React.Component {
 
   render() {
     const isFetched = !this.state.isLoading && this.state.coinData;
-    return (
-      isFetched && (
-        <>
-          <Summary coinData={this.state.coinData} />
-        </>
-      )
+    return isFetched ? (
+      <>
+        <Summary
+          coinData={this.state.coinData}
+          currency={this.props.currency}
+        />
+      </>
+    ) : (
+      <LoadingSummary error={this.state.errorMessage} />
     );
   }
 }

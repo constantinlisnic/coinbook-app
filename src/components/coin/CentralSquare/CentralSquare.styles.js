@@ -3,7 +3,7 @@ import styled from "styled-components";
 export const Container = styled.div`
   background: ${(props) => props.theme.secondary};
   border-radius: 15px;
-  width: 370px;
+  width: 380px;
   height: 390px;
   display: flex;
   flex-direction: column;
