@@ -1,7 +1,12 @@
 import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
+import {Summary, CurrencyConvertor,TimeChart, RangeSelector} from "components/coin";
+<<<<<<< HEAD
 import { Summary, TimeChart, RangeSelector } from "components/coin";
+=======
+import { Summary, CurrencyConvertor } from "components/coin";
+>>>>>>> master
 import { LoadingSummary } from "components/loadingContainers";
 
 class WholePage extends React.Component {
@@ -50,6 +55,10 @@ class WholePage extends React.Component {
           coinData={this.state.coinData}
           currency={this.props.currency}
         />
+        <CurrencyConvertor
+          currency={this.props.currency.name}
+          coinData={this.state.coinData}
+        />
         <RangeSelector
           handleRangeChange={this.handleRangeChange}
           selectedDays={this.state.days}
@@ -57,6 +66,20 @@ class WholePage extends React.Component {
         <TimeChart
           chartData={this.state.chartData.prices}
           currencySymbol={this.props.currency.symbol}
+        />
+<<<<<<< HEAD
+        <RangeSelector
+          handleRangeChange={this.handleRangeChange}
+          selectedDays={this.state.days}
+        />
+        <TimeChart
+          chartData={this.state.chartData.prices}
+          currencySymbol={this.props.currency.symbol}
+=======
+        <CurrencyConvertor
+          currency={this.props.currency.name}
+          coinData={this.state.coinData}
+>>>>>>> master
         />
       </>
     ) : (
