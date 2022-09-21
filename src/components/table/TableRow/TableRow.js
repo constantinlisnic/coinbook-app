@@ -1,6 +1,6 @@
 import numeral from "numeral";
-import { Sparkline, DisplayPriceChange } from "components/table";
-import { ProgressBar } from "components";
+import { Sparkline } from "components/table";
+import { ProgressBar, DisplayPriceChange } from "components";
 import {
   Img,
   Td,
@@ -8,6 +8,7 @@ import {
   NameWrapper,
   LeftText,
   RightText,
+  StyledLink,
 } from "./TableRow.styles";
 
 function TableRow({ coin, symbol }) {
@@ -15,14 +16,22 @@ function TableRow({ coin, symbol }) {
     <tr>
       <Td>{coin.market_cap_rank}</Td>
       <Td>
-        <NameWrapper>
-          <Img src={`${coin.image}`} alt="" />
-          <div>
-            {coin.name} ({coin.symbol.toUpperCase()})
-          </div>
-        </NameWrapper>
+        <StyledLink to={`/coin/${coin.id}`}>
+          <NameWrapper>
+            <Img src={`${coin.image}`} alt="" />
+            <div>
+              {coin.name} ({coin.symbol.toUpperCase()})
+            </div>
+          </NameWrapper>
+        </StyledLink>
       </Td>
-      <Td>{symbol + numeral(coin.current_price).format("0,0.00[00000000]")}</Td>
+      <Td>
+        <StyledLink to={`/coin/${coin.id}`}>
+          {coin.current_price.toString().includes("e")
+            ? "$0.000000..."
+            : symbol + numeral(coin.current_price).format("0,0.00[00000000]")}
+        </StyledLink>
+      </Td>
       <Td>
         <DisplayPriceChange
           priceChange={coin.price_change_percentage_1h_in_currency}
@@ -75,7 +84,9 @@ function TableRow({ coin, symbol }) {
         />
       </Td>
       <Td>
-        <Sparkline {...coin} />
+        <StyledLink to={`/coin/${coin.id}`}>
+          <Sparkline {...coin} />
+        </StyledLink>
       </Td>
     </tr>
   );

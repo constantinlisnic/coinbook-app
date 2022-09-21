@@ -32,12 +32,18 @@ class App extends React.Component {
             <Route
               exact
               path="/"
-              render={(props) => (
+              component={(props) => (
                 <CoinList {...props} currency={this.state.activeCurrency} />
               )}
             />
             <Route exact path="/portfolio" component={Portfolio} />
-            <Route exact path="/coin/:coinId" component={CoinPage} />
+            <Route
+              exact
+              path="/coin/:coinId"
+              component={(props) => (
+                <CoinPage {...props} currency={this.state.activeCurrency} />
+              )}
+            />
           </Switch>
         </Router>
       </ThemeProvider>

@@ -8,9 +8,10 @@ export const Table = styled.table`
 `;
 
 export const TableContainer = styled.div`
+  box-sizing: border-box;
   background: ${(props) => props.theme.secondary};
   border-radius: 15px;
-  width: 1125px;
+  width: 1185px;
   margin: auto;
   margin-bottom: 30px;
   padding: 30px;
