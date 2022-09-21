@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import { getURL } from "utils";
-import { Summary } from "components/coin";
+import { Summary, CurrencyConvertor } from "components/coin";
 import { LoadingSummary } from "components/loadingContainers";
 
 class WholePage extends React.Component {
@@ -34,6 +34,10 @@ class WholePage extends React.Component {
         <Summary
           coinData={this.state.coinData}
           currency={this.props.currency}
+        />
+        <CurrencyConvertor
+          currency={this.props.currency.name}
+          coinData={this.state.coinData}
         />
       </>
     ) : (
