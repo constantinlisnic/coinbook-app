@@ -10,7 +10,6 @@ class WholePage extends React.Component {
     chartData: null,
     isLoading: false,
     errorMessage: null,
-    days: 10,
   };
 
   getCoinData = async () => {
@@ -24,7 +23,7 @@ class WholePage extends React.Component {
       const chartDataPath = `coins/${this.props.coinId}/market_chart`;
       const chartConfig = {
         vs_currency: this.props.currency.name,
-        days: this.state.days,
+        days: 10,
       };
       const charDataURL = getURL(chartDataPath, chartConfig);
       const { data: chartData } = await axios(charDataURL);
@@ -43,12 +42,6 @@ class WholePage extends React.Component {
     this.getCoinData();
   }
 
-  // componentDidUpdate(prevState) {
-  //   if (this.state.days !== prevState.days) {
-  //     // this.getCoinData();
-  //   }
-  // }
-
   render() {
     const isFetched = !this.state.isLoading && this.state.coinData;
     return isFetched ? (
@@ -57,7 +50,10 @@ class WholePage extends React.Component {
           coinData={this.state.coinData}
           currency={this.props.currency}
         />
-        <RangeSelector handleRangeChange={this.handleRangeChange} />
+        <RangeSelector
+          handleRangeChange={this.handleRangeChange}
+          selectedDays={this.state.days}
+        />
         <TimeChart
           chartData={this.state.chartData.prices}
           currencySymbol={this.props.currency.symbol}
