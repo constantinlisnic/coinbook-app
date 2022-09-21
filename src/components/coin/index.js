@@ -4,3 +4,4 @@ export { default as LeftSquare } from "./LeftSquare";
 export { default as CentralSquare } from "./CentralSquare";
 export { default as RightSquare } from "./RightSquare";
 export { default as Description } from "./Description";
+export { default as CurrencyConvertor } from "./CurrencyConvertor";
