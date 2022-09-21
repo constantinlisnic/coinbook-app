@@ -4,3 +4,5 @@ export { default as LeftSquare } from "./LeftSquare";
 export { default as CentralSquare } from "./CentralSquare";
 export { default as RightSquare } from "./RightSquare";
 export { default as Description } from "./Description";
+export { default as TimeChart } from "./TimeChart";
+export { default as RangeSelector } from "./RangeSelector";
