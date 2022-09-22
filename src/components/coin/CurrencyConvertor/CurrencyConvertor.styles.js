@@ -4,7 +4,7 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding-bottom: 50px;
+  margin-bottom: 30px;
   gap: 30px;
 `;
 
@@ -32,7 +32,7 @@ export const Label = styled.label`
   flex-direction: column;
   justify-content: center;
   aling-items: center;
-  width: 60px;
+  width: 80px;
   text-align: center;
 `;
 
