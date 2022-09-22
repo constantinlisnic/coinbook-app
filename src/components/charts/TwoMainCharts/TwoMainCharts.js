@@ -1,66 +1,57 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import { LineChart, BarChart } from "components/charts";
 import { LoadingTwoMainCharts } from "components/loadingContainers";
 import { ChartsContainer, OverView } from "./TwoMainCharts.styles";
 
-class TwoMainCharts extends React.Component {
-  state = {
-    chartData: null,
-    isLoading: false,
-    errorMessage: null,
-  };
+function TwoMainCharts(props) {
+  const [chartData, setChartData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, SetErrorMessage] = useState(null);
 
-  getChartData = async () => {
+  const getChartData = async () => {
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
       const path = "coins/bitcoin/market_chart";
       const config = {
-        vs_currency: this.props.currency.name,
+        vs_currency: props.currency.name,
         days: 30,
         interval: "daily",
       };
       const url = getURL(path, config);
-      const response = await axios(url);
-      this.setState({ chartData: response.data, isLoading: false });
-    } catch (err) {
-      this.setState({ errorMessage: err.message });
+      const { data } = await axios(url);
+      setChartData(data);
+      setIsLoading(false);
+    } catch ({ message }) {
+      SetErrorMessage(message);
     }
   };
 
-  componentDidMount() {
-    this.getChartData();
-  }
+  useEffect(() => {
+    getChartData();
+    // eslint-disable-next-line
+  }, []);
 
-  componentDidUpdate(prevProps) {
-    if (this.props.currency.name !== prevProps.currency.name) {
-      this.getChartData();
-    }
-  }
+  useEffect(() => {
+    getChartData();
+    // eslint-disable-next-line
+  }, [props.currency.name]);
 
-  render() {
-    const isFetched = !this.state.isLoading && this.state.chartData;
-    return (
-      <>
-        <OverView>Your overview</OverView>
-        {isFetched ? (
-          <ChartsContainer>
-            <LineChart
-              {...this.state.chartData}
-              symbol={this.props.currency.symbol}
-            />
-            <BarChart
-              {...this.state.chartData}
-              symbol={this.props.currency.symbol}
-            />
-          </ChartsContainer>
-        ) : (
-          <LoadingTwoMainCharts error={this.state.errorMessage} />
-        )}
-      </>
-    );
-  }
+  const isFetched = !isLoading && chartData;
+  return (
+    <>
+      <OverView>Your overview</OverView>
+      {isFetched ? (
+        <ChartsContainer>
+          <LineChart {...chartData} symbol={props.currency.symbol} />
+          <BarChart {...chartData} symbol={props.currency.symbol} />
+        </ChartsContainer>
+      ) : (
+        <LoadingTwoMainCharts error={errorMessage} />
+      )}
+    </>
+  );
 }
 
 export default TwoMainCharts;
