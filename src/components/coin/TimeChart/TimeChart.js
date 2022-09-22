@@ -37,8 +37,7 @@ function TimeChart({ chartData, currencySymbol }) {
   const data = {
     labels: labels.map((label) => {
       const date = new Date(label);
-      const config = { month: "short", day: "numeric" };
-      return new Intl.DateTimeFormat("default", config).format(date);
+      return date.toUTCString();
     }),
 
     datasets: [

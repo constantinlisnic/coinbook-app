@@ -48,10 +48,10 @@ class FullTable extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    if (this.props.currency.name !== prevProps.currency.name) {
-      this.getTableData();
-    }
-    if (this.state.page !== prevState.page) {
+    if (
+      this.props.currency.name !== prevProps.currency.name ||
+      this.state.page !== prevState.page
+    ) {
       this.getTableData();
     }
   }

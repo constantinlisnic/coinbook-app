@@ -15,6 +15,7 @@ class WholePage extends React.Component {
     chartData: null,
     isLoading: false,
     errorMessage: null,
+    days: "30",
   };
 
   getCoinData = async () => {
@@ -25,15 +26,23 @@ class WholePage extends React.Component {
       const coinDataURL = getURL(coinDataPath);
       const { data: coinData } = await axios(coinDataURL);
 
+      this.setState({ coinData, isLoading: false });
+    } catch (err) {
+      this.setState({ errorMessage: err.message });
+    }
+  };
+
+  getChartData = async () => {
+    try {
       const chartDataPath = `coins/${this.props.coinId}/market_chart`;
       const chartConfig = {
         vs_currency: this.props.currency.name,
-        days: 10,
+        days: this.state.days,
       };
       const charDataURL = getURL(chartDataPath, chartConfig);
       const { data: chartData } = await axios(charDataURL);
 
-      this.setState({ coinData, chartData, isLoading: false });
+      this.setState({ chartData });
     } catch (err) {
       this.setState({ errorMessage: err.message });
     }
@@ -45,10 +54,21 @@ class WholePage extends React.Component {
 
   componentDidMount() {
     this.getCoinData();
+    this.getChartData();
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      this.state.days !== prevState.days ||
+      this.props.currency.name !== prevProps.currency.name
+    ) {
+      this.getChartData();
+    }
   }
 
   render() {
-    const isFetched = !this.state.isLoading && this.state.coinData;
+    const isFetched =
+      !this.state.isLoading && this.state.coinData && this.state.chartData;
     return isFetched ? (
       <>
         <Summary
@@ -61,7 +81,7 @@ class WholePage extends React.Component {
         />
         <RangeSelector
           handleRangeChange={this.handleRangeChange}
-          selectedDays={this.state.days}
+          selectedRange={this.state.days}
         />
         <TimeChart
           chartData={this.state.chartData.prices}
