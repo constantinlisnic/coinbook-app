@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import {
   Container,
   InputWrapper,
@@ -7,67 +7,65 @@ import {
   Input,
 } from "./CurrencyConvertor.styles";
 
-class CurrencyConvertor extends React.Component {
-  state = {
-    currencyInput:
-      this.props.coinData.market_data.current_price[this.props.currency],
-    cryptoInput: 1,
-  };
+function CurrencyConvertor(props) {
+  const [currencyValue, setCurrencyValue] = useState(
+    props.coinData.market_data.current_price[props.currency]
+  );
+  const [cryptoValue, setCryptoValue] = useState(1);
 
-  handleChangeCurrency = (e) => {
-    const { current_price } = this.props.coinData.market_data;
+  const handleChangeCurrency = (e) => {
+    const { current_price } = props.coinData.market_data;
     const cryptoInput = (
-      e.target.value / current_price[this.props.currency]
+      e.target.value / current_price[props.currency]
     ).toFixed(5);
-    this.setState({ currencyInput: e.target.value, cryptoInput });
+    setCurrencyValue(e.target.value);
+    setCryptoValue(cryptoInput);
   };
 
-  handleChangeCrypto = (e) => {
-    const { current_price } = this.props.coinData.market_data;
+  const handleChangeCrypto = (e) => {
+    const { current_price } = props.coinData.market_data;
     const currencyInput = (
-      e.target.value * current_price[this.props.currency]
-    ).toFixed(5);
-    this.setState({ cryptoInput: e.target.value, currencyInput });
+      e.target.value * current_price[props.currency]
+    ).toFixed(3);
+    setCryptoValue(e.target.value);
+    setCurrencyValue(currencyInput);
   };
 
-  componentDidUpdate(prevProps) {
-    if (this.props.currency !== prevProps.currency) {
-      const { current_price } = this.props.coinData.market_data;
-      this.setState({ currencyInput: current_price[this.props.currency] });
-    }
-  }
+  useEffect(() => {
+    const { current_price } = props.coinData.market_data;
+    setCurrencyValue(current_price[props.currency]);
+    setCryptoValue(1);
+  }, [props.currency]);
 
-  render() {
-    return (
-      <Container>
-        <div>
-          <InputWrapper>
-            <Label htmlFor="currencyInput">
-              <div>{this.props.currency.toUpperCase()}</div>
-            </Label>
-            <Input
-              id="currencyInput"
-              type="number"
-              value={this.state.currencyInput}
-              onChange={this.handleChangeCurrency}
-            />
-          </InputWrapper>
-        </div>
-        <ExchangeIcon />
+  return (
+    <Container>
+      <div>
         <InputWrapper>
-          <Label htmlFor="cryptoInput">
-            <div>{this.props.coinData.symbol.toUpperCase()}</div>
+          <Label htmlFor="currencyInput">
+            <div>{props.currency.toUpperCase()}</div>
           </Label>
           <Input
-            id="cryptoInput"
+            id="currencyInput"
             type="number"
-            value={this.state.cryptoInput}
-            onChange={this.handleChangeCrypto}
+            value={currencyValue}
+            onChange={handleChangeCurrency}
           />
         </InputWrapper>
-      </Container>
-    );
-  }
+      </div>
+      <ExchangeIcon />
+      <InputWrapper>
+        <Label htmlFor="cryptoInput">
+          <div>{props.coinData.symbol.toUpperCase()}</div>
+        </Label>
+        <Input
+          id="cryptoInput"
+          type="number"
+          value={cryptoValue}
+          onChange={handleChangeCrypto}
+        />
+      </InputWrapper>
+    </Container>
+  );
 }
 
 export default CurrencyConvertor;

@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { getURL } from "utils";
 import {
@@ -9,89 +9,76 @@ import {
 } from "components/coin";
 import { LoadingSummary } from "components/loadingContainers";
 
-class WholePage extends React.Component {
-  state = {
-    coinData: null,
-    chartData: null,
-    isLoading: false,
-    errorMessage: null,
-    days: "30",
-  };
+function WholePage(props) {
+  const [coinData, setCoinData] = useState(null);
+  const [chartData, setChartData] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
+  const [days, setDays] = useState("30");
 
-  getCoinData = async () => {
+  const getCoinData = async () => {
     try {
-      this.setState({ isLoading: true });
+      setIsLoading(true);
 
-      const coinDataPath = `coins/${this.props.coinId}`;
+      const coinDataPath = `coins/${props.coinId}`;
       const coinDataURL = getURL(coinDataPath);
-      const { data: coinData } = await axios(coinDataURL);
+      const { data } = await axios(coinDataURL);
 
-      this.setState({ coinData, isLoading: false });
-    } catch (err) {
-      this.setState({ errorMessage: err.message });
+      setCoinData(data);
+      setIsLoading(false);
+    } catch ({ message }) {
+      setErrorMessage(message);
     }
   };
 
-  getChartData = async () => {
+  const getChartData = async () => {
     try {
-      const chartDataPath = `coins/${this.props.coinId}/market_chart`;
+      const chartDataPath = `coins/${props.coinId}/market_chart`;
       const chartConfig = {
-        vs_currency: this.props.currency.name,
-        days: this.state.days,
+        vs_currency: props.currency.name,
+        days: days,
       };
       const charDataURL = getURL(chartDataPath, chartConfig);
-      const { data: chartData } = await axios(charDataURL);
+      const { data } = await axios(charDataURL);
 
-      this.setState({ chartData });
-    } catch (err) {
-      this.setState({ errorMessage: err.message });
+      setChartData(data);
+    } catch ({ message }) {
+      setErrorMessage(message);
     }
   };
 
-  handleRangeChange = (days) => {
-    this.setState({ days });
+  const handleRangeChange = (selectedDays) => {
+    setDays(selectedDays);
   };
 
-  componentDidMount() {
-    this.getCoinData();
-    this.getChartData();
-  }
+  useEffect(() => {
+    getCoinData();
+    getChartData();
+    // eslint-disable-next-line
+  }, []);
 
-  componentDidUpdate(prevProps, prevState) {
-    if (
-      this.state.days !== prevState.days ||
-      this.props.currency.name !== prevProps.currency.name
-    ) {
-      this.getChartData();
-    }
-  }
+  useEffect(() => {
+    getChartData();
+    // eslint-disable-next-line
+  }, [days, props.currency.name]);
 
-  render() {
-    const isFetched =
-      !this.state.isLoading && this.state.coinData && this.state.chartData;
-    return isFetched ? (
-      <>
-        <Summary
-          coinData={this.state.coinData}
-          currency={this.props.currency}
-        />
-        <CurrencyConvertor
-          currency={this.props.currency.name}
-          coinData={this.state.coinData}
-        />
-        <RangeSelector
-          handleRangeChange={this.handleRangeChange}
-          selectedRange={this.state.days}
-        />
-        <TimeChart
-          chartData={this.state.chartData.prices}
-          currencySymbol={this.props.currency.symbol}
-        />
-      </>
-    ) : (
-      <LoadingSummary error={this.state.errorMessage} />
-    );
-  }
+  const isFetched = !isLoading && coinData && chartData;
+  return isFetched ? (
+    <>
+      <Summary coinData={coinData} currency={props.currency} />
+      <CurrencyConvertor currency={props.currency.name} coinData={coinData} />
+      <RangeSelector
+        handleRangeChange={handleRangeChange}
+        selectedRange={days}
+      />
+      <TimeChart
+        chartData={chartData.prices}
+        currencySymbol={props.currency.symbol}
+      />
+    </>
+  ) : (
+    <LoadingSummary error={errorMessage} />
+  );
 }
 
 export default WholePage;
