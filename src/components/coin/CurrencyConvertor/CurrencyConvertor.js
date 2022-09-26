@@ -35,6 +35,7 @@ function CurrencyConvertor(props) {
     const { current_price } = props.coinData.market_data;
     setCurrencyValue(current_price[props.currency]);
     setCryptoValue(1);
+    // eslint-disable-next-line
   }, [props.currency]);
 
   return (
