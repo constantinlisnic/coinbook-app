@@ -1,4 +1,5 @@
 import numeral from "numeral";
+import { useSelector } from "react-redux";
 import { Sparkline } from "components/table";
 import { ProgressBar, DisplayPriceChange } from "components";
 import {
@@ -11,7 +12,10 @@ import {
   StyledLink,
 } from "./TableRow.styles";
 
-function TableRow({ coin, symbol }) {
+function TableRow({ coin }) {
+  const { symbol: currencySymbol } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
   return (
     <tr>
       <Td>{coin.market_cap_rank}</Td>
@@ -29,7 +33,8 @@ function TableRow({ coin, symbol }) {
         <StyledLink to={`/coin/${coin.id}`}>
           {coin.current_price.toString().includes("e")
             ? "$0.000000..."
-            : symbol + numeral(coin.current_price).format("0,0.00[00000000]")}
+            : currencySymbol +
+              numeral(coin.current_price).format("0,0.00[00000000]")}
         </StyledLink>
       </Td>
       <Td>
@@ -50,13 +55,13 @@ function TableRow({ coin, symbol }) {
       <Td>
         <AboveBarText>
           <LeftText>
-            {symbol +
+            {currencySymbol +
               numeral(coin.total_volume)
                 .format("(0.00a)")
                 .toLocaleUpperCase()}{" "}
           </LeftText>
           <RightText>
-            {symbol +
+            {currencySymbol +
               numeral(coin.market_cap).format("(0.00a)").toLocaleUpperCase()}
           </RightText>
         </AboveBarText>

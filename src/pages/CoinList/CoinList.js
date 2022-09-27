@@ -5,8 +5,8 @@ import { TwoMainCharts } from "components/charts";
 function CoinList(props) {
   return (
     <>
-      <TwoMainCharts currency={props.currency} />
-      <FullTable currency={props.currency} />
+      <TwoMainCharts />
+      <FullTable />
     </>
   );
 }

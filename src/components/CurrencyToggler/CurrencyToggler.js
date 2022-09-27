@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { changeCurrency } from "store/settingsSlice";
 import { UpGreenCaret, DownGreenCaret } from "styles";
 import {
   DropdownItemContainer,
@@ -22,6 +24,10 @@ function DropdownItem({
 }
 
 function CurrencyToggler(props) {
+  const dispatch = useDispatch();
+  const { name, IconURL } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
   const [isExpanded, setIsExpanded] = useState(false);
 
   const currencies = [
@@ -61,10 +67,9 @@ function CurrencyToggler(props) {
       (currency) => currency.name === selectedCurrency
     );
     setIsExpanded(false);
-    props.toggleActiveCurrency(activeCurrency);
+    dispatch(changeCurrency(activeCurrency));
   };
 
-  const { name, IconURL } = props.currency;
   return (
     <CurrencyWrapper>
       <SelectedWrapper onClick={handleClick}>

@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -31,6 +32,10 @@ ChartJS.register(
 );
 
 function LineChart(props) {
+  const { symbol: currencySymbol } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
+
   const { labels, values } = props.prices.reduce(
     ({ labels, values }, [label, value]) => {
       return {
@@ -63,7 +68,7 @@ function LineChart(props) {
       tooltip: {
         callbacks: {
           label: (context) => {
-            const label = `${context.dataset.label}: ${props.symbol}${context.formattedValue}`;
+            const label = `${context.dataset.label}: ${currencySymbol}${context.formattedValue}`;
             return label;
           },
         },
@@ -119,7 +124,7 @@ function LineChart(props) {
           <BTCSpan>BTC</BTCSpan> current price:
         </div>
         <Price>
-          {props.symbol +
+          {currencySymbol +
             numeral(props.prices[props.prices.length - 1][1]).format("0,0.00")}
         </Price>
       </PriceContainer>

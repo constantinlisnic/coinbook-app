@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 import axios from "axios";
 import { getURL } from "utils";
 import {
@@ -15,6 +16,9 @@ function WholePage(props) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState(null);
   const [days, setDays] = useState("30");
+  const { name: currencyName } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
 
   const getCoinData = async () => {
     try {
@@ -35,7 +39,7 @@ function WholePage(props) {
     try {
       const chartDataPath = `coins/${props.coinId}/market_chart`;
       const chartConfig = {
-        vs_currency: props.currency.name,
+        vs_currency: currencyName,
         days: days,
       };
       const charDataURL = getURL(chartDataPath, chartConfig);
@@ -60,21 +64,18 @@ function WholePage(props) {
   useEffect(() => {
     getChartData();
     // eslint-disable-next-line
-  }, [days, props.currency.name]);
+  }, [days, currencyName]);
 
   const isFetched = !isLoading && coinData && chartData;
   return isFetched ? (
     <>
-      <Summary coinData={coinData} currency={props.currency} />
-      <CurrencyConvertor currency={props.currency.name} coinData={coinData} />
+      <Summary coinData={coinData} />
+      <CurrencyConvertor coinData={coinData} />
       <RangeSelector
         handleRangeChange={handleRangeChange}
         selectedRange={days}
       />
-      <TimeChart
-        chartData={chartData.prices}
-        currencySymbol={props.currency.symbol}
-      />
+      <TimeChart chartData={chartData.prices} />
     </>
   ) : (
     <LoadingSummary error={errorMessage} />

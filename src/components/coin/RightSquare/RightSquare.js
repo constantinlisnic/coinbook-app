@@ -1,4 +1,5 @@
 import numeral from "numeral";
+import { useSelector } from "react-redux";
 import DisplayPriceChange from "components/DisplayPriceChange";
 import {
   Container,
@@ -16,7 +17,9 @@ import {
 } from "./RightSquare.styles";
 
 function RightSquare(props) {
-  const { name: currencyName, symbol } = props.currency;
+  const { name: currencyName, symbol: currencySymbol } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
   const volumeFiller = Math.round(
     (props.market_data.total_volume[currencyName] /
       props.market_data.current_price[currencyName] /
@@ -34,7 +37,7 @@ function RightSquare(props) {
           <StyledBulletPoint />
           <ItemName>Market Cap:</ItemName>
           <div>
-            {symbol}
+            {currencySymbol}
             {numeral(props.market_data.market_cap[currencyName]).format("0,0")}
           </div>
           <DisplayPriceChange
@@ -49,7 +52,7 @@ function RightSquare(props) {
           <StyledBulletPoint />
           <ItemName>Fully Diluted Valuation:</ItemName>
           <div>
-            {symbol}
+            {currencySymbol}
             {numeral(
               props.market_data.fully_diluted_valuation[currencyName]
             ).format("0,0")}
@@ -59,7 +62,7 @@ function RightSquare(props) {
           <StyledBulletPoint />
           <ItemName>Volume 24h:</ItemName>
           <div>
-            {symbol}
+            {currencySymbol}
             {numeral(props.market_data.total_volume[currencyName]).format(
               "0,0"
             )}

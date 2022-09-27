@@ -12,8 +12,8 @@ function Summary(props) {
       <Title>Your Summary</Title>
       <SquaresWrapper>
         <LeftSquare {...props.coinData} />
-        <CentralSquare {...props.coinData} currency={props.currency} />
-        <RightSquare {...props.coinData} currency={props.currency} />
+        <CentralSquare {...props.coinData} />
+        <RightSquare {...props.coinData} />
       </SquaresWrapper>
       <Description {...props.coinData} />
     </>
