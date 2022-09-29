@@ -15,7 +15,7 @@ import {
   FirstRow,
   SecondRow,
 } from "./Navbar.styles";
-function Navbar(props) {
+function Navbar() {
   const dispatch = useDispatch();
 
   return (
@@ -33,10 +33,7 @@ function Navbar(props) {
             <Input type="text" placeholder="Search..." />
           </InputContainer>
 
-          <CurrencyToggler
-          // toggleActiveCurrency={props.toggleActiveCurrency}
-          // currency={props.currency}
-          />
+          <CurrencyToggler />
 
           <ThemeButtonContainer>
             <ThemeChangeButton
@@ -47,7 +44,7 @@ function Navbar(props) {
       </FirstRow>
 
       <SecondRow>
-        <GlobalDataBar currency={props.currency} />
+        <GlobalDataBar />
       </SecondRow>
     </NavContainer>
   );

@@ -1,9 +1,11 @@
 import { Container } from "./LoadingGlobalDataBar.styles";
 
-function LoadingGlobalDataBar({ error = "" }) {
+function LoadingGlobalDataBar({ error = null }) {
   return (
     <Container>
-      <div>{error ? error : "Loading..."}</div>
+      <div>
+        {error ? `Code ${error.status}. ${error.data.error}` : "Loading..."}
+      </div>
     </Container>
   );
 }

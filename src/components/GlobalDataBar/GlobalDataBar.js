@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
 import numeral from "numeral";
 import { ProgressBar } from "components";
 import { LoadingGlobalDataBar } from "components/loadingContainers";
@@ -13,34 +11,20 @@ import {
   ETHPercentageDiv,
   ETHIcon,
 } from "./GlobalDataBar.styles";
-import { getURL, GainLossCaret } from "utils";
+import { GainLossCaret } from "utils";
+import { useGetGlobalDataQuery } from "store/apiSlice";
 
-function GlobalDataBar(props) {
+function GlobalDataBar() {
   const { name: currencyName, symbol } = useSelector(
     (state) => state.settings.activeCurrency
   );
-  const [globalData, setGlobalData] = useState({});
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
+  const {
+    data: globalData,
+    isSuccess,
+    isLoading,
+    error,
+  } = useGetGlobalDataQuery();
 
-  const getGlobalData = async () => {
-    try {
-      setIsLoading(true);
-      const url = getURL("global");
-      const { data } = await axios(url);
-      setGlobalData(data.data);
-      setIsLoading(false);
-    } catch ({ message }) {
-      setErrorMessage(message);
-    }
-  };
-
-  useEffect(() => {
-    getGlobalData();
-    // eslint-disable-next-line
-  }, []);
-
-  const isFetched = !isLoading && Object.keys(globalData).length;
   const {
     active_cryptocurrencies,
     total_market_cap,
@@ -48,55 +32,57 @@ function GlobalDataBar(props) {
     markets,
     market_cap_change_percentage_24h_usd,
     market_cap_percentage,
-  } = globalData;
+  } = isSuccess ? globalData.data : {};
 
-  return isFetched ? (
+  return (
     <>
-      <div>Coins: {numeral(active_cryptocurrencies).format("0,0")}</div>
-      <div>Exchanges: {markets}</div>
-      <MarketCapDiv>
-        <BulletDot />
-        {symbol +
-          numeral(total_market_cap[currencyName])
-            .format("(0.00a)")
-            .toLocaleUpperCase()}
-        <GainLossCaret priceChange={market_cap_change_percentage_24h_usd} />
-      </MarketCapDiv>
-      <TotalVolumeDiv>
-        <BulletDot />
-        {symbol +
-          numeral(total_volume[currencyName])
-            .format("(0.00a)")
-            .toLocaleUpperCase()}
-        <ProgressBar
-          barWidth={70}
-          filler={total_volume[currencyName]}
-          wholeValue={total_market_cap[currencyName]}
-        />
-      </TotalVolumeDiv>
-      <BTCPercentageDiv>
-        <BTCIcon />
-        <div>
-          {numeral(globalData.market_cap_percentage.btc).format("0.0") + "%"}
-        </div>
-        <ProgressBar
-          barWidth={70}
-          filler={market_cap_percentage.btc / 100}
-          wholeValue={1}
-        />
-      </BTCPercentageDiv>
-      <ETHPercentageDiv>
-        <ETHIcon />
-        <div>{numeral(market_cap_percentage.eth).format("0.0") + "%"}</div>
-        <ProgressBar
-          barWidth={70}
-          filler={market_cap_percentage.eth / 100}
-          wholeValue={1}
-        />
-      </ETHPercentageDiv>
+      {!isLoading && isSuccess ? (
+        <>
+          <div>Coins: {numeral(active_cryptocurrencies).format("0,0")}</div>
+          <div>Exchanges: {markets}</div>
+          <MarketCapDiv>
+            <BulletDot />
+            {symbol +
+              numeral(total_market_cap[currencyName])
+                .format("(0.00a)")
+                .toLocaleUpperCase()}
+            <GainLossCaret priceChange={market_cap_change_percentage_24h_usd} />
+          </MarketCapDiv>
+          <TotalVolumeDiv>
+            <BulletDot />
+            {symbol +
+              numeral(total_volume[currencyName])
+                .format("(0.00a)")
+                .toLocaleUpperCase()}
+            <ProgressBar
+              barWidth={70}
+              filler={total_volume[currencyName]}
+              wholeValue={total_market_cap[currencyName]}
+            />
+          </TotalVolumeDiv>
+          <BTCPercentageDiv>
+            <BTCIcon />
+            <div>{numeral(market_cap_percentage.btc).format("0.0") + "%"}</div>
+            <ProgressBar
+              barWidth={70}
+              filler={market_cap_percentage.btc / 100}
+              wholeValue={1}
+            />
+          </BTCPercentageDiv>
+          <ETHPercentageDiv>
+            <ETHIcon />
+            <div>{numeral(market_cap_percentage.eth).format("0.0") + "%"}</div>
+            <ProgressBar
+              barWidth={70}
+              filler={market_cap_percentage.eth / 100}
+              wholeValue={1}
+            />
+          </ETHPercentageDiv>
+        </>
+      ) : (
+        <LoadingGlobalDataBar error={error} />
+      )}
     </>
-  ) : (
-    <LoadingGlobalDataBar error={errorMessage} />
   );
 }
 

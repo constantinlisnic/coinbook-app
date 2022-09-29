@@ -1,7 +1,6 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import axios from "axios";
-import { getURL } from "utils";
+import { useGetCoinDataQuery, useGetCoinChartQuery } from "store/apiSlice";
 import {
   Summary,
   CurrencyConvertor,
@@ -11,62 +10,26 @@ import {
 import { LoadingSummary } from "components/loadingContainers";
 
 function WholePage(props) {
-  const [coinData, setCoinData] = useState(null);
-  const [chartData, setChartData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
   const [days, setDays] = useState("30");
   const { name: currencyName } = useSelector(
     (state) => state.settings.activeCurrency
   );
 
-  const getCoinData = async () => {
-    try {
-      setIsLoading(true);
+  const {
+    data: coinData,
+    isSuccess: coinDataSuccess,
+    error: coinErrorMessage,
+  } = useGetCoinDataQuery(props.coinId);
 
-      const coinDataPath = `coins/${props.coinId}`;
-      const coinDataURL = getURL(coinDataPath);
-      const { data } = await axios(coinDataURL);
-
-      setCoinData(data);
-      setIsLoading(false);
-    } catch ({ message }) {
-      setErrorMessage(message);
-    }
-  };
-
-  const getChartData = async () => {
-    try {
-      const chartDataPath = `coins/${props.coinId}/market_chart`;
-      const chartConfig = {
-        vs_currency: currencyName,
-        days: days,
-      };
-      const charDataURL = getURL(chartDataPath, chartConfig);
-      const { data } = await axios(charDataURL);
-
-      setChartData(data);
-    } catch ({ message }) {
-      setErrorMessage(message);
-    }
-  };
+  const { data: chartData, isSuccess: chartDataSuccess } = useGetCoinChartQuery(
+    { coinId: props.coinId, currencyName, days }
+  );
 
   const handleRangeChange = (selectedDays) => {
     setDays(selectedDays);
   };
 
-  useEffect(() => {
-    getCoinData();
-    getChartData();
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getChartData();
-    // eslint-disable-next-line
-  }, [days, currencyName]);
-
-  const isFetched = !isLoading && coinData && chartData;
+  const isFetched = chartDataSuccess && coinDataSuccess;
   return isFetched ? (
     <>
       <Summary coinData={coinData} />
@@ -78,7 +41,7 @@ function WholePage(props) {
       <TimeChart chartData={chartData.prices} />
     </>
   ) : (
-    <LoadingSummary error={errorMessage} />
+    <LoadingSummary errorCoin={coinErrorMessage} />
   );
 }
 
