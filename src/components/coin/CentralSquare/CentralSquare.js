@@ -1,4 +1,5 @@
 import numeral from "numeral";
+import { useSelector } from "react-redux";
 import { DisplayPriceChange } from "components";
 import { UpGreenCaret, DownRedCaret } from "styles";
 import {
@@ -14,6 +15,9 @@ import {
 } from "./CentralSquare.styles";
 
 function CentralSquare(props) {
+  const { name: currencyName, symbol: currencySymbol } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
   const {
     current_price,
     price_change_24h_in_currency,
@@ -23,7 +27,6 @@ function CentralSquare(props) {
     atl,
     atl_date,
   } = props.market_data;
-  const { name: currencyName, symbol } = props.currency;
   const formatDate = (date) => {
     date = new Date(date);
     return date.toUTCString();
@@ -31,7 +34,7 @@ function CentralSquare(props) {
   return (
     <Container>
       <PriceDiv>
-        {symbol +
+        {currencySymbol +
           numeral(current_price[currencyName]).format("0,0.00[00000000]")}
       </PriceDiv>
       <Change24h>
@@ -40,7 +43,7 @@ function CentralSquare(props) {
           <ChangedValueDiv
             priceChange={price_change_24h_in_currency[currencyName]}
           >
-            {symbol +
+            {currencySymbol +
               numeral(
                 price_change_24h_in_currency[currencyName].toFixed(3)
               ).format("0,0.000")}
@@ -57,7 +60,8 @@ function CentralSquare(props) {
           <AllTimeDiv>
             <UpGreenCaret />
             <StyledSpan>All Time High: </StyledSpan>
-            {symbol + numeral(ath[currencyName]).format("0,0.00[00000000]")}
+            {currencySymbol +
+              numeral(ath[currencyName]).format("0,0.00[00000000]")}
           </AllTimeDiv>
           <AllTimeDate>{formatDate(ath_date[currencyName])}</AllTimeDate>
         </div>
@@ -66,8 +70,9 @@ function CentralSquare(props) {
             <DownRedCaret />
             <StyledSpan>All Time Low: </StyledSpan>
             {atl[currencyName].toString().includes("e")
-              ? symbol + "0.000000..."
-              : symbol + numeral(atl[currencyName]).format("0,0.00[00000000]")}
+              ? currencySymbol + "0.000000..."
+              : currencySymbol +
+                numeral(atl[currencyName]).format("0,0.00[00000000]")}
           </AllTimeDiv>
           <AllTimeDate>{formatDate(atl_date[currencyName])}</AllTimeDate>
         </div>

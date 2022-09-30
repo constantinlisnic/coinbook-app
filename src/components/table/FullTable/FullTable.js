@@ -1,53 +1,40 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  getTableData,
+  loadMoreCoins,
+  loadFirstPage,
+} from "store/fullTableSlice";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { getURL } from "utils";
 import { TableHead, TableRow } from "components/table";
 import { LoadingFullTable } from "components/loadingContainers";
 import { Table, TableContainer } from "./FullTable.styles";
 
-function FullTable(props) {
-  const [tableData, setTableData] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(null);
-  const [page, setPage] = useState(1);
-  const [loadingMoreCoins, setLoadingMoreCoins] = useState(false);
-
-  const getTableData = async () => {
-    try {
-      !loadingMoreCoins && setIsLoading(true);
-      const path = "coins/markets";
-      const config = {
-        vs_currency: props.currency.name,
-        order: "market_cap_desc",
-        per_page: 20,
-        page: page,
-        sparkline: true,
-        price_change_percentage: "1h,24h,7d",
-      };
-      const url = getURL(path, config);
-      const { data } = await axios(url);
-      if (!loadingMoreCoins) {
-        setTableData([...data]);
-        setIsLoading(false);
-      } else {
-        setTableData([...tableData, ...data]);
-        setLoadingMoreCoins(false);
-      }
-    } catch ({ message }) {
-      setErrorMessage(message);
-    }
-  };
+function FullTable() {
+  const dispatch = useDispatch();
+  const { name: currencyName } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
+  const page = useSelector((state) => state.fullTable.page);
+  const { tableData, isLoading, errorMessage } = useSelector(
+    (state) => state.fullTable
+  );
 
   useEffect(() => {
-    getTableData();
+    dispatch(getTableData(currencyName));
     // eslint-disable-next-line
   }, []);
 
   useEffect(() => {
-    getTableData();
+    dispatch(loadFirstPage());
+    dispatch(getTableData(currencyName));
     // eslint-disable-next-line
-  }, [props.currency.name, page]);
+  }, [currencyName]);
+
+  useEffect(() => {
+    dispatch(getTableData(currencyName));
+    // eslint-disable-next-line
+  }, [page]);
 
   const isFetched = !isLoading && tableData.length;
   return (
@@ -56,8 +43,7 @@ function FullTable(props) {
         <InfiniteScroll
           dataLength={tableData}
           next={() => {
-            setLoadingMoreCoins(true);
-            setPage(page + 1);
+            dispatch(loadMoreCoins());
           }}
           hasMore={true}
           scrollThreshold={1}
@@ -69,11 +55,7 @@ function FullTable(props) {
             <TableHead />
             <tbody>
               {tableData.map((coin) => (
-                <TableRow
-                  coin={coin}
-                  key={coin.id}
-                  symbol={props.currency.symbol}
-                />
+                <TableRow coin={coin} key={coin.id} />
               ))}
             </tbody>
           </Table>

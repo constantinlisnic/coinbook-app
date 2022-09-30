@@ -10,6 +10,7 @@ export const LoadingContainer = styled.div`
   box-sizing: border-box;
   width: 576px;
   height: 389px;
+  text-align: center;
 `;
 
 export const Wrapper = styled.div`

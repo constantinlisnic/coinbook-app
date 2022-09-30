@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -23,7 +24,11 @@ ChartJS.register(
   Filler
 );
 
-function TimeChart({ chartData, currencySymbol }) {
+function TimeChart({ chartData }) {
+  const { symbol: currencySymbol } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
+
   const { labels, values } = chartData.reduce(
     ({ labels, values }, [label, value]) => {
       return {

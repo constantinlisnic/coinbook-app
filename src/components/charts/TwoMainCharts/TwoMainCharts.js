@@ -1,54 +1,31 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { getURL } from "utils";
+import { useSelector } from "react-redux";
 import { LineChart, BarChart } from "components/charts";
 import { LoadingTwoMainCharts } from "components/loadingContainers";
 import { ChartsContainer, OverView } from "./TwoMainCharts.styles";
+import { useGetChartDataQuery } from "store/apiSlice";
 
-function TwoMainCharts(props) {
-  const [chartData, setChartData] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, SetErrorMessage] = useState(null);
+function TwoMainCharts() {
+  const { name: currencyName } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
 
-  const getChartData = async () => {
-    try {
-      setIsLoading(true);
-      const path = "coins/bitcoin/market_chart";
-      const config = {
-        vs_currency: props.currency.name,
-        days: 30,
-        interval: "daily",
-      };
-      const url = getURL(path, config);
-      const { data } = await axios(url);
-      setChartData(data);
-      setIsLoading(false);
-    } catch ({ message }) {
-      SetErrorMessage(message);
-    }
-  };
+  const {
+    data: chartData,
+    isSuccess,
+    isLoading,
+    error,
+  } = useGetChartDataQuery(currencyName);
 
-  useEffect(() => {
-    getChartData();
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
-    getChartData();
-    // eslint-disable-next-line
-  }, [props.currency.name]);
-
-  const isFetched = !isLoading && chartData;
   return (
     <>
       <OverView>Your overview</OverView>
-      {isFetched ? (
+      {!isLoading && isSuccess ? (
         <ChartsContainer>
-          <LineChart {...chartData} symbol={props.currency.symbol} />
-          <BarChart {...chartData} symbol={props.currency.symbol} />
+          <LineChart {...chartData} />
+          <BarChart {...chartData} />
         </ChartsContainer>
       ) : (
-        <LoadingTwoMainCharts error={errorMessage} />
+        <LoadingTwoMainCharts error={error} />
       )}
     </>
   );

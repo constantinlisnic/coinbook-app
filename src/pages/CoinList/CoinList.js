@@ -2,11 +2,11 @@ import React from "react";
 import { FullTable } from "components/table";
 import { TwoMainCharts } from "components/charts";
 
-function CoinList(props) {
+function CoinList() {
   return (
     <>
-      <TwoMainCharts currency={props.currency} />
-      <FullTable currency={props.currency} />
+      <TwoMainCharts />
+      <FullTable />
     </>
   );
 }

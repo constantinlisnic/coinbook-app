@@ -1,3 +1,4 @@
+import { useSelector } from "react-redux";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,6 +28,10 @@ ChartJS.register(
 );
 
 function BarChart(props) {
+  const { symbol: currencySymbol } = useSelector(
+    (state) => state.settings.activeCurrency
+  );
+
   const { labels, values } = props.total_volumes.reduce(
     ({ labels, values }, [label, value]) => {
       return {
@@ -58,7 +63,7 @@ function BarChart(props) {
       tooltip: {
         callbacks: {
           label: (context) => {
-            const label = `${context.dataset.label}: ${props.symbol}${context.formattedValue}`;
+            const label = `${context.dataset.label}: ${currencySymbol}${context.formattedValue}`;
             return label;
           },
         },
@@ -105,7 +110,7 @@ function BarChart(props) {
         </div>
         <Volume>
           {" "}
-          {props.symbol +
+          {currencySymbol +
             numeral(
               props.total_volumes[props.total_volumes.length - 1][1]
             ).format("0,0.00")}

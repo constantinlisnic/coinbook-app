@@ -9,7 +9,7 @@ import {
   DescriptionContainer,
 } from "./LoadingSummary.styles";
 
-function LoadingSymmary({ error = "" }) {
+function LoadingSymmary({ errorCoin = null }) {
   return (
     <>
       <Title>Your Summary</Title>
@@ -18,9 +18,7 @@ function LoadingSymmary({ error = "" }) {
           <CoinWrapper></CoinWrapper>
           <LinkWrapper></LinkWrapper>
         </LeftSquareContainer>
-        <CentralSquareContainer>
-          {error ? error : "Loading..."}
-        </CentralSquareContainer>
+        <CentralSquareContainer>{"Loading..."}</CentralSquareContainer>
         <RightSquareContainer></RightSquareContainer>
       </SquaresWrapper>
       <DescriptionContainer>
@@ -28,7 +26,11 @@ function LoadingSymmary({ error = "" }) {
           src="https://i.ibb.co/vz0fLdP/Icon-awesome-layer-group.png"
           alt="stack icon"
         />
-        <div>{error ? error : "Loading..."}</div>
+        <div>
+          {errorCoin
+            ? `Code ${errorCoin.status}. ${errorCoin.data.error}`
+            : "Loading..."}
+        </div>
       </DescriptionContainer>
     </>
   );

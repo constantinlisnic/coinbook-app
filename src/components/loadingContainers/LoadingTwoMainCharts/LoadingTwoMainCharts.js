@@ -1,10 +1,14 @@
 import { LoadingContainer, Wrapper } from "./LoadingTwoMainCharts.styles";
 
-function LoadingTwoMainCharts({ error }) {
+function LoadingTwoMainCharts({ error = null }) {
   return (
     <Wrapper>
-      <LoadingContainer>{error ? error : "Loading..."}</LoadingContainer>
-      <LoadingContainer>{error ? error : "Loading..."}</LoadingContainer>
+      <LoadingContainer>
+        {error ? `Code ${error.status}. ${error.data.error}` : "Loading..."}
+      </LoadingContainer>
+      <LoadingContainer>
+        {error ? `Code ${error.status}. ${error.data.error}` : "Loading..."}
+      </LoadingContainer>
     </Wrapper>
   );
 }
