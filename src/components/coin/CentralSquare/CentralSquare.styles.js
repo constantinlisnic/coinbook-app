@@ -67,3 +67,9 @@ export const GainLoss = styled.div`
   align-items: center;
   gap: 10px;
 `;
+
+export const StackIcon = styled.div`
+  background: url(${(props) => props.theme.stackIcon});
+  width: 22px;
+  height: 22px;
+`;

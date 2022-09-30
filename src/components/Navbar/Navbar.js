@@ -1,16 +1,12 @@
-import { CurrencyToggler, GlobalDataBar } from "components";
+import { CurrencyToggler, GlobalDataBar, SearchBar } from "components";
 import { useDispatch } from "react-redux";
 import { toggleTheme } from "store/settingsSlice";
-
 import {
   NavContainer,
   StyledLink,
   LinksContainer,
-  Input,
-  InputContainer,
   ThemeButtonContainer,
   ThemeChangeButton,
-  SearchIcon,
   RightPanel,
   FirstRow,
   SecondRow,
@@ -25,13 +21,9 @@ function Navbar() {
           <StyledLink to="/">Coins</StyledLink>
           <StyledLink to="/portfolio">Portfolio</StyledLink>
         </LinksContainer>
+
         <RightPanel>
-          <InputContainer>
-            <ThemeButtonContainer>
-              <SearchIcon />
-            </ThemeButtonContainer>
-            <Input type="text" placeholder="Search..." />
-          </InputContainer>
+          <SearchBar />
 
           <CurrencyToggler />
 
