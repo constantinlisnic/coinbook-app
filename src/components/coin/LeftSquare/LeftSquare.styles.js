@@ -57,3 +57,9 @@ export const StyledLink = styled.a`
 export const RankDiv = styled.div`
   color: ${(props) => props.theme.secondaryText};
 `;
+
+export const LinkIcon = styled.div`
+  background: url(${(props) => props.theme.linkIcon});
+  width: 13px;
+  height: 13px;
+`;

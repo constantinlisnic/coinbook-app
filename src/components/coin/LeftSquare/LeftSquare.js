@@ -5,6 +5,7 @@ import {
   LinkWrapper,
   StyledLink,
   RankDiv,
+  LinkIcon,
 } from "./LeftSquare.styles";
 
 function LeftSquare(props) {
@@ -17,14 +18,17 @@ function LeftSquare(props) {
         <div>
           {props.name} ({props.symbol.toUpperCase()})
         </div>
-        <RankDiv>#{props.market_cap_rank}</RankDiv>
+        <RankDiv>
+          {props.market_cap_rank ? (
+            <># {props.market_cap_rank}</>
+          ) : (
+            "No data..."
+          )}
+        </RankDiv>
       </CoinWrapper>
       <LinkWrapper>
         <StyledLink href={props.links.homepage[0]} target="blank">
-          <img
-            src="https://i.ibb.co/z8Jb255/Icon-awesome-link.png"
-            alt="link icon"
-          />{" "}
+          <LinkIcon />
           <div>{props.links.homepage[0].slice(8)}</div>
         </StyledLink>
       </LinkWrapper>

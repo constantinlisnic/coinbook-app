@@ -31,6 +31,7 @@ export const DropdownWrapper = styled.div`
   top: 66px;
   border-radius: 12px;
 `;
+
 export const DropdownItemContainer = styled.div`
   margin: auto;
   &:hover {

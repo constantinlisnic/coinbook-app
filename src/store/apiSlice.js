@@ -18,6 +18,10 @@ export const apiSlice = createApi({
       query: (args) =>
         `coins/${args.coinId}/market_chart?vs_currency=${args.currencyName}&days=${args.days}`,
     }),
+    getSearchResults: builder.query({
+      query: (inputValue) =>
+        `https://crypto-app-server.herokuapp.com/coins/${inputValue}`,
+    }),
   }),
 });
 
@@ -26,4 +30,5 @@ export const {
   useGetGlobalDataQuery,
   useGetCoinDataQuery,
   useGetCoinChartQuery,
+  useGetSearchResultsQuery,
 } = apiSlice;

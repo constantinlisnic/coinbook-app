@@ -23,3 +23,9 @@ export const DescriptionDiv = styled.div`
   color: ${(props) => props.theme.secondaryText};
   text-align: center;
 `;
+
+export const StackIcon = styled.div`
+  background: url(${(props) => props.theme.stackIcon});
+  width: 22px;
+  height: 22px;
+`;

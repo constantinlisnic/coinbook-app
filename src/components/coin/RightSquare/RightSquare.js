@@ -72,10 +72,12 @@ function RightSquare(props) {
           <StyledBulletPoint />
           <ItemName>Volume / Market Cap:</ItemName>
           <div>
-            {numeral(
-              props.market_data.total_volume[currencyName] /
-                props.market_data.market_cap[currencyName]
-            ).format("0,0.0000")}
+            {props.market_data.market_cap[currencyName]
+              ? numeral(
+                  props.market_data.total_volume[currencyName] /
+                    props.market_data.market_cap[currencyName]
+                ).format("0,0.0000")
+              : "N/A"}
           </div>
         </ItemWrapper>
       </div>

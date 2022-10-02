@@ -1,4 +1,4 @@
-import { Container, DescriptionDiv } from "./Description.styles";
+import { Container, DescriptionDiv, StackIcon } from "./Description.styles";
 
 function Description(props) {
   const descriptionAndNewTabs = props.description.en
@@ -7,10 +7,7 @@ function Description(props) {
     .slice(19);
   return (
     <Container>
-      <img
-        src="https://i.ibb.co/vz0fLdP/Icon-awesome-layer-group.png"
-        alt="stack icon"
-      />
+      <StackIcon />
       {descriptionAndNewTabs ? (
         <DescriptionDiv
           dangerouslySetInnerHTML={{ __html: descriptionAndNewTabs }}

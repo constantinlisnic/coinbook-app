@@ -27,29 +27,6 @@ export const LinksContainer = styled.div`
   gap: 10px;
 `;
 
-export const Input = styled.input`
-  &::placeholder {
-    color: ${(props) => props.theme.color};
-    font-size: 18px;
-  }
-  &:focus {
-    outline: none;
-  }
-  background: ${(props) => props.theme.componentBackground};
-  border: none;
-  color: ${(props) => props.theme.color};
-  font-size: 18px;
-`;
-
-export const InputContainer = styled.div`
-  background: ${(props) => props.theme.componentBackground};
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 12px;
-  margin: 10px 0;
-`;
-
 export const ThemeButtonContainer = styled.div`
   padding: 0 12px;
   background: ${(props) => props.theme.componentBackground};
@@ -65,14 +42,6 @@ export const ThemeChangeButton = styled.div`
   width: 25px;
   height: 31px;
   cursor: pointer;
-`;
-
-export const SearchIcon = styled.div`
-  background: url(${(props) => props.theme.searchIcon}) no-repeat;
-  width: 22px;
-  height: 22px;
-  margin: 0;
-  padding: 0;
 `;
 
 export const RightPanel = styled.div`

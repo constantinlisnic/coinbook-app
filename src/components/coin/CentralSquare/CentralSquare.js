@@ -12,6 +12,7 @@ import {
   AllTimeDate,
   ChangedValueDiv,
   GainLoss,
+  StackIcon,
 } from "./CentralSquare.styles";
 
 function CentralSquare(props) {
@@ -34,8 +35,10 @@ function CentralSquare(props) {
   return (
     <Container>
       <PriceDiv>
-        {currencySymbol +
-          numeral(current_price[currencyName]).format("0,0.00[00000000]")}
+        {current_price[currencyName]?.toString().includes("e")
+          ? "$0.000000..."
+          : currencySymbol +
+            numeral(current_price[currencyName]).format("0,0.00[00000000]")}
       </PriceDiv>
       <Change24h>
         <div>24h gain/loss: </div>
@@ -45,23 +48,22 @@ function CentralSquare(props) {
           >
             {currencySymbol +
               numeral(
-                price_change_24h_in_currency[currencyName].toFixed(3)
+                price_change_24h_in_currency[currencyName]?.toFixed(3)
               ).format("0,0.000")}
           </ChangedValueDiv>
           <DisplayPriceChange priceChange={price_change_percentage_24h} />
         </GainLoss>
       </Change24h>
-      <img
-        src="https://i.ibb.co/vz0fLdP/Icon-awesome-layer-group.png"
-        alt="stack icon"
-      />
+      <StackIcon />
       <AllTimeWrapper>
         <div>
           <AllTimeDiv>
             <UpGreenCaret />
             <StyledSpan>All Time High: </StyledSpan>
-            {currencySymbol +
-              numeral(ath[currencyName]).format("0,0.00[00000000]")}
+            {ath[currencyName]?.toString().includes("e")
+              ? currencySymbol + "0.000000..."
+              : currencySymbol +
+                numeral(ath[currencyName]).format("0,0.00[00000000]")}
           </AllTimeDiv>
           <AllTimeDate>{formatDate(ath_date[currencyName])}</AllTimeDate>
         </div>
@@ -69,7 +71,7 @@ function CentralSquare(props) {
           <AllTimeDiv>
             <DownRedCaret />
             <StyledSpan>All Time Low: </StyledSpan>
-            {atl[currencyName].toString().includes("e")
+            {atl[currencyName]?.toString().includes("e")
               ? currencySymbol + "0.000000..."
               : currencySymbol +
                 numeral(atl[currencyName]).format("0,0.00[00000000]")}
