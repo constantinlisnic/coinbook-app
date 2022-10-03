@@ -24,7 +24,7 @@ export const Label = styled.label`
   color: white;
   font-size: 18px;
   box-sizing: border-box;
-  background: #007ea7;
+  background: ${(props) => props.theme.blue};
   padding: 5px;
   border-radius: 10px 0 0 10px;
   height: 50px;
