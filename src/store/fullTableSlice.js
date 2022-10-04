@@ -13,18 +13,18 @@ const initialState = {
 export const getTableData = createAsyncThunk(
   "store/getTableData",
   async (currencyName, thunkAPI) => {
+    const { page } = thunkAPI.getState().fullTable;
+    const path = "coins/markets";
+    const config = {
+      vs_currency: currencyName,
+      order: "market_cap_desc",
+      per_page: 20,
+      page: page,
+      sparkline: true,
+      price_change_percentage: "1h,24h,7d",
+    };
+    const url = getURL(path, config);
     try {
-      const { page } = thunkAPI.getState().fullTable;
-      const path = "coins/markets";
-      const config = {
-        vs_currency: currencyName,
-        order: "market_cap_desc",
-        per_page: 20,
-        page: page,
-        sparkline: true,
-        price_change_percentage: "1h,24h,7d",
-      };
-      const url = getURL(path, config);
       const { data } = await axios(url);
       return data;
     } catch (err) {
