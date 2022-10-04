@@ -9,6 +9,10 @@ export const DateInput = styled(DatePicker)`
     outline: none;
     background: ${(props) => props.theme.componentBackground};
   }
+  &::placeholder {
+    color: ${(props) => props.theme.secondaryText};
+    font-size: 16px;
+  }
   background: ${(props) => props.theme.main};
   border: none;
   color: ${(props) => props.theme.color};
@@ -47,6 +51,15 @@ export const ModalWrapper = styled.div`
   margin: auto;
   border-radius: 15px;
   gap: 35px;
+  margin-top: 170px;
+`;
+
+export const Container = styled.div`
+  background: rgba(0, 0, 0, 0.6);
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  inset: 0;
 `;
 
 export const Header = styled.div`
@@ -195,7 +208,7 @@ export const ResultsWrapper = styled.div`
   background: ${(props) => props.theme.componentBackground};
   position: absolute;
   width: 300px;
-  top: 413px;
+  top: 340px;
   border-radius: 12px;
   z-index: 2;
 `;

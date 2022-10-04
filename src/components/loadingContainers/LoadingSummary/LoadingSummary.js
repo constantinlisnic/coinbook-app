@@ -28,7 +28,9 @@ function LoadingSymmary({ errorCoin = null }) {
         />
         <div>
           {errorCoin
-            ? `Code ${errorCoin.status}. ${errorCoin.data.error}`
+            ? `Status: ${errorCoin.status}. ${
+                errorCoin.error || errorCoin.data.error
+              }`
             : "Loading..."}
         </div>
       </DescriptionContainer>

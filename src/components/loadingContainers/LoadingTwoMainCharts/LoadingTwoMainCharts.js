@@ -4,10 +4,14 @@ function LoadingTwoMainCharts({ error = null }) {
   return (
     <Wrapper>
       <LoadingContainer>
-        {error ? `Code ${error.status}. ${error.data.error}` : "Loading..."}
+        {error
+          ? `Status: ${error.status}. ${error.error || error.data.error}`
+          : "Loading..."}
       </LoadingContainer>
       <LoadingContainer>
-        {error ? `Code ${error.status}. ${error.data.error}` : "Loading..."}
+        {error
+          ? `Status: ${error.status}. ${error.error || error.data.error}`
+          : "Loading..."}
       </LoadingContainer>
     </Wrapper>
   );

@@ -1,4 +1,4 @@
-import { AddAssetModal } from "components/portfolio";
+import { AddAssetModal, AssetList } from "components/portfolio";
 import { YourAssets } from "./LandingPage.styles";
 
 function LandingPage() {
@@ -6,6 +6,7 @@ function LandingPage() {
     <>
       <YourAssets>Your Assets</YourAssets>
       <AddAssetModal />
+      <AssetList />
     </>
   );
 }
