@@ -36,7 +36,7 @@ function CentralSquare(props) {
     <Container>
       <PriceDiv>
         {current_price[currencyName]?.toString().includes("e")
-          ? "$0.000000..."
+          ? currencySymbol + "0.000000..."
           : currencySymbol +
             numeral(current_price[currencyName]).format("0,0.00[00000000]")}
       </PriceDiv>

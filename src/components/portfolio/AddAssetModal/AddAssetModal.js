@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { addDays } from "date-fns";
 import dayjs from "dayjs";
 import { useGetSearchResultsQuery } from "store/apiSlice";
-import { addCoin } from "store/portfolioSlice";
+import { addCoin, getPortfolioData } from "store/portfolioSlice";
 import {
   AddAssetButton,
   ButtonWrapper,
@@ -75,11 +75,16 @@ function AddAssetModal() {
     setModalIsExpanded(false);
     dispatch(
       addCoin({
-        id: newCoin.id,
-        purchaseAmount,
         purchaseDate: dayjs(purchaseDate).format("DD-MM-YYYY"),
+        purchaseAmount,
+        name: newCoin.id,
+        id:
+          newCoin.id +
+          purchaseAmount +
+          dayjs(purchaseDate).format("DD-MM-YYYY"),
       })
     );
+    dispatch(getPortfolioData());
     setNewCoin({});
     setInputValue("");
   };
@@ -103,7 +108,7 @@ function AddAssetModal() {
                     {Object.keys(newCoin).length !== 0 && (
                       <NewCoinIMG
                         src={newCoin.imgURL}
-                        alt={`${newCoin.id} icon`}
+                        alt={`${newCoin.name} icon`}
                       />
                     )}
                   </ImgWrapper>
@@ -151,6 +156,9 @@ function AddAssetModal() {
                     onChange={handleDateChange}
                     maxDate={addDays(new Date(), 0)}
                     placeholderText="Select Purchase Date"
+                    showMonthDropdown
+                    showYearDropdown
+                    dropdownMode="select"
                     required
                   />
                 </InputsWrapper>

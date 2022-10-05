@@ -6,6 +6,7 @@ const initialState = {
   savedCoins: [],
   isLoading: false,
   errorMessage: null,
+  isError: false,
 };
 
 function getMarketURL(coinId, currencyName) {
@@ -33,10 +34,10 @@ export const getPortfolioData = createAsyncThunk(
       const assetData = await Promise.all(
         savedCoins.map(async (coin) => {
           const { data: marketData } = await axios(
-            getMarketURL(coin.id, currencyName)
+            getMarketURL(coin.name, currencyName)
           );
           const { data: historyData } = await axios(
-            getHistoryURL(coin.id, coin.purchaseDate)
+            getHistoryURL(coin.name, coin.purchaseDate)
           );
           return { ...coin, marketData, historyData };
         })
@@ -55,24 +56,29 @@ const portfolioSlice = createSlice({
     addCoin(state, action) {
       state.savedCoins = [...state.savedCoins, action.payload];
     },
+    deleteCoin(state, action) {
+      state.savedCoins = state.savedCoins.filter(
+        (coin) => coin.id !== action.payload
+      );
+    },
   },
   extraReducers: {
     [getPortfolioData.pending]: (state) => {
       state.isLoading = true;
-      console.log("Loading...");
+      state.isError = false;
     },
     [getPortfolioData.fulfilled]: (state, action) => {
-      console.log("Fulfilled !", action.payload);
       state.isLoading = false;
+      state.isError = false;
       state.savedCoins = action.payload;
     },
     [getPortfolioData.rejected]: (state, action) => {
-      console.log("rejected/error");
       state.errorMessage = action.payload;
+      state.isError = true;
     },
   },
 });
 
-export const { addCoin } = portfolioSlice.actions;
+export const { addCoin, deleteCoin } = portfolioSlice.actions;
 
 export default portfolioSlice.reducer;
