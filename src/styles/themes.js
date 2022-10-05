@@ -12,11 +12,14 @@ export const darkTheme = {
   red: "#fe1040",
   green: "#00fc2a",
   bar: "#171924",
+  blueBar: "#003249",
   progress: "#323546",
+  blueProgress: "#007ea7",
   barBorder: "#1f2128",
   barTextLeft: "#b4b9d4",
   barTextRight: "#82869e",
   secondaryText: "#adaaa8",
+  blue: "#007ea7",
 };
 export const lightTheme = {
   main: "#f7f7f7",
@@ -32,9 +35,12 @@ export const lightTheme = {
   red: "#fe1040",
   green: "#00fc2a",
   bar: "#eff2f5",
+  blueBar: "#003249",
   progress: "#cfd6e4",
+  blueProgress: "#007ea7",
   barBorder: "white",
   barTextLeft: "#82869e",
   barTextRight: "#b4b9d4",
   secondaryText: "#adaaa8",
+  blue: "#007ea7",
 };

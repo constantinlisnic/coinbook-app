@@ -1,7 +1,8 @@
 import React from "react";
+import { LandingPage } from "components/portfolio";
 
 function Portfolio() {
-  return <div>Portfolio</div>;
+  return <LandingPage />;
 }
 
 export default Portfolio;

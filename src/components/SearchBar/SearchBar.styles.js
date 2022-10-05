@@ -43,7 +43,7 @@ export const ResultsWrapper = styled.div`
 
 export const Input = styled.input`
   &::placeholder {
-    color: ${(props) => props.theme.color};
+    color: ${(props) => props.theme.secondaryText};
     font-size: 18px;
   }
   &:focus {

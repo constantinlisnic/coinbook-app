@@ -4,7 +4,9 @@ function LoadingGlobalDataBar({ error = null }) {
   return (
     <Container>
       <div>
-        {error ? `Code ${error.status}. ${error.data.error}` : "Loading..."}
+        {error
+          ? `Status: ${error.status}. ${error.error || error.data.error}`
+          : "Loading..."}
       </div>
     </Container>
   );

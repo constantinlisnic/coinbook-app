@@ -13,10 +13,12 @@ import storage from "redux-persist/lib/storage";
 import { apiSlice } from "./apiSlice";
 import settings from "./settingsSlice";
 import fullTable from "./fullTableSlice";
+import portfolio from "./portfolioSlice";
 
 const rootReducer = combineReducers({
   settings,
   fullTable,
+  portfolio,
   [apiSlice.reducerPath]: apiSlice.reducer,
 });
 
@@ -24,7 +26,7 @@ const persistConfig = {
   key: "root",
   version: 1,
   storage,
-  whitelist: ["settings"],
+  whitelist: ["settings", "portfolio"],
 };
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
