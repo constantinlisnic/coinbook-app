@@ -11,12 +11,14 @@ import {
   DataWrapper,
   DeleteIcon,
   EmptyPortfolioWrapper,
+  WrongDateWrapper,
 } from "./AssetList.styles";
 
 function Asset({ data }) {
   const dispatch = useDispatch();
   const { image, name, symbol } = data.marketData[0];
   const handleDelete = () => dispatch(deleteCoin(data.id));
+
   return (
     <Container>
       <CoinWrapper>
@@ -31,12 +33,18 @@ function Asset({ data }) {
 
       <DataWrapper>
         <MarketData marketData={data.marketData[0]} />
-        <AssetData
-          marketData={data.marketData[0]}
-          historyData={data.historyData}
-          purchaseAmount={data.purchaseAmount}
-          purchaseDate={data.purchaseDate}
-        />
+        {data.historyData.market_data ? (
+          <AssetData
+            marketData={data.marketData[0]}
+            historyData={data.historyData}
+            purchaseAmount={data.purchaseAmount}
+            purchaseDate={data.purchaseDate}
+          />
+        ) : (
+          <WrongDateWrapper>
+            Purchase date exceeds the coin's deployment date.
+          </WrongDateWrapper>
+        )}
       </DataWrapper>
     </Container>
   );
@@ -48,11 +56,6 @@ function AssetList() {
   const { savedCoins, isLoading, isError } = useSelector(
     (state) => state.portfolio
   );
-
-  useEffect(() => {
-    dispatch(getPortfolioData());
-    // eslint-disable-next-line
-  }, []);
 
   useEffect(() => {
     dispatch(getPortfolioData());

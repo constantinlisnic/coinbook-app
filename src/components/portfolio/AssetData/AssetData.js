@@ -23,7 +23,6 @@ function AssetData({ historyData, purchaseAmount, purchaseDate, marketData }) {
   const priceChange = (current_price - past_price) * purchaseAmount;
   const priceChangePercentage =
     (priceChange * 100) / (past_price * purchaseAmount);
-
   return (
     <Container>
       <Title>
@@ -36,11 +35,9 @@ function AssetData({ historyData, purchaseAmount, purchaseDate, marketData }) {
           <DataName>Value</DataName>
           <NumberWrapper>
             {(current_price * purchaseAmount).toString().includes("e")
-              ? currencySymbol + "0.000000..."
+              ? currencySymbol + "0.0000..."
               : currencySymbol +
-                numeral(current_price * purchaseAmount).format(
-                  "0,0.00[00000000]"
-                )}
+                numeral(current_price * purchaseAmount).format("0,0.00[00]")}
           </NumberWrapper>
         </ItemWrapper>
 

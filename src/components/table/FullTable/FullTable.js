@@ -21,11 +21,6 @@ function FullTable() {
   );
 
   useEffect(() => {
-    dispatch(getTableData(currencyName));
-    // eslint-disable-next-line
-  }, []);
-
-  useEffect(() => {
     dispatch(loadFirstPage());
     dispatch(getTableData(currencyName));
     // eslint-disable-next-line

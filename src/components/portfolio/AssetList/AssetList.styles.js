@@ -62,3 +62,14 @@ export const EmptyPortfolioWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+export const WrongDateWrapper = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: ${(props) => props.theme.secondary};
+  width: 953px;
+  height: 110px;
+  border-radius: 12px;
+`;
