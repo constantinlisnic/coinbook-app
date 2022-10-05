@@ -8,4 +8,5 @@ export const YourAssets = styled.div`
 
 export const Container = styled.div`
   width: 1185px;
+  margin: auto;
 `;
