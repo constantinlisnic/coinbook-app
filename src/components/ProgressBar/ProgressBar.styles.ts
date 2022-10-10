@@ -1,6 +1,14 @@
 import styled from "styled-components";
 
-export const Bar = styled.div`
+interface BarProps {
+  barWidth: number;
+}
+
+interface ProgressProps {
+  progressWidth: number;
+}
+
+export const Bar = styled.div<BarProps>`
   box-sizing: border-box;
   width: ${(props) => props.barWidth}px;
   height: 8px;
@@ -12,7 +20,7 @@ export const Bar = styled.div`
     props.color === "blue" ? props.theme.blueBar : props.theme.bar};
 `;
 
-export const Progress = styled.div`
+export const Progress = styled.div<ProgressProps>`
   height: 100%;
   width: ${(props) => props.progressWidth}%;
   background: ${(props) =>

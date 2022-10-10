@@ -1,5 +1,6 @@
 import numeral from "numeral";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
+import { CoinProps } from "CoinProps";
 import { Sparkline } from "components/table";
 import { ProgressBar, DisplayPriceChange } from "components";
 import {
@@ -12,85 +13,85 @@ import {
   StyledLink,
 } from "./TableRow.styles";
 
-function TableRow({ coin }) {
-  const { symbol: currencySymbol } = useSelector(
+function TableRow(props: CoinProps) {
+  const { symbol: currencySymbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
   return (
     <tr>
-      <Td>{coin.market_cap_rank}</Td>
+      <Td>{props.market_cap_rank}</Td>
       <Td>
-        <StyledLink to={`/coin/${coin.id}`}>
+        <StyledLink to={`/coin/${props.id}`}>
           <NameWrapper>
-            <Img src={`${coin.image}`} alt="" />
+            <Img src={`${props.image}`} alt="" />
             <div>
-              {coin.name} ({coin.symbol.toUpperCase()})
+              {props.name} ({props.symbol?.toUpperCase()})
             </div>
           </NameWrapper>
         </StyledLink>
       </Td>
       <Td>
-        <StyledLink to={`/coin/${coin.id}`}>
-          {coin.current_price.toString().includes("e")
+        <StyledLink to={`/coin/${props.id}`}>
+          {props.current_price?.toString().includes("e")
             ? currencySymbol + "0.000000..."
             : currencySymbol +
-              numeral(coin.current_price).format("0,0.00[00000000]")}
+              numeral(props.current_price).format("0,0.00[00000000]")}
         </StyledLink>
       </Td>
       <Td>
         <DisplayPriceChange
-          priceChange={coin.price_change_percentage_1h_in_currency}
+          priceChange={props.price_change_percentage_1h_in_currency}
         />
       </Td>
       <Td>
         <DisplayPriceChange
-          priceChange={coin.price_change_percentage_24h_in_currency}
+          priceChange={props.price_change_percentage_24h_in_currency}
         />
       </Td>
       <Td>
         <DisplayPriceChange
-          priceChange={coin.price_change_percentage_7d_in_currency}
+          priceChange={props.price_change_percentage_7d_in_currency}
         />
       </Td>
       <Td>
         <AboveBarText>
           <LeftText>
             {currencySymbol +
-              numeral(coin.total_volume)
+              numeral(props.total_volume)
                 .format("(0.00a)")
                 .toLocaleUpperCase()}{" "}
           </LeftText>
           <RightText>
             {currencySymbol +
-              numeral(coin.market_cap).format("(0.00a)").toLocaleUpperCase()}
+              numeral(props.market_cap).format("(0.00a)").toLocaleUpperCase()}
           </RightText>
         </AboveBarText>
         <ProgressBar
           barWidth={170}
-          filler={coin.total_volume}
-          wholeValue={coin.market_cap}
+          filler={props.total_volume}
+          wholeValue={props.market_cap}
         />
       </Td>
       <Td>
         <AboveBarText>
           <LeftText>
-            {numeral(coin.circulating_supply)
+            {numeral(props.circulating_supply)
               .format("(0.00a)")
               .toLocaleUpperCase()}{" "}
           </LeftText>
           <RightText>
-            {numeral(coin.total_supply).format("(0.00a)").toLocaleUpperCase()}{" "}
+            {numeral(props.total_supply).format("(0.00a)").toLocaleUpperCase()}{" "}
           </RightText>
         </AboveBarText>
         <ProgressBar
           barWidth={170}
-          filler={coin.circulating_supply}
-          wholeValue={coin.total_supply}
+          filler={props.circulating_supply}
+          wholeValue={props.total_supply}
         />
       </Td>
       <Td>
-        <StyledLink to={`/coin/${coin.id}`}>
-          <Sparkline {...coin} />
+        <StyledLink to={`/coin/${props.id}`}>
+          <Sparkline {...props} />
         </StyledLink>
       </Td>
     </tr>

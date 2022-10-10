@@ -20,13 +20,19 @@ ChartJS.register(
   Legend
 );
 
-function Sparkline(props) {
+interface SparklineProps {
+  sparkline_in_7d: { price: number[] };
+  name: string;
+  price_change_percentage_7d_in_currency: number;
+}
+
+function Sparkline(props: SparklineProps) {
   const data = {
-    labels: props.sparkline_in_7d.price,
+    labels: props.sparkline_in_7d?.price,
     datasets: [
       {
         label: props.name,
-        data: props.sparkline_in_7d.price,
+        data: props.sparkline_in_7d?.price,
       },
     ],
   };

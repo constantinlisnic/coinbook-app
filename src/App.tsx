@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import { ThemeProvider } from "styled-components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { CoinPage, CoinList, Portfolio } from "pages";
@@ -6,7 +6,7 @@ import { Navbar } from "components";
 import { lightTheme, darkTheme, GlobalStyle } from "styles";
 
 function App() {
-  const themeIsLight = useSelector((state) => state.settings.themeIsLight);
+  const themeIsLight = useAppSelector((state) => state.settings.themeIsLight);
 
   return (
     <ThemeProvider theme={themeIsLight ? lightTheme : darkTheme}>

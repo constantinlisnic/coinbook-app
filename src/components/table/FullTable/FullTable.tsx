@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppSelector, useAppDispatch } from "hooks";
 import {
   getTableData,
   loadMoreCoins,
@@ -11,12 +11,13 @@ import { LoadingFullTable } from "components/loadingContainers";
 import { Table, TableContainer } from "./FullTable.styles";
 
 function FullTable() {
-  const dispatch = useDispatch();
-  const { name: currencyName } = useSelector(
+  const dispatch = useAppDispatch();
+  const { name: currencyName } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
-  const page = useSelector((state) => state.fullTable.page);
-  const { tableData, isLoading, errorMessage } = useSelector(
+  const page = useAppSelector((state) => state.fullTable.page);
+
+  const { tableData, isLoading, errorMessage } = useAppSelector(
     (state) => state.fullTable
   );
 
@@ -36,7 +37,7 @@ function FullTable() {
     <TableContainer>
       {isFetched ? (
         <InfiniteScroll
-          dataLength={tableData}
+          dataLength={tableData.length}
           next={() => {
             dispatch(loadMoreCoins());
           }}
@@ -50,7 +51,7 @@ function FullTable() {
             <TableHead />
             <tbody>
               {tableData.map((coin) => (
-                <TableRow coin={coin} key={coin.id} />
+                <TableRow {...coin} key={coin.id} />
               ))}
             </tbody>
           </Table>

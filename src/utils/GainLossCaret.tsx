@@ -1,6 +1,6 @@
 import { DownRedCaret, UpGreenCaret } from "styles";
 
-function GainLossCaret({ priceChange }) {
+function GainLossCaret({ priceChange }: { priceChange: number }) {
   return priceChange > 0 ? <UpGreenCaret /> : <DownRedCaret />;
 }
 

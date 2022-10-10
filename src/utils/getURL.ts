@@ -1,4 +1,4 @@
-function getURL(path, config = {}) {
+function getURL(path: string, config = {}) {
   const query = Object.entries(config).reduce((acc, current, index, array) => {
     return index === array.length - 1
       ? acc + `${current[0]}=${current[1]}`
