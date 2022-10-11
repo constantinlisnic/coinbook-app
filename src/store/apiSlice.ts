@@ -5,21 +5,21 @@ export const apiSlice = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "https://api.coingecko.com/api/v3" }),
   endpoints: (builder) => ({
     getChartData: builder.query({
-      query: (currencyName) =>
+      query: (currencyName: string) =>
         `coins/bitcoin/market_chart?vs_currency=${currencyName}&days=30&interval=daily`,
     }),
     getGlobalData: builder.query({
       query: () => "global",
     }),
     getCoinData: builder.query({
-      query: (coinId) => `coins/${coinId}?`,
+      query: (coinId: String) => `coins/${coinId}?`,
     }),
     getCoinChart: builder.query({
-      query: (args) =>
+      query: (args: { currencyName: string; days: string; coinId: string }) =>
         `coins/${args.coinId}/market_chart?vs_currency=${args.currencyName}&days=${args.days}`,
     }),
     getSearchResults: builder.query({
-      query: (inputValue) =>
+      query: (inputValue: string) =>
         `https://crypto-app-server.herokuapp.com/coins/${inputValue}`,
     }),
   }),

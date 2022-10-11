@@ -1,5 +1,9 @@
 import styled from "styled-components";
-import { WalletIcon } from "@heroicons/react/24/outline";
+import { ShoppingCartIcon } from "@heroicons/react/24/outline";
+
+interface ChangedValueDivProps {
+  priceChange: number;
+}
 
 export const Container = styled.div`
   box-sizing: border-box;
@@ -40,18 +44,6 @@ export const Title = styled.div`
   border-right: solid 3px ${(props) => props.theme.main};
 `;
 
-export const StyledWallet = styled(WalletIcon)`
-  width: 25px;
-`;
-
-export const ChangeSincePurchase = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 5px;
-`;
-
 export const GainLoss = styled.div`
   display: flex;
   justify-content: center;
@@ -59,12 +51,33 @@ export const GainLoss = styled.div`
   gap: 10px;
 `;
 
-export const ChangedValueDiv = styled.div`
+export const ChangedValueDiv = styled.div<ChangedValueDivProps>`
   color: black;
   background: ${(props) =>
     props.priceChange > 0 ? props.theme.green : props.theme.red};
   padding: 4px 12px;
   border-radius: 12px;
+`;
+
+export const BarPercentage = styled.div`
+  color: #80ced7;
+`;
+
+export const Bar = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const PriceWrapper = styled.div`
+  background: ${(props) => props.theme.componentBackground};
+  padding: 4px 12px;
+  border-radius: 12px;
+`;
+
+export const StyledCart = styled(ShoppingCartIcon)`
+  width: 25px;
 `;
 
 export const ItemWrapper = styled.div`
@@ -73,10 +86,4 @@ export const ItemWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 5px;
-`;
-
-export const NumberWrapper = styled.div`
-  background: ${(props) => props.theme.componentBackground};
-  padding: 4px 12px;
-  border-radius: 12px;
 `;

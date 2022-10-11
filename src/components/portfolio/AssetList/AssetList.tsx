@@ -1,7 +1,8 @@
 import { useEffect, memo } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppSelector, useAppDispatch } from "hooks";
 import { MarketData, AssetData } from "components/portfolio";
 import { getPortfolioData, deleteCoin } from "store/portfolioSlice";
+import { PortfolioCoinProps } from "PortfolioCoinProps";
 import {
   Container,
   CoinIMG,
@@ -14,31 +15,31 @@ import {
   WrongDateWrapper,
 } from "./AssetList.styles";
 
-function Asset({ data }) {
-  const dispatch = useDispatch();
-  const { image, name, symbol } = data.marketData[0];
-  const handleDelete = () => dispatch(deleteCoin(data.id));
+function Asset(props: PortfolioCoinProps) {
+  const dispatch = useAppDispatch();
+  const { image, name, symbol } = props.marketData[0];
+  const handleDelete = () => dispatch(deleteCoin(props.id));
 
   return (
     <Container>
       <CoinWrapper>
         <ImgWrapper>
-          <CoinIMG src={image} alt={`${data.id} icon`} />
+          <CoinIMG src={image} alt={`${props.id} icon`} />
         </ImgWrapper>
         <CoinNameWrapper>
-          {name} ({symbol.toUpperCase()})
+          {name} ({symbol?.toUpperCase()})
         </CoinNameWrapper>
         <DeleteIcon onClick={handleDelete} />
       </CoinWrapper>
 
       <DataWrapper>
-        <MarketData marketData={data.marketData[0]} />
-        {data.historyData.market_data ? (
+        <MarketData {...props.marketData} />
+        {props.historyData.market_data ? (
           <AssetData
-            marketData={data.marketData[0]}
-            historyData={data.historyData}
-            purchaseAmount={data.purchaseAmount}
-            purchaseDate={data.purchaseDate}
+            marketData={props.marketData}
+            historyData={props.historyData}
+            purchaseAmount={props.purchaseAmount}
+            purchaseDate={props.purchaseDate}
           />
         ) : (
           <WrongDateWrapper>
@@ -51,9 +52,11 @@ function Asset({ data }) {
 }
 
 function AssetList() {
-  const dispatch = useDispatch();
-  const activeCurrency = useSelector((state) => state.settings.activeCurrency);
-  const { savedCoins, isLoading, isError } = useSelector(
+  const dispatch = useAppDispatch();
+  const activeCurrency = useAppSelector(
+    (state) => state.settings.activeCurrency
+  );
+  const { savedCoins, isLoading, isError } = useAppSelector(
     (state) => state.portfolio
   );
 
@@ -67,7 +70,7 @@ function AssetList() {
     <>
       {isFetched ? (
         savedCoins.map((coin) => {
-          return <Asset key={coin.id} data={coin} />;
+          return <Asset key={coin.id} {...coin} />;
         })
       ) : (
         <EmptyPortfolioWrapper>

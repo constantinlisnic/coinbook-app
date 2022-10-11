@@ -1,5 +1,6 @@
 import numeral from "numeral";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
+import { PortfolioCoinProps } from "PortfolioCoinProps";
 import { DisplayPriceChange, ProgressBar } from "components";
 import {
   Container,
@@ -15,8 +16,8 @@ import {
   ItemWrapper,
 } from "./MarketData.styles";
 
-function MarketData({ marketData }) {
-  const { symbol: currencySymbol } = useSelector(
+function MarketData(props: PortfolioCoinProps["marketData"]) {
+  const { symbol: currencySymbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
   const {
@@ -27,7 +28,7 @@ function MarketData({ marketData }) {
     total_volume,
     circulating_supply,
     total_supply,
-  } = marketData;
+  } = props[0];
   return (
     <Container>
       <Title>
@@ -38,7 +39,7 @@ function MarketData({ marketData }) {
         <ItemWrapper>
           <DataName>Current Price</DataName>
           <PriceWrapper>
-            {current_price.toString().includes("e")
+            {current_price?.toString().includes("e")
               ? currencySymbol + "0.000000..."
               : currencySymbol +
                 numeral(current_price).format("0,0.00[00000000]")}

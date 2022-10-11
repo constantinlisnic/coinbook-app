@@ -54,6 +54,7 @@
   "devDependencies": {
     "@tsconfig/node16": "^1.0.3",
     "@types/numeral": "^2.0.2",
+    "@types/react-datepicker": "^4.4.2",
     "@types/styled-components": "^5.1.26"
   }
 }

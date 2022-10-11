@@ -12,7 +12,22 @@ import {
   StyledLink,
 } from "./SearchBar.styles";
 
-function ResultItem({ coinName, imgURL, symbol, id, handleClick }) {
+interface ItemProps {
+  coinName: string;
+  imgURL: string;
+  symbol: string;
+  id: string;
+  handleClick(): any;
+}
+
+interface ResultProps {
+  name: string;
+  large: string;
+  symbol: string;
+  id: string;
+}
+
+function ResultItem({ coinName, imgURL, symbol, id, handleClick }: ItemProps) {
   return (
     <ResultItemContainer>
       <StyledLink to={`/coin/${id}`} onClick={handleClick}>
@@ -31,7 +46,8 @@ function SearchBar() {
     inputValue || "random-string-to-avoid-404"
   );
 
-  const handleChange = (e) => setInputValue(e.target.value);
+  const handleChange = (e: { target: { value: string } }) =>
+    setInputValue(e.target.value);
   const handleClick = () => setInputValue("");
 
   return (
@@ -49,7 +65,7 @@ function SearchBar() {
       </SearchBarWrapper>
       <ResultsWrapper>
         {searchResults &&
-          searchResults.map((result) => {
+          searchResults.map((result: ResultProps) => {
             return (
               <ResultItem
                 coinName={result.name}

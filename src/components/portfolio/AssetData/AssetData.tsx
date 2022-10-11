@@ -1,5 +1,6 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import numeral from "numeral";
+import { PortfolioCoinProps } from "PortfolioCoinProps";
 import { DisplayPriceChange } from "components";
 import {
   Container,
@@ -14,12 +15,22 @@ import {
   NumberWrapper,
 } from "./AssetData.styles";
 
-function AssetData({ historyData, purchaseAmount, purchaseDate, marketData }) {
-  const { name: currencyName, symbol: currencySymbol } = useSelector(
+type AssetDataProps = Omit<PortfolioCoinProps, "name" | "id">;
+
+function AssetData({
+  historyData,
+  purchaseAmount,
+  purchaseDate,
+  marketData,
+}: AssetDataProps) {
+  const { name: currencyName, symbol: currencySymbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
-  const { current_price } = marketData;
-  const { [currencyName]: past_price } = historyData.market_data.current_price;
+  const { current_price } = marketData[0];
+  const {
+    [currencyName as keyof typeof historyData.market_data.current_price]:
+      past_price,
+  } = historyData.market_data.current_price;
   const priceChange = (current_price - past_price) * purchaseAmount;
   const priceChangePercentage =
     (priceChange * 100) / (past_price * purchaseAmount);
