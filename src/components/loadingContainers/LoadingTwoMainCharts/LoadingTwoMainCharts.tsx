@@ -1,6 +1,16 @@
 import { LoadingContainer, Wrapper } from "./LoadingTwoMainCharts.styles";
 
-function LoadingTwoMainCharts({ error = null }) {
+export interface Props {
+  error: {
+    status: string;
+    error: string;
+    data: {
+      error: string;
+    };
+  } | null;
+}
+
+function LoadingTwoMainCharts({ error = null }: Props) {
   return (
     <Wrapper>
       <LoadingContainer>

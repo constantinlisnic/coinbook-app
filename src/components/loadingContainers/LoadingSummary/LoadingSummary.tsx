@@ -1,3 +1,4 @@
+import { Props } from "../LoadingTwoMainCharts/LoadingTwoMainCharts";
 import {
   Title,
   SquaresWrapper,
@@ -9,7 +10,7 @@ import {
   DescriptionContainer,
 } from "./LoadingSummary.styles";
 
-function LoadingSymmary({ errorCoin = null }) {
+function LoadingSymmary({ error = null }: Props) {
   return (
     <>
       <Title>Your Summary</Title>
@@ -27,10 +28,8 @@ function LoadingSymmary({ errorCoin = null }) {
           alt="stack icon"
         />
         <div>
-          {errorCoin
-            ? `Status: ${errorCoin.status}. ${
-                errorCoin.error || errorCoin.data.error
-              }`
+          {error
+            ? `Status: ${error.status}. ${error.error || error.data.error}`
             : "Loading..."}
         </div>
       </DescriptionContainer>

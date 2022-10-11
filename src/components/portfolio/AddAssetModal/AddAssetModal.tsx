@@ -1,8 +1,9 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "hooks";
 import { addDays } from "date-fns";
 import dayjs from "dayjs";
 import { useGetSearchResultsQuery } from "store/apiSlice";
+import { SelectedCoinProps, ResultProps } from "PortfolioCoinProps";
 import { addCoin, getPortfolioData } from "store/portfolioSlice";
 import {
   AddAssetButton,
@@ -27,9 +28,20 @@ import {
   Container,
 } from "./AddAssetModal.styles";
 
-function SearchResultItem({ coinName, imgURL, symbol, id, ...props }) {
+type SearchResultProps = Omit<
+  SelectedCoinProps,
+  "purchaseDate" | "purchaseAmount" | "name"
+>;
+
+function SearchResultItem({
+  coinName,
+  imgURL,
+  symbol,
+  id,
+  handleSelectCoin,
+}: SearchResultProps) {
   const handleClick = () =>
-    props.handleClick({
+    handleSelectCoin({
       coinName,
       id,
       symbol,
@@ -46,10 +58,10 @@ function SearchResultItem({ coinName, imgURL, symbol, id, ...props }) {
 }
 
 function AddAssetModal() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [purchaseDate, setPurchaseDate] = useState(null);
-  const [purchaseAmount, setPurchaseAmount] = useState(null);
-  const [newCoin, setNewCoin] = useState({});
+  const [purchaseAmount, setPurchaseAmount] = useState("");
+  const [newCoin, setNewCoin] = useState<Partial<SelectedCoinProps>>({});
   const [modalIsExpanded, setModalIsExpanded] = useState(false);
   const [showSearchResults, setShowSearchResults] = useState(true);
   const [inputValue, setInputValue] = useState("");
@@ -58,18 +70,19 @@ function AddAssetModal() {
   );
 
   const handleClick = () => setModalIsExpanded(!modalIsExpanded);
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { value: string } }) => {
     setShowSearchResults(true);
     setInputValue(e.target.value);
   };
-  const handleSelectCoin = (coin) => {
+  const handleSelectCoin = (coin: SelectedCoinProps) => {
     setNewCoin(coin);
     setShowSearchResults(false);
     setInputValue(coin.coinName);
   };
-  const handleAmountChange = (e) => setPurchaseAmount(e.target.value);
-  const handleDateChange = (date) => setPurchaseDate(date);
-  const handleSubmit = (e) => {
+  const handleAmountChange = (e: { target: { value: string } }) =>
+    setPurchaseAmount(e.target.value);
+  const handleDateChange = (date: any) => setPurchaseDate(date);
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
 
     setModalIsExpanded(false);
@@ -115,7 +128,7 @@ function AddAssetModal() {
                   <CoinNameWrapper>
                     {Object.keys(newCoin).length !== 0 && (
                       <>
-                        {newCoin.coinName} ({newCoin.symbol.toUpperCase()})
+                        {newCoin.coinName} ({newCoin.symbol?.toUpperCase()})
                       </>
                     )}
                   </CoinNameWrapper>
@@ -131,7 +144,7 @@ function AddAssetModal() {
                   <ResultsWrapper>
                     {searchResults &&
                       showSearchResults &&
-                      searchResults.map((result) => {
+                      searchResults.map((result: ResultProps) => {
                         return (
                           <SearchResultItem
                             coinName={result.name}
@@ -139,7 +152,7 @@ function AddAssetModal() {
                             symbol={result.symbol}
                             key={result.id}
                             id={result.id}
-                            handleClick={handleSelectCoin}
+                            handleSelectCoin={handleSelectCoin}
                           />
                         );
                       })}

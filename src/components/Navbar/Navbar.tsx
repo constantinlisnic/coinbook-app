@@ -1,5 +1,5 @@
 import { CurrencyToggler, GlobalDataBar, SearchBar } from "components";
-import { useDispatch } from "react-redux";
+import { useAppDispatch } from "hooks";
 import { toggleTheme } from "store/settingsSlice";
 import {
   NavContainer,
@@ -12,7 +12,7 @@ import {
   SecondRow,
 } from "./Navbar.styles";
 function Navbar() {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   return (
     <NavContainer>

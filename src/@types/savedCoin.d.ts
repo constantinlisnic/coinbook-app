@@ -24,4 +24,22 @@ declare module "PortfolioCoinProps" {
     marketData: Array<MarketDataProps>;
     historyData: HistoryDataProps;
   }
+  export interface SelectedCoinProps {
+    coinName: string;
+    imgURL: string;
+    symbol: string;
+    id: string;
+    handleSelectCoin(coin: object): void;
+    purchaseDate: string;
+    purchaseAmount: string;
+    name: string;
+  }
+
+  export interface ResultProps {
+    symbol: string;
+    id: string;
+    handleSelectCoin(coin: object): void;
+    large: string;
+    name: string;
+  }
 }

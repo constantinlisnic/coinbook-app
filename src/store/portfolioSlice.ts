@@ -73,7 +73,7 @@ const portfolioSlice = createSlice({
   name: "portfolio",
   initialState,
   reducers: {
-    addCoin(state, action) {
+    addCoin(state, action: PayloadAction<any>) {
       state.savedCoins = [...state.savedCoins, action.payload];
     },
     deleteCoin(state, action) {
