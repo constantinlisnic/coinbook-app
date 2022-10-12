@@ -2,13 +2,12 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
 [![LinkedIn][linkedin-shield]][linkedin-url]
 <br />
 
 <div align="center">
   <a href="https://github.com/spixyha/coinbook-app">
-    <img src="https://i.ibb.co/JCmQxnT/bitcoin-1.png" alt="Logo" width="80" height="80">
+    <img src="https://i.ibb.co/tZqsnh1/icons8-bitcoin-128.png" alt="Logo" width="80" height="80">
   </a>
 
 <h3 align="center">Coin Book</h3>
@@ -53,7 +52,9 @@
 
 ## About The Project
 
-![Product Name Screen Shot][product-screenshot]
+<p align="center">
+   <img src="https://i.ibb.co/D5qRZGV/product-screenshot.png" alt="Logo">
+</p>
 
 Coin Book is a Single Page Application that provides an analysis of the cryptocurrencies market. Offering information about all the cryptocurrencies, their prices, display information through graphs, and information about any specific coin. It also has a portfolio page where you can track the amount of any crypto coin that you own and see insights into the current price, price changes, circulation supply, and maximum supply for each coin.
 
@@ -128,45 +129,32 @@ Don't forget to give the project a star! Thanks again!
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-<!-- LICENSE -->
-
-## License
-
-Distributed under the MIT License. See `LICENSE.txt` for more information.
-
-<p align="right"><a href="#top">back to top</a>)</p>
-
 <!-- CONTACT -->
 
 ## Contact
 
 Your Name - [@ConstantinLis](https://twitter.com/ConstantinLis) - costelisnic98@gmail.com
 
-Project Link: [https://github.com/cristhianbenitez/bitmarket](https://github.com/spixyha/coinbook-app)
+Project Link: [https://github.com/spixyha/coinbook-app](https://github.com/spixyha/coinbook-app)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 ## Acknowledgments
-
-- [Best Readme Template](https://github.com/othneildrew/Best-README-Template)
-
-  Maybe the most obvious ones too!
 
 - [Stack Over Flow](https://stackoverflow.com/)
 - [Google](https://www.google.com/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
-[contributors-shield]: https://img.shields.io/github/contributors/cristhianbenitez/bitmarket.svg?style=for-the-badge
-[contributors-url]: https://github.com/cristhianbenitez/bitmarket/graphs/contributors
+[contributors-shield]: https://img.shields.io/github/contributors/spixyha/coinbook-app.svg?style=for-the-badge
+[contributors-url]: https://github.com/spixyha/coinbook-app/graphs/contributors
 [forks-shield]: https://img.shields.io/github/forks/cristhianbenitez/bitmarket.svg?style=for-the-badge
-[forks-url]: https://github.com/cristhianbenitez/bitmarket/network/members
+[forks-url]: https://github.com/spixyha/coinbook-app/network/members
 [stars-shield]: https://img.shields.io/github/stars/cristhianbenitez/bitmarket.svg?style=for-the-badge
-[stars-url]: https://github.com/cristhianbenitez/bitmarket/stargazers
+[stars-url]: https://github.com/spixyha/coinbook-app/stargazers
 [issues-shield]: https://img.shields.io/github/issues/cristhianbenitez/bitmarket.svg?style=for-the-badge
-[issues-url]: https://github.com/cristhianbenitez/bitmarket/issues
+[issues-url]: https://github.com/spixyha/coinbook-app/issues
 [license-shield]: https://img.shields.io/github/license/cristhianbenitez/bitmarket.svg?style=for-the-badge
-[license-url]: https://github.com/cristhianbenitez/bitmarket/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://www.linkedin.com/in/constantin-lisnic-144621164/
 [product-screenshot]: https://i.ibb.co/D5qRZGV/product-screenshot.png
