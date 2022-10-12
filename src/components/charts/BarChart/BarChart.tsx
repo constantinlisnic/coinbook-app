@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -27,8 +27,8 @@ ChartJS.register(
   Legend
 );
 
-function BarChart(props) {
-  const { symbol: currencySymbol } = useSelector(
+function BarChart(props: { total_volumes: any[] }) {
+  const { symbol: currencySymbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
 
@@ -43,9 +43,9 @@ function BarChart(props) {
   );
 
   const data = {
-    labels: labels.map((label) => {
+    labels: labels.map((label: number) => {
       const date = new Date(label);
-      const config = { month: "short", day: "numeric" };
+      const config: any = { month: "short", day: "numeric" };
       return new Intl.DateTimeFormat("default", config).format(date);
     }),
     datasets: [
@@ -56,13 +56,16 @@ function BarChart(props) {
     ],
   };
 
-  const options = {
+  const options: any = {
     responsive: true,
     plugins: {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (context) => {
+          label: (context: {
+            dataset: { label: number };
+            formattedValue: string;
+          }) => {
             const label = `${context.dataset.label}: ${currencySymbol}${context.formattedValue}`;
             return label;
           },
@@ -71,7 +74,7 @@ function BarChart(props) {
     },
     elements: {
       bar: {
-        backgroundColor: (context) => {
+        backgroundColor: (context: { chart: { ctx: any } }) => {
           const ctx = context.chart.ctx;
           const gradient = ctx.createLinearGradient(0, 0, 0, 250);
           gradient.addColorStop(0, "rgba(0, 252, 42, 0.8)");

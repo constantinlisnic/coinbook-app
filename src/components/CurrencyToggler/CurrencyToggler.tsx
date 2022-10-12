@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useAppDispatch, useAppSelector } from "hooks";
 import { changeCurrency } from "store/settingsSlice";
 import { UpGreenCaret, DownGreenCaret } from "styles";
 import {
@@ -14,6 +14,10 @@ function DropdownItem({
   currency = "",
   symbol = "",
   handleClick = () => null,
+}: {
+  currency: string;
+  symbol: string;
+  handleClick(currency: string): void;
 }) {
   return (
     <DropdownItemContainer onClick={() => handleClick(currency)}>
@@ -23,9 +27,9 @@ function DropdownItem({
   );
 }
 
-function CurrencyToggler(props) {
-  const dispatch = useDispatch();
-  const { name, IconURL } = useSelector(
+function CurrencyToggler() {
+  const dispatch = useAppDispatch();
+  const { name, iconURL } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
   const [isExpanded, setIsExpanded] = useState(false);
@@ -34,27 +38,27 @@ function CurrencyToggler(props) {
     {
       name: "usd",
       symbol: "$",
-      IconURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
+      iconURL: "https://i.ibb.co/YkKkc6J/dollar-icon.png",
     },
     {
       name: "eur",
       symbol: "€",
-      IconURL: "https://i.ibb.co/tP0n42j/euro-icon.png",
+      iconURL: "https://i.ibb.co/tP0n42j/euro-icon.png",
     },
     {
       name: "gbp",
       symbol: "£",
-      IconURL: "https://i.ibb.co/cNSyGZP/pound-icon.png",
+      iconURL: "https://i.ibb.co/cNSyGZP/pound-icon.png",
     },
     {
       name: "btc",
       symbol: "₿",
-      IconURL: "https://i.ibb.co/PWh7SxB/btc32px.png",
+      iconURL: "https://i.ibb.co/PWh7SxB/btc32px.png",
     },
     {
       name: "eth",
       symbol: "Ξ",
-      IconURL: "https://i.ibb.co/QDXPJfV/eth32px.png",
+      iconURL: "https://i.ibb.co/QDXPJfV/eth32px.png",
     },
   ];
 
@@ -62,18 +66,18 @@ function CurrencyToggler(props) {
     setIsExpanded(!isExpanded);
   };
 
-  const handleSelect = (selectedCurrency) => {
+  const handleSelect = (selectedCurrency: string) => {
     const activeCurrency = currencies.find(
       (currency) => currency.name === selectedCurrency
     );
     setIsExpanded(false);
-    dispatch(changeCurrency(activeCurrency));
+    dispatch(changeCurrency(activeCurrency!));
   };
 
   return (
     <CurrencyWrapper>
       <SelectedWrapper onClick={handleClick}>
-        <Img src={IconURL} alt={`${name} symbol`} />
+        <Img src={iconURL} alt={`${name} symbol`} />
         <div>{name.toUpperCase()}</div>
         {isExpanded ? <UpGreenCaret /> : <DownGreenCaret />}
       </SelectedWrapper>
@@ -83,7 +87,7 @@ function CurrencyToggler(props) {
             return (
               <DropdownItem
                 key={currency.name}
-                symbol={currency.IconURL}
+                symbol={currency.iconURL}
                 currency={currency.name}
                 handleClick={handleSelect}
               />

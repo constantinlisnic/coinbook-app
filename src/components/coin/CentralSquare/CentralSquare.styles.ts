@@ -53,7 +53,11 @@ export const AllTimeDate = styled.div`
   padding-left: 20px;
 `;
 
-export const ChangedValueDiv = styled.div`
+interface priceChangeProp {
+  priceChange: number;
+}
+
+export const ChangedValueDiv = styled.div<priceChangeProp>`
   color: black;
   background: ${(props) =>
     props.priceChange > 0 ? props.theme.green : props.theme.red};

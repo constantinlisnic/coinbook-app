@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
+import { IndividualCoinProps as Props } from "IndividualCoinProps";
 import {
   Container,
   InputWrapper,
@@ -8,36 +9,34 @@ import {
   Input,
 } from "./CurrencyConvertor.styles";
 
-function CurrencyConvertor(props) {
-  const { name: currencyName } = useSelector(
+function CurrencyConvertor(props: Props) {
+  const { current_price } = props.market_data;
+  const { name: currencyName } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
   const [currencyValue, setCurrencyValue] = useState(
-    props.coinData.market_data.current_price[currencyName]
+    current_price[currencyName as keyof typeof current_price]
   );
   const [cryptoValue, setCryptoValue] = useState(1);
 
-  const handleChangeCurrency = (e) => {
-    const { current_price } = props.coinData.market_data;
-    const cryptoInput = (e.target.value / current_price[currencyName]).toFixed(
-      5
-    );
+  const handleChangeCurrency = (e: any) => {
+    const cryptoInput = (
+      e.target.value / current_price[currencyName as keyof typeof current_price]
+    ).toFixed(5);
     setCurrencyValue(e.target.value);
-    setCryptoValue(cryptoInput);
+    setCryptoValue(Number(cryptoInput));
   };
 
-  const handleChangeCrypto = (e) => {
-    const { current_price } = props.coinData.market_data;
+  const handleChangeCrypto = (e: any) => {
     const currencyInput = (
-      e.target.value * current_price[currencyName]
+      e.target.value * current_price[currencyName as keyof typeof current_price]
     ).toFixed(3);
     setCryptoValue(e.target.value);
-    setCurrencyValue(currencyInput);
+    setCurrencyValue(Number(currencyInput));
   };
 
   useEffect(() => {
-    const { current_price } = props.coinData.market_data;
-    setCurrencyValue(current_price[currencyName]);
+    setCurrencyValue(current_price[currencyName as keyof typeof current_price]);
     setCryptoValue(1);
     // eslint-disable-next-line
   }, [currencyName]);
@@ -60,7 +59,7 @@ function CurrencyConvertor(props) {
       <ExchangeIcon />
       <InputWrapper>
         <Label htmlFor="cryptoInput">
-          <div>{props.coinData.symbol.toUpperCase()}</div>
+          <div>{props.symbol.toUpperCase()}</div>
         </Label>
         <Input
           id="cryptoInput"

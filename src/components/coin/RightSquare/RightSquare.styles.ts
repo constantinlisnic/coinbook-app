@@ -40,21 +40,29 @@ export const BarWholeValue = styled.div`
   background: #003249;
 `;
 
-export const SupplyFiller = styled.div`
+interface BarWidthProp {
+  barWidth: number;
+}
+
+export const SupplyFiller = styled.div<BarWidthProp>`
   height: 100%;
   width: ${(props) => props.barWidth}%;
   background: #007ea7;
   border-radius: 15px;
 `;
 
-export const VolumeFiller = styled.div`
+export const VolumeFiller = styled.div<BarWidthProp>`
   height: 100%;
   width: ${(props) => (300 * props.barWidth) / 100}px;
   border-radius: 15px;
   background: #80ced7;
 `;
 
-export const PercentageWrapper = styled.div`
+interface DivWidthProp {
+  divWidth: number;
+}
+
+export const PercentageWrapper = styled.div<DivWidthProp>`
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;

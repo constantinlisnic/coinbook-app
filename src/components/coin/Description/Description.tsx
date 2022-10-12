@@ -1,6 +1,7 @@
+import { IndividualCoinProps as Props } from "IndividualCoinProps";
 import { Container, DescriptionDiv, StackIcon } from "./Description.styles";
 
-function Description(props) {
+function Description(props: Props) {
   const descriptionAndNewTabs = props.description.en
     .split("<a ")
     .reduce((acc, el) => (acc = acc + `<a target="_blank" ${el}`), "")

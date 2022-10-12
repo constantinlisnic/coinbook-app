@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import { useGetCoinDataQuery, useGetCoinChartQuery } from "store/apiSlice";
 import {
   Summary,
@@ -9,9 +9,9 @@ import {
 } from "components/coin";
 import { LoadingSummary } from "components/loadingContainers";
 
-function WholePage(props) {
+function WholePage(props: { coinId: string }) {
   const [days, setDays] = useState("30");
-  const { name: currencyName } = useSelector(
+  const { name: currencyName } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
 
@@ -25,15 +25,15 @@ function WholePage(props) {
     { coinId: props.coinId, currencyName, days }
   );
 
-  const handleRangeChange = (selectedDays) => {
+  const handleRangeChange = (selectedDays: string) => {
     setDays(selectedDays);
   };
 
   const isFetched = chartDataSuccess && coinDataSuccess;
   return isFetched ? (
     <>
-      <Summary coinData={coinData} />
-      <CurrencyConvertor coinData={coinData} />
+      <Summary {...coinData} />
+      <CurrencyConvertor {...coinData} />
       <RangeSelector
         handleRangeChange={handleRangeChange}
         selectedRange={days}

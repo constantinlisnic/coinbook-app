@@ -1,4 +1,3 @@
-import { Props } from "../LoadingTwoMainCharts/LoadingTwoMainCharts";
 import {
   Title,
   SquaresWrapper,
@@ -10,7 +9,7 @@ import {
   DescriptionContainer,
 } from "./LoadingSummary.styles";
 
-function LoadingSymmary({ error = null }: Props) {
+function LoadingSymmary({ error = null }: any) {
   return (
     <>
       <Title>Your Summary</Title>

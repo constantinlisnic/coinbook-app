@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import numeral from "numeral";
 import { ProgressBar } from "components";
 import { LoadingGlobalDataBar } from "components/loadingContainers";
@@ -15,7 +15,7 @@ import { GainLossCaret } from "utils";
 import { useGetGlobalDataQuery } from "store/apiSlice";
 
 function GlobalDataBar() {
-  const { name: currencyName, symbol } = useSelector(
+  const { name: currencyName, symbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
   const {
@@ -26,12 +26,12 @@ function GlobalDataBar() {
   } = useGetGlobalDataQuery();
 
   const {
-    active_cryptocurrencies,
-    total_market_cap,
-    total_volume,
-    markets,
-    market_cap_change_percentage_24h_usd,
-    market_cap_percentage,
+    active_cryptocurrencies = {},
+    total_market_cap = {},
+    total_volume = {},
+    markets = {},
+    market_cap_change_percentage_24h_usd = {},
+    market_cap_percentage = {},
   } = isSuccess ? globalData.data : {};
 
   return (

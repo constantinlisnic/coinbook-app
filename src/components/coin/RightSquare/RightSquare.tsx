@@ -1,5 +1,6 @@
 import numeral from "numeral";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
+import { IndividualCoinProps as Props } from "IndividualCoinProps";
 import DisplayPriceChange from "components/DisplayPriceChange";
 import {
   Container,
@@ -16,20 +17,27 @@ import {
   BarWrapper,
 } from "./RightSquare.styles";
 
-function RightSquare(props) {
-  const { name: currencyName, symbol: currencySymbol } = useSelector(
+function RightSquare(props: Props) {
+  const {
+    total_volume,
+    current_price,
+    total_supply,
+    circulating_supply,
+    market_cap,
+    market_cap_change_percentage_24h_in_currency,
+    fully_diluted_valuation,
+  } = props.market_data;
+
+  const { name: currencyName, symbol: currencySymbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
   const volumeFiller = Math.round(
-    (props.market_data.total_volume[currencyName] /
-      props.market_data.current_price[currencyName] /
-      props.market_data.total_supply) *
+    (total_volume[currencyName as keyof typeof total_volume] /
+      current_price[currencyName as keyof typeof total_volume] /
+      total_supply) *
       100
   );
-  const supplyFiller = Math.round(
-    (props.market_data.circulating_supply / props.market_data.total_supply) *
-      100
-  );
+  const supplyFiller = Math.round((circulating_supply / total_supply) * 100);
   return (
     <Container>
       <div>
@@ -38,12 +46,14 @@ function RightSquare(props) {
           <ItemName>Market Cap:</ItemName>
           <div>
             {currencySymbol}
-            {numeral(props.market_data.market_cap[currencyName]).format("0,0")}
+            {numeral(
+              market_cap[currencyName as keyof typeof market_cap]
+            ).format("0,0")}
           </div>
           <DisplayPriceChange
             priceChange={
-              props.market_data.market_cap_change_percentage_24h_in_currency[
-                currencyName
+              market_cap_change_percentage_24h_in_currency[
+                currencyName as keyof typeof market_cap_change_percentage_24h_in_currency
               ]
             }
           />
@@ -54,7 +64,9 @@ function RightSquare(props) {
           <div>
             {currencySymbol}
             {numeral(
-              props.market_data.fully_diluted_valuation[currencyName]
+              fully_diluted_valuation[
+                currencyName as keyof typeof fully_diluted_valuation
+              ]
             ).format("0,0")}
           </div>
         </ItemWrapper>
@@ -63,19 +75,19 @@ function RightSquare(props) {
           <ItemName>Volume 24h:</ItemName>
           <div>
             {currencySymbol}
-            {numeral(props.market_data.total_volume[currencyName]).format(
-              "0,0"
-            )}
+            {numeral(
+              total_volume[currencyName as keyof typeof total_volume]
+            ).format("0,0")}
           </div>
         </ItemWrapper>
         <ItemWrapper>
           <StyledBulletPoint />
           <ItemName>Volume / Market Cap:</ItemName>
           <div>
-            {props.market_data.market_cap[currencyName]
+            {market_cap[currencyName as keyof typeof market_cap]
               ? numeral(
-                  props.market_data.total_volume[currencyName] /
-                    props.market_data.market_cap[currencyName]
+                  total_volume[currencyName as keyof typeof total_volume] /
+                    market_cap[currencyName as keyof typeof market_cap]
                 ).format("0,0.0000")
               : "N/A"}
           </div>
@@ -88,8 +100,8 @@ function RightSquare(props) {
           <div>
             {numeral(
               Math.round(
-                props.market_data.total_volume[currencyName] /
-                  props.market_data.current_price[currencyName]
+                total_volume[currencyName as keyof typeof total_volume] /
+                  current_price[currencyName as keyof typeof total_volume]
               )
             ).format("0,0")}
           </div>
@@ -98,17 +110,15 @@ function RightSquare(props) {
         <ItemWrapper>
           <StyledBulletPoint style={{ color: "#007ea7" }} />
           <ItemName>Circulating Supply:</ItemName>
-          <div>
-            {numeral(props.market_data.circulating_supply).format("0,0")}
-          </div>
+          <div>{numeral(circulating_supply).format("0,0")}</div>
           <div>{props.symbol.toUpperCase()}</div>
         </ItemWrapper>
         <ItemWrapper>
           <StyledBulletPoint style={{ color: "#003249" }} />
           <ItemName>Max Supply:</ItemName>
-          {props.market_data.total_supply ? (
+          {total_supply ? (
             <>
-              <div>{numeral(props.market_data.total_supply).format("0,0")}</div>
+              <div>{numeral(total_supply).format("0,0")}</div>
               <div>
                 <div>{props.symbol.toUpperCase()}</div>
               </div>
@@ -125,7 +135,7 @@ function RightSquare(props) {
           </SupplyFiller>
         </BarWholeValue>
         <PercentageWrapper divWidth={supplyFiller}>
-          {props.market_data.total_supply ? (
+          {total_supply ? (
             <>
               <VolumePercentage>{volumeFiller + "%"}</VolumePercentage>
               <SupplyPercentage>{supplyFiller + "%"}</SupplyPercentage>

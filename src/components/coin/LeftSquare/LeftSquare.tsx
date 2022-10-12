@@ -1,3 +1,4 @@
+import { IndividualCoinProps as Props } from "IndividualCoinProps";
 import {
   Container,
   ImgWrapper,
@@ -8,7 +9,7 @@ import {
   LinkIcon,
 } from "./LeftSquare.styles";
 
-function LeftSquare(props) {
+function LeftSquare(props: Props) {
   return (
     <Container>
       <CoinWrapper>

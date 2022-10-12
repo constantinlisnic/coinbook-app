@@ -1,6 +1,10 @@
 import styled from "styled-components";
 
-export const PriceChangeContainer = styled.div`
+interface PriceChangeContainerProps {
+  priceChange: number;
+}
+
+export const PriceChangeContainer = styled.div<PriceChangeContainerProps>`
   display: flex;
   justify-content: center;
   align-items: center;

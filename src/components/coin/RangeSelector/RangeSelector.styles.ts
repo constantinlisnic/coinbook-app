@@ -11,7 +11,11 @@ export const Container = styled.div`
   border-radius: 15px;
 `;
 
-export const Button = styled.button`
+interface SelectedProp {
+  selected: boolean;
+}
+
+export const Button = styled.button<SelectedProp>`
   background: ${(props) => props.theme.componentBackground};
   background: ${(props) => props.selected && "rgba(0, 126, 167, 0.5)"};
   color: ${(props) => props.theme.color};

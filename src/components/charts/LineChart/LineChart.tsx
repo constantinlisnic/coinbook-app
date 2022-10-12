@@ -1,4 +1,4 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -11,7 +11,14 @@ import {
   Filler,
 } from "chart.js";
 import { Line } from "react-chartjs-2";
-import { Container } from "./TimeChart.styles";
+import numeral from "numeral";
+import {
+  LineChartContainer,
+  PriceContainer,
+  BTCSpan,
+  LineChartTitle,
+  Price,
+} from "./LineChart.styles";
 
 ChartJS.register(
   CategoryScale,
@@ -24,12 +31,12 @@ ChartJS.register(
   Filler
 );
 
-function TimeChart({ chartData }) {
-  const { symbol: currencySymbol } = useSelector(
+function LineChart(props: { prices: any[] }) {
+  const { symbol: currencySymbol } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
 
-  const { labels, values } = chartData.reduce(
+  const { labels, values } = props.prices.reduce(
     ({ labels, values }, [label, value]) => {
       return {
         labels: [...labels, label],
@@ -40,9 +47,10 @@ function TimeChart({ chartData }) {
   );
 
   const data = {
-    labels: labels.map((label) => {
+    labels: labels.map((label: number) => {
       const date = new Date(label);
-      return date.toUTCString();
+      const config: any = { month: "short", day: "numeric" };
+      return new Intl.DateTimeFormat("default", config).format(date);
     }),
 
     datasets: [
@@ -53,14 +61,16 @@ function TimeChart({ chartData }) {
     ],
   };
 
-  const options = {
+  const options: any = {
     responsive: true,
-    maintainAspectRatio: false,
     plugins: {
       legend: { display: false },
       tooltip: {
         callbacks: {
-          label: (context) => {
+          label: (context: {
+            dataset: { label: number };
+            formattedValue: string;
+          }) => {
             const label = `${context.dataset.label}: ${currencySymbol}${context.formattedValue}`;
             return label;
           },
@@ -69,21 +79,20 @@ function TimeChart({ chartData }) {
     },
     elements: {
       line: {
-        borderColor: "rgba(0, 126, 167, 0.5)",
-        borderWidth: 1,
+        borderColor: "#00fc2a",
         tension: 0.4,
         fill: true,
-        backgroundColor: (context) => {
+        backgroundColor: (context: { chart: { ctx: any } }) => {
           const ctx = context.chart.ctx;
-          const gradient = ctx.createLinearGradient(0, 0, 0, 320);
-          gradient.addColorStop(0, "rgba(0, 126, 167, 0.5)");
+          const gradient = ctx.createLinearGradient(0, 0, 0, 250);
+          gradient.addColorStop(0, "rgba(0, 255, 95, 0.5)");
           gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
           return gradient;
         },
       },
       point: {
         radius: 0,
-        borderColor: "#007ea7",
+        borderColor: "green",
         backgroundColor: "#2c2f36",
         hoverRadius: 6,
         hoverBorderWidth: 2,
@@ -91,7 +100,15 @@ function TimeChart({ chartData }) {
     },
     scales: {
       x: {
-        display: false,
+        grid: {
+          display: false,
+          drawBorder: false,
+        },
+        ticks: {
+          maxTicksLimit: 8,
+          maxRotation: 0,
+          align: "start",
+        },
       },
       y: {
         display: false,
@@ -103,12 +120,21 @@ function TimeChart({ chartData }) {
       axis: "x",
     },
   };
-
   return (
-    <Container>
+    <LineChartContainer>
+      <PriceContainer>
+        <div>
+          <BTCSpan>BTC</BTCSpan> current price:
+        </div>
+        <Price>
+          {currencySymbol +
+            numeral(props.prices[props.prices.length - 1][1]).format("0,0.00")}
+        </Price>
+      </PriceContainer>
+      <LineChartTitle>Last 30d change</LineChartTitle>
       <Line options={options} data={data} />
-    </Container>
+    </LineChartContainer>
   );
 }
 
-export default TimeChart;
+export default LineChart;

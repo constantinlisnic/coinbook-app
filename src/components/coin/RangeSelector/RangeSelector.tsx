@@ -10,8 +10,11 @@ const dataRange = [
   { label: "ALL", value: "max" },
 ];
 
-function RangeSelector(props) {
-  const handleClick = (e) => {
+function RangeSelector(props: {
+  handleRangeChange: (arg0: string) => void;
+  selectedRange: string;
+}) {
+  const handleClick = (e: any) => {
     props.handleRangeChange(e.target.value);
   };
 

@@ -4,18 +4,19 @@ import {
   RightSquare,
   Description,
 } from "components/coin";
+import { IndividualCoinProps as Props } from "IndividualCoinProps";
 import { Title, SquaresWrapper } from "./Summary.styles";
 
-function Summary(props) {
+function Summary(props: Props) {
   return (
     <>
       <Title>Your Summary</Title>
       <SquaresWrapper>
-        <LeftSquare {...props.coinData} />
-        <CentralSquare {...props.coinData} />
-        <RightSquare {...props.coinData} />
+        <LeftSquare {...props} />
+        <CentralSquare {...props} />
+        <RightSquare {...props} />
       </SquaresWrapper>
-      <Description {...props.coinData} />
+      <Description {...props} />
     </>
   );
 }

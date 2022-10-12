@@ -1,11 +1,11 @@
-import { useSelector } from "react-redux";
+import { useAppSelector } from "hooks";
 import { LineChart, BarChart } from "components/charts";
 import { LoadingTwoMainCharts } from "components/loadingContainers";
 import { ChartsContainer, OverView } from "./TwoMainCharts.styles";
 import { useGetChartDataQuery } from "store/apiSlice";
 
 function TwoMainCharts() {
-  const { name: currencyName } = useSelector(
+  const { name: currencyName } = useAppSelector(
     (state) => state.settings.activeCurrency
   );
 

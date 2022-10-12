@@ -8,11 +8,11 @@ export const apiSlice = createApi({
       query: (currencyName: string) =>
         `coins/bitcoin/market_chart?vs_currency=${currencyName}&days=30&interval=daily`,
     }),
-    getGlobalData: builder.query({
+    getGlobalData: builder.query<any, void>({
       query: () => "global",
     }),
     getCoinData: builder.query({
-      query: (coinId: String) => `coins/${coinId}?`,
+      query: (coinId: string) => `coins/${coinId}?`,
     }),
     getCoinChart: builder.query({
       query: (args: { currencyName: string; days: string; coinId: string }) =>

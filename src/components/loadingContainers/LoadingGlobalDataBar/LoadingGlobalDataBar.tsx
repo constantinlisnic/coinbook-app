@@ -1,7 +1,6 @@
-import { Props } from "../LoadingTwoMainCharts/LoadingTwoMainCharts";
 import { Container } from "./LoadingGlobalDataBar.styles";
 
-function LoadingGlobalDataBar({ error = null }: Props) {
+function LoadingGlobalDataBar({ error = null }: any) {
   return (
     <Container>
       <div>
