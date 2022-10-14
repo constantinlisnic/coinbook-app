@@ -5,6 +5,12 @@
   "dependencies": {
     "@heroicons/react": "^2.0.11",
     "@reduxjs/toolkit": "^1.8.5",
+    "@types/jest": "^29.1.2",
+    "@types/node": "^18.8.3",
+    "@types/react": "^18.0.21",
+    "@types/react-dom": "^18.0.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@typescript-eslint/parser": "^5.39.0",
     "axios": "^0.27.2",
     "chart.js": "^3.9.1",
     "dayjs": "^1.11.5",
@@ -18,7 +24,8 @@
     "react-router-dom": "^5.3.3",
     "react-scripts": "5.0.1",
     "redux-persist": "^6.0.0",
-    "styled-components": "^5.3.5"
+    "styled-components": "^5.3.5",
+    "typescript": "^4.8.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -43,5 +50,11 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@tsconfig/node16": "^1.0.3",
+    "@types/numeral": "^2.0.2",
+    "@types/react-datepicker": "^4.4.2",
+    "@types/styled-components": "^5.1.26"
   }
 }
